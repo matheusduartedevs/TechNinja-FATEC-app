@@ -1,4 +1,4 @@
-import designSystem from "@/app/styles/theme";
+import designSystem from "@/src/styles/theme";
 import { ButtonProps } from "./props";
 import { ViewStyle, TextStyle } from "react-native";
 

@@ -1,5 +1,5 @@
-import designSystem from "@/app/styles/theme";
-import { TitleViewProps } from "@/app/components/TitleView/props";
+import designSystem from "@/src/styles/theme";
+import { TitleViewProps } from "@/src/components/TitleView/props";
 
 export const styles = ({ color }: Pick<TitleViewProps, "color">) => ({
   fontSize: designSystem.fonts.titleSize,

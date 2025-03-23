@@ -1,8 +1,8 @@
 import { Alert, StyleSheet, View } from "react-native";
-import TitleView from "@/app/components/TitleView/TitleView";
-import designSystem from "@/app/styles/theme";
-import TextView from "@/app/components/TextView/TextView";
-import Button from "@/app/components/Button/Button";
+import TitleView from "@/src/components/TitleView/TitleView";
+import designSystem from "@/src/styles/theme";
+import TextView from "@/src/components/TextView/TextView";
+import Button from "@/src/components/Button/Button";
 
 export default function App() {
   return (
