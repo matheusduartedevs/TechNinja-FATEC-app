@@ -1,9 +1,9 @@
 import React from "react";
 import { Pressable, Text } from "react-native";
 import { ButtonProps } from "./props";
-import { styles } from "./styles";
+import { styles } from "@/src/components/ButtonView/styles";
 
-export default function Button({
+export default function ButtonView({
   text,
   color = "primary",
   colorText = "secondary",

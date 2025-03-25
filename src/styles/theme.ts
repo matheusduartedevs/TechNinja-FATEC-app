@@ -15,6 +15,7 @@ const designSystem = {
       primary: "#52D845",
       primaryHover: "#4CAF50",
       primaryBackground: "#2A2A2A",
+      primaryBackgroundHover: "#232323",
       secondary: "#E2C32F",
       secondaryHover: "#D8BD33",
       tertiary: "#C83030",

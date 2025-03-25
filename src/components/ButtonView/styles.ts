@@ -5,15 +5,11 @@ import { ViewStyle, TextStyle } from "react-native";
 const colorMapping = {
   primary: designSystem.colors.action.primary,
   primaryBackground: designSystem.colors.action.primaryBackground,
-  secondary: designSystem.colors.action.secondary,
-  tertiary: designSystem.colors.action.tertiary,
 };
 
 const hoverColorMapping = {
   primary: designSystem.colors.action.primaryHover,
-  primaryBackground: designSystem.colors.action.primaryBackground,
-  secondary: designSystem.colors.action.secondaryHover,
-  tertiary: designSystem.colors.action.tertiaryHover,
+  primaryBackground: designSystem.colors.action.primaryBackgroundHover,
 };
 
 const textColorMapping = {
