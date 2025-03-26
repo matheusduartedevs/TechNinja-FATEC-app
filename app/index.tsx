@@ -6,6 +6,7 @@ import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import InputView from "@/src/components/InputView/InputView";
 import userIcon from "@/assets/icons/icon.png";
+import PointsView from "@/src/components/PointsView/PointsView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -39,6 +40,8 @@ export default function App() {
         onPress={() => Alert.alert("Sucesso!", "Clicou")}
         style={styles.button}
       />
+
+      <PointsView points={"300"} />
     </View>
   );
 }
