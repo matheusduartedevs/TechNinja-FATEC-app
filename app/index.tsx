@@ -6,13 +6,15 @@ import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import InputView from "@/src/components/InputView/InputView";
 import userIcon from "@/assets/icons/icon.png";
-import PointsView from "@/src/components/PointsView/PointsView";
+import HomeHeaderView from "@/src/components/HomeHeaderView/HomeHeaderView";
 
 export default function App() {
   const [text, setText] = useState("");
 
   return (
     <View>
+      <HomeHeaderView />
+
       <TitleView title={"TechNinja"} style={styles.title} color={"secondary"} />
       <TextView text={"Projeto Integrador"} style={styles.text} />
 
@@ -40,8 +42,6 @@ export default function App() {
         onPress={() => Alert.alert("Sucesso!", "Clicou")}
         style={styles.button}
       />
-
-      <PointsView points={"300"} />
     </View>
   );
 }
