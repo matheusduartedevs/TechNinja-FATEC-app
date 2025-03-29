@@ -39,7 +39,6 @@ export default function FooterView({ onClick, style }: FooterViewProps) {
           {selected === name && <TextView text={name} style={styles.text} />}
         </TouchableOpacity>
       ))}
-      s
     </View>
   );
 }
