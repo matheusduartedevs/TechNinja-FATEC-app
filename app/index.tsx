@@ -9,6 +9,7 @@ import userIcon from "@/assets/icons/icon.png";
 import dbIcon from "@/assets/icons/banco_de_dados.png";
 import HomeHeaderView from "@/src/components/HomeHeaderView/HomeHeaderView";
 import ThemeView from "@/src/components/ThemeView/ThemeView";
+import FooterView from "@/src/components/FooterView/FooterView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -57,18 +58,21 @@ export default function App() {
           style={styles.theme}
         />
       </ScrollView>
+
+      <View style={styles.footerContainer}>
+        <FooterView onClick={() => console.log("palmeiras")} />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    padding: 5,
-    height: "100%",
   },
   scrollContainer: {
-    paddingBottom: 50,
+    paddingBottom: 100,
   },
   header: {
     marginTop: 30,
@@ -94,5 +98,10 @@ const styles = StyleSheet.create({
   theme: {
     backgroundColor: "green",
     marginTop: 40,
+  },
+  footerContainer: {
+    position: "absolute",
+    bottom: 44,
+    alignItems: "center",
   },
 });
