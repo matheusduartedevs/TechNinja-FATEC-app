@@ -17,4 +17,10 @@ export const styles = StyleSheet.create({
     marginTop: 60,
     alignSelf: "center",
   },
+  title: {
+    fontFamily: designSystem.fonts.primaryBold,
+  },
+  text: {
+    color: designSystem.colors.text.primary,
+  },
 });

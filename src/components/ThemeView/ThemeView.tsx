@@ -12,8 +12,8 @@ export default function ThemeView({
 }: ThemeViewProps) {
   return (
     <View style={[styles.container, style]}>
-      <TitleView title={theme} color={"primary"} />
-      <TextView text={text} />
+      <TitleView title={theme} color={"primary"} style={styles.title} />
+      <TextView text={text} style={styles.text} />
       <Image source={icon} style={styles.image} />
     </View>
   );
