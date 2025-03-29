@@ -6,13 +6,15 @@ import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import InputView from "@/src/components/InputView/InputView";
 import userIcon from "@/assets/icons/icon.png";
+import dbIcon from "@/assets/icons/banco_de_dados.png";
 import HomeHeaderView from "@/src/components/HomeHeaderView/HomeHeaderView";
+import ThemeView from "@/src/components/ThemeView/ThemeView";
 
 export default function App() {
   const [text, setText] = useState("");
 
   return (
-    <View>
+    <View style={styles.container}>
       <HomeHeaderView />
 
       <TitleView title={"TechNinja"} style={styles.title} color={"secondary"} />
@@ -42,11 +44,24 @@ export default function App() {
         onPress={() => Alert.alert("Sucesso!", "Clicou")}
         style={styles.button}
       />
+
+      <ThemeView
+        theme="Tema Estilizado"
+        text="Texto explicativo sobre a área de conhecimento AHAAHIAHISHDIASHDOASDN,AJS"
+        icon={dbIcon}
+        style={{ backgroundColor: "green", marginTop: 300 }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#000",
+    padding: 15,
+    width: "100%",
+    height: "100%",
+  },
   title: {
     textAlign: "center",
     fontFamily: designSystem.fonts.brandFont,
