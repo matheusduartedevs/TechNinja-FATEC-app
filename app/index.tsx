@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import TitleView from "@/src/components/TitleView/TitleView";
 import designSystem from "@/src/styles/theme";
 import TextView from "@/src/components/TextView/TextView";
@@ -15,52 +15,63 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <HomeHeaderView />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <HomeHeaderView style={styles.header} />
 
-      <TitleView title={"TechNinja"} style={styles.title} color={"secondary"} />
-      <TextView text={"Projeto Integrador"} style={styles.text} />
+        <TitleView
+          title={"TechNinja"}
+          style={styles.title}
+          color={"secondary"}
+        />
+        <TextView text={"Projeto Integrador"} style={styles.text} />
 
-      <InputView
-        placeholder={"Digite o obrigatório"}
-        value={text}
-        onChangeText={setText}
-        style={styles.otherInput}
-      />
+        <InputView
+          placeholder={"Digite o obrigatório"}
+          value={text}
+          onChangeText={setText}
+          style={styles.otherInput}
+        />
 
-      <InputView
-        title={"Input Opcional"}
-        logo={userIcon}
-        placeholder={"Digite com props opcionais"}
-        underline={true}
-        value={text}
-        onChangeText={setText}
-        style={styles.optionalInput}
-      />
+        <InputView
+          title={"Input Opcional"}
+          logo={userIcon}
+          placeholder={"Digite com props opcionais"}
+          underline={true}
+          value={text}
+          onChangeText={setText}
+          style={styles.optionalInput}
+        />
 
-      <ButtonView
-        text={"Login"}
-        color={"primary"}
-        colorText={"primary"}
-        onPress={() => Alert.alert("Sucesso!", "Clicou")}
-        style={styles.button}
-      />
+        <ButtonView
+          text={"Login"}
+          color={"primary"}
+          colorText={"primary"}
+          onPress={() => Alert.alert("Sucesso!", "Clicou")}
+          style={styles.button}
+        />
 
-      <ThemeView
-        theme="Tema Estilizado"
-        text="Texto explicativo sobre a área de conhecimento AHAAHIAHISHDIASHDOASDN,AJS"
-        icon={dbIcon}
-        style={{ backgroundColor: "green", marginTop: 300 }}
-      />
+        <ThemeView
+          theme="Tema Estilizado"
+          text="Texto explicativo sobre a área de conhecimento AHAAHIAHISHDIASHDOASDN,AJS"
+          icon={dbIcon}
+          style={styles.theme}
+        />
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#000",
-    padding: 15,
-    width: "100%",
+    backgroundColor: designSystem.colors.action.primaryBackground,
+    padding: 5,
     height: "100%",
+  },
+  scrollContainer: {
+    paddingBottom: 50,
+  },
+  header: {
+    marginTop: 30,
   },
   title: {
     textAlign: "center",
@@ -75,9 +86,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   optionalInput: {
-    marginTop: 250,
+    marginTop: 40,
   },
   otherInput: {
-    marginTop: 150,
+    marginTop: 40,
+  },
+  theme: {
+    backgroundColor: "green",
+    marginTop: 40,
   },
 });
