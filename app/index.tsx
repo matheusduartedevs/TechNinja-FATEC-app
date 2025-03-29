@@ -10,6 +10,7 @@ import dbIcon from "@/assets/icons/banco_de_dados.png";
 import HomeHeaderView from "@/src/components/HomeHeaderView/HomeHeaderView";
 import ThemeView from "@/src/components/ThemeView/ThemeView";
 import FooterView from "@/src/components/FooterView/FooterView";
+import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -18,6 +19,7 @@ export default function App() {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <HomeHeaderView style={styles.header} />
+        <ActionHeaderView style={styles.headerAction} />
 
         <TitleView
           title={"TechNinja"}
@@ -75,7 +77,10 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   header: {
-    marginTop: 30,
+    marginTop: 22,
+  },
+  headerAction: {
+    marginTop: 22,
   },
   title: {
     textAlign: "center",
