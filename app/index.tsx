@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Alert, ScrollView, StyleSheet, View } from "react-native";
-import TitleView from "@/src/components/TitleView/TitleView";
 import designSystem from "@/src/styles/theme";
+import TitleView from "@/src/components/TitleView/TitleView";
 import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import InputView from "@/src/components/InputView/InputView";
-import userIcon from "@/assets/icons/icon.png";
-import dbIcon from "@/assets/icons/banco_de_dados.png";
 import HomeHeaderView from "@/src/components/HomeHeaderView/HomeHeaderView";
 import ThemeView from "@/src/components/ThemeView/ThemeView";
 import FooterView from "@/src/components/FooterView/FooterView";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
+import UserView from "@/src/components/UserView/UserView";
+
+import goldenBadge from "@/assets/icons/golden-badge.png";
+import userIcon from "@/assets/icons/icon.png";
+import dbIcon from "@/assets/icons/banco_de_dados.png";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -34,6 +37,15 @@ export default function App() {
           onChangeText={setText}
           style={styles.otherInput}
         />
+
+        {/*<UserView*/}
+        {/*  icon={userIcon}*/}
+        {/*  badge={goldenBadge}*/}
+        {/*  name="Usuário"*/}
+        {/*  position={"1°"}*/}
+        {/*  style={styles.user}*/}
+        {/*  badgePosition={"bottom"}*/}
+        {/*/>*/}
 
         <InputView
           title={"Input Opcional"}
@@ -81,6 +93,9 @@ const styles = StyleSheet.create({
   },
   headerAction: {
     marginTop: 22,
+  },
+  user: {
+    marginTop: 40,
   },
   title: {
     textAlign: "center",
