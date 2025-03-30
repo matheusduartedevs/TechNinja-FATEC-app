@@ -18,6 +18,7 @@ import RankingCardView from "@/src/components/RankingCardView/RankingCardView";
 import SubThemeCardView from "@/src/components/SubThemeCardView/SubThemeCardView";
 import LevelCardView from "@/src/components/LevelCardView/LevelCardView";
 import QuestionView from "@/src/components/QuestionView/QuestionView";
+import AnswerView from "@/src/components/AnswerView/AnswerView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -33,6 +34,12 @@ export default function App() {
         {/*    "1. Qual é a principal função de uma chave primária (PRIMARY KEY) em um banco de dados relacional?"*/}
         {/*  }*/}
         {/*/>*/}
+
+        <AnswerView
+          answer={
+            "a) Garantir que os dados sejam armazenados em ordem alfabética"
+          }
+        />
 
         <TitleView
           title={"TechNinja"}
