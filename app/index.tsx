@@ -14,6 +14,7 @@ import UserView from "@/src/components/UserView/UserView";
 import goldenBadge from "@/assets/icons/golden-badge.png";
 import userIcon from "@/assets/icons/icon.png";
 import dbIcon from "@/assets/icons/banco_de_dados.png";
+import RankingCardView from "@/src/components/RankingCardView/RankingCardView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -36,6 +37,14 @@ export default function App() {
           value={text}
           onChangeText={setText}
           style={styles.otherInput}
+        />
+
+        <RankingCardView
+          position={1}
+          icon={userIcon}
+          name="Matheus"
+          points="100"
+          style={{ marginTop: 60 }}
         />
 
         {/*<UserView*/}
