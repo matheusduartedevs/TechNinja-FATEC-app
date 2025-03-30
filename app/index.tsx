@@ -16,6 +16,7 @@ import userIcon from "@/assets/icons/icon.png";
 import dbIcon from "@/assets/icons/banco_de_dados.png";
 import RankingCardView from "@/src/components/RankingCardView/RankingCardView";
 import SubThemeCardView from "@/src/components/SubThemeCardView/SubThemeCardView";
+import LevelCardView from "@/src/components/LevelCardView/LevelCardView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -48,12 +49,14 @@ export default function App() {
           style={{ marginTop: 60 }}
         />
 
-        <SubThemeCardView
-          icon={dbIcon}
-          title={"Iniciando com banco de dados"}
-          points={"300"}
-          style={{ marginTop: 60, marginLeft: 20 }}
-        />
+        {/*<SubThemeCardView*/}
+        {/*  icon={dbIcon}*/}
+        {/*  title={"Iniciando com banco de dados"}*/}
+        {/*  points={"300"}*/}
+        {/*  style={{ marginTop: 60, marginLeft: 20 }}*/}
+        {/*/>*/}
+
+        <LevelCardView level={"Fácil"} />
 
         {/*<UserView*/}
         {/*  icon={userIcon}*/}
