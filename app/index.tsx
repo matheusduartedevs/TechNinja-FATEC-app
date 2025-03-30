@@ -15,6 +15,7 @@ import goldenBadge from "@/assets/icons/golden-badge.png";
 import userIcon from "@/assets/icons/icon.png";
 import dbIcon from "@/assets/icons/banco_de_dados.png";
 import RankingCardView from "@/src/components/RankingCardView/RankingCardView";
+import SubThemeCardView from "@/src/components/SubThemeCardView/SubThemeCardView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -45,6 +46,13 @@ export default function App() {
           name="Matheus"
           points="100"
           style={{ marginTop: 60 }}
+        />
+
+        <SubThemeCardView
+          icon={dbIcon}
+          title={"Iniciando com banco de dados"}
+          points={"300"}
+          style={{ marginTop: 60, marginLeft: 20 }}
         />
 
         {/*<UserView*/}
