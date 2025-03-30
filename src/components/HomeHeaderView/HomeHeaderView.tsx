@@ -7,7 +7,7 @@ export default function HomeHeaderView({ style }: HomeHeaderViewProps) {
   return (
     <View style={[styles.container, style]}>
       <Text style={styles.title}>TechNinja</Text>
-      <PointsView points={"200"} />
+      <PointsView points={"200"} background={"primary"} />
     </View>
   );
 }

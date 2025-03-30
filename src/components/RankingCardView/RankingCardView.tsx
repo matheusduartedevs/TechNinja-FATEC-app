@@ -20,7 +20,7 @@ export default function RankingCardView({
       />
       <TextView text={name} style={styles.name} />
       <View style={styles.pointsContainer}>
-        <PointsView points={points} />
+        <PointsView points={points} background={"secondary"} />
       </View>
     </View>
   );
