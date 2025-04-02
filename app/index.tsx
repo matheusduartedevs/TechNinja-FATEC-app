@@ -25,6 +25,7 @@ import badge1 from "@/assets/icons/badge1.png";
 import badge2 from "@/assets/icons/badge2.png";
 import badge3 from "@/assets/icons/badge3.png";
 import SettingsOptionView from "@/src/components/SettingsOptionView/SettingsOptionView";
+import AccessibilityOptionView from "@/src/components/AccessibilityOptionView/AccessibilityOptionView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -43,6 +44,8 @@ export default function App() {
         />
 
         <SettingsOptionView option={"Minha conta"} />
+
+        <AccessibilityOptionView option={"Modo Baixa Visão"} />
 
         {/*<QuestionView*/}
         {/*  question={*/}
