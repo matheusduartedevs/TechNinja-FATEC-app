@@ -19,15 +19,27 @@ import SubThemeCardView from "@/src/components/SubThemeCardView/SubThemeCardView
 import LevelCardView from "@/src/components/LevelCardView/LevelCardView";
 import QuestionView from "@/src/components/QuestionView/QuestionView";
 import AnswerView from "@/src/components/AnswerView/AnswerView";
+import AchievementsView from "@/src/components/AchievementsView/AchievementsView";
+
+import badge1 from "@/assets/icons/badge1.png";
+import badge2 from "@/assets/icons/badge2.png";
+import badge3 from "@/assets/icons/badge3.png";
 
 export default function App() {
   const [text, setText] = useState("");
+
+  const achievementsData = [badge1, badge2, badge3];
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <HomeHeaderView style={styles.header} />
         <ActionHeaderView style={styles.headerAction} />
+
+        <AchievementsView
+          achievements={achievementsData}
+          style={{ marginBottom: 20 }}
+        />
 
         {/*<QuestionView*/}
         {/*  question={*/}
