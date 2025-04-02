@@ -24,6 +24,7 @@ import AchievementsView from "@/src/components/AchievementsView/AchievementsView
 import badge1 from "@/assets/icons/badge1.png";
 import badge2 from "@/assets/icons/badge2.png";
 import badge3 from "@/assets/icons/badge3.png";
+import SettingsOptionView from "@/src/components/SettingsOptionView/SettingsOptionView";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -40,6 +41,8 @@ export default function App() {
           achievements={achievementsData}
           style={{ marginBottom: 20 }}
         />
+
+        <SettingsOptionView option={"Minha conta"} />
 
         {/*<QuestionView*/}
         {/*  question={*/}
