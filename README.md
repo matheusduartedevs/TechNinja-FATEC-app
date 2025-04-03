@@ -59,16 +59,16 @@ O sprint será considerado concluído quando:
    ```
 2. Crie uma branch para sua feature
    ```bash
-   git checkout -b feature/nome-da-feature
+   git checkout -b nome-da-feature
    ```
 3. Implemente sua feature e faça commits organizados
    ```bash
      git add .
      git commit -m "Descrição clara da mudança"
    ```
-4. Envie as alterações para o repositório remoto:
+4. Envie as alterações para o repositório remoto (commit inicial):
    ```bash
-    git push origin feature/nome-da-feature
+    git push -u origin nome-da-feature
    ```
 5. Crie um Pull Request (PR) no GitHub para main
 6. Após aprovação, faça o merge na main.
