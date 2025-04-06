@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, View, Image } from "react-native";
+import { Alert, StyleSheet, View, Image } from "react-native";
 import designSystem from "@/src/styles/theme";
 import TitleView from "@/src/components/TitleView/TitleView";
 import TextView from "@/src/components/TextView/TextView";
@@ -8,48 +8,44 @@ import logo from "@/assets/icons/logo.png";
 export default function App() {
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <TitleView
-          title={"TechNinja"}
-          color={"primary"}
-          style={{ ...styles.title, marginTop: 25 }}
-        />
-        <Image source={logo} style={[styles.logo, { marginTop: 70 }]} />
+      <TitleView
+        title={"TechNinja"}
+        color={"primary"}
+        style={{ ...styles.title, marginTop: 25 }}
+      />
+      <Image source={logo} style={[styles.logo, { marginTop: 70 }]} />
 
-        <TextView
-          text={"Desafie seu conhecimento em tecnologia com o TechNinja"}
-          color={"primary"}
-          style={{
-            ...styles.text,
-            marginTop: 30,
-            marginLeft: 8,
-            marginRight: 8,
-            fontSize: 26,
-          }}
-        />
+      <TextView
+        text={"Desafie seu conhecimento em tecnologia com o TechNinja"}
+        color={"primary"}
+        style={{
+          ...styles.text,
+          marginTop: 30,
+          marginLeft: 8,
+          marginRight: 8,
+          fontSize: 26,
+        }}
+      />
 
-        <ButtonView
-          text={"Cadastrar"}
-          color={"primary"}
-          onPress={() => Alert.alert("Vai corinthians")}
-          style={{ marginTop: 70, marginHorizontal: 33 }}
-        />
+      <ButtonView
+        text={"Cadastrar"}
+        color={"primary"}
+        onPress={() => Alert.alert("Vai corinthians")}
+        style={{ marginTop: 70, marginHorizontal: 33 }}
+      />
 
-        <ButtonView
-          text={"Já tenho uma conta"}
-          colorText={"primary"}
-          color={"primaryBackground"}
-          onPress={() => Alert.alert("Vai corinthians")}
-          style={{
-            marginTop: 10,
-            marginHorizontal: 33,
-            borderColor: "white",
-            borderWidth: 1,
-          }}
-        />
-
-        {/*} Final de desenvolvimento da tela launcher - Luan  */}
-      </ScrollView>
+      <ButtonView
+        text={"Já tenho uma conta"}
+        colorText={"primary"}
+        color={"primaryBackground"}
+        onPress={() => Alert.alert("Vai corinthians")}
+        style={{
+          marginTop: 10,
+          marginHorizontal: 33,
+          borderColor: "white",
+          borderWidth: 1,
+        }}
+      />
     </View>
   );
 }
