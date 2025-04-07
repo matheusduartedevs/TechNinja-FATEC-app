@@ -3,8 +3,8 @@ import designSystem from "@/src/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    width: 380,
-    height: 180,
+    width: 360,
+    height: 160,
     position: "relative",
     backgroundColor: designSystem.colors.background.secondaryComponent,
     borderRadius: 20,
