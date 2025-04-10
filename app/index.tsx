@@ -41,7 +41,7 @@ export default function LauncherScreen() {
         text={"Já tenho uma conta"}
         colorText={"primary"}
         color={"primaryBackground"}
-        onPress={() => Alert.alert("Vai corinthians")}
+        onPress={() => router.push("/home")}
         style={{
           marginTop: 10,
           marginHorizontal: 33,
