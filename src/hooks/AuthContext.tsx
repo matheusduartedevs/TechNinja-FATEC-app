@@ -6,14 +6,14 @@ import React, {
   useMemo,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/src/navigation/types";
 
 interface Credentials {
   email: string;
-  password: string;
+  senha: string;
 }
 
 interface Updates {
@@ -55,21 +55,59 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (storedToken) {
         setToken(storedToken);
         const decoded: any = jwtDecode(storedToken);
-        setUser({
-          id: decoded.id,
-          name: decoded.name,
-          email: decoded.email,
-          avatar: decoded.avatar,
-        });
+        const userData = await fetchUserData(decoded.id, storedToken);
+        if (userData) {
+          setUser(userData);
+        }
       }
     };
     loadSession();
   }, []);
 
-  const login = async (credentials: Credentials) => {
+  const fetchUserData = async (userId: string, token: string) => {
     try {
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/login`,
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/users/user/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (!response.ok) throw new Error("Erro ao buscar dados do usuário");
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Erro ao buscar usuário:", error);
+      return null;
+    }
+  };
+
+  const login = async (credentials: Credentials) => {
+    console.log(
+      "URL da API:",
+      `${
+        process.env.EXPO_PUBLIC_MODE === "development"
+          ? process.env.EXPO_PUBLIC_API_URL_DEV
+          : process.env.EXPO_PUBLIC_API_URL_PROD
+      }/api/login`,
+    );
+    console.log("Enviando para login:", JSON.stringify(credentials));
+    try {
+      const response = await fetch(
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -78,24 +116,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const resData = await response.json();
+      console.log("resData", response);
       if (response.ok) {
         setToken(resData.token);
         await AsyncStorage.setItem("token", resData.token);
 
         const decoded: any = jwtDecode(resData.token);
-        setUser({
-          id: decoded.id,
-          name: decoded.name,
-          email: decoded.email,
-          avatar: decoded.avatar,
-        });
+        const userData = await fetchUserData(decoded.id, resData.token);
+        if (userData) {
+          setUser(userData);
+        }
 
-        navigation.navigate("home");
+        // navigation.navigate("home");
       } else {
-        console.error(resData.message || "Erro ao fazer login");
+        throw new Error(resData.message || "Erro ao fazer login");
       }
-    } catch (error) {
-      console.error("Erro ao fazer login", error);
+    } catch (error: any) {
+      console.error("Erro no login:", error);
+      throw new Error(error.message || "Erro ao fazer login");
     }
   };
 
@@ -111,7 +149,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     try {
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/users/update/${user.id}`,
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/users/update/${user.id}`,
         {
           method: "PUT",
           headers: {

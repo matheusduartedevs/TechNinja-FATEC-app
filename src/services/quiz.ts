@@ -8,7 +8,7 @@ interface Level {
   level: string;
 }
 
-async function getSubThemes(area: string): Promise<Subtheme[]> {
+export async function getSubThemes(area: string): Promise<Subtheme[]> {
   const response = await fetch(
     `${
       process.env.EXPO_PUBLIC_MODE === "development"
@@ -18,7 +18,10 @@ async function getSubThemes(area: string): Promise<Subtheme[]> {
   );
   return response.json();
 }
-async function getLevels(area: string, subtheme: string): Promise<Level[]> {
+export async function getLevels(
+  area: string,
+  subtheme: string,
+): Promise<Level[]> {
   const response = await fetch(
     `${
       process.env.EXPO_PUBLIC_MODE === "development"
@@ -29,7 +32,7 @@ async function getLevels(area: string, subtheme: string): Promise<Level[]> {
   return response.json();
 }
 
-async function getCompletedQuizzes(user: string) {
+export async function getCompletedQuizzes(user: string) {
   const response = await fetch(
     `${
       process.env.EXPO_PUBLIC_MODE === "development"
@@ -46,7 +49,7 @@ async function getCompletedQuizzes(user: string) {
   return response.json();
 }
 
-async function getQuiz(area: string, subtheme: string, level: string) {
+export async function getQuiz(area: string, subtheme: string, level: string) {
   const response = await fetch(
     `${
       process.env.EXPO_PUBLIC_MODE === "development"
@@ -55,10 +58,10 @@ async function getQuiz(area: string, subtheme: string, level: string) {
     }/api/quiz/${area}/${subtheme}/${level}`,
   );
 
-  return response.json;
+  return response.json();
 }
 
-async function updateScore(user: string, points: number) {
+export async function updateScore(user: string, points: number) {
   const response = await fetch(
     `${
       process.env.EXPO_PUBLIC_MODE === "development"
@@ -77,7 +80,7 @@ async function updateScore(user: string, points: number) {
   return response.json();
 }
 
-async function markQuizCompleted(
+export async function markQuizCompleted(
   user: string,
   area: string,
   subtheme: string,
@@ -100,12 +103,3 @@ async function markQuizCompleted(
   );
   return response.json();
 }
-
-export default {
-  getSubThemes,
-  getLevels,
-  getCompletedQuizzes,
-  getQuiz,
-  updateScore,
-  markQuizCompleted,
-};
