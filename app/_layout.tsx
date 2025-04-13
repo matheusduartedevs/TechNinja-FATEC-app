@@ -14,6 +14,7 @@ import quicksandRegularFont from "../assets/fonts/Quicksand-Regular.ttf";
 import quicksandBoldFont from "../assets/fonts/Quicksand-Bold.ttf";
 
 import { useColorScheme } from "@/useColorScheme";
+import { AuthProvider } from "@/src/hooks/AuthContext";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -52,8 +53,10 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }} />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }} />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
