@@ -3,7 +3,6 @@ import designSystem from "@/src/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
     alignItems: "center",
     justifyContent: "space-between",
