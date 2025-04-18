@@ -5,5 +5,5 @@ export interface ButtonProps {
   color: "primary" | "primaryBackground";
   colorText?: "primary" | "secondary";
   onPress: () => void;
-  style?: ViewStyle;
+  style?: ViewStyle | ViewStyle[];
 }
