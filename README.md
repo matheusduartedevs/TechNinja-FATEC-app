@@ -84,6 +84,11 @@ Instale o projeto
   npm install
 ```
 
+Crie o arquivo .env e adicione
+```bash
+  cp .env.sample .env
+```
+
 Execute o projeto e escolha a plataforma desejada (Android, iOS ou Web).
 ```bash
   npx expo
