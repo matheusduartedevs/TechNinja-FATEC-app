@@ -1,4 +1,4 @@
-import { Image, View } from "react-native";
+import { Image, View, TouchableOpacity } from "react-native";
 import { ThemeViewProps } from "@/src/components/ThemeView/props";
 import { styles } from "@/src/components/ThemeView/styles";
 import TitleView from "@/src/components/TitleView/TitleView";
@@ -11,10 +11,12 @@ export default function ThemeView({
   style,
 }: ThemeViewProps) {
   return (
-    <View style={[styles.container, style]}>
+    <TouchableOpacity style={[styles.container, style]} activeOpacity={0.8}>
       <TitleView title={theme} color={"primary"} style={styles.title} />
-      <TextView text={text} style={styles.text} />
-      <Image source={icon} style={styles.image} />
-    </View>
+      <TextView text={text} style={styles.text} color={"primary"} />
+      <View style={styles.imageWrapper}>
+        <Image source={icon} style={styles.image} resizeMode={"contain"} />
+      </View>
+    </TouchableOpacity>
   );
 }
