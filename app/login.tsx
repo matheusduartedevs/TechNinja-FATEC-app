@@ -79,11 +79,9 @@ export default function LoginScreen() {
             <Pressable onPress={() => router.push("/register")}>
               {({ pressed }) => (
                 <Text style={styles.link}>
-                  Não tem uma conta?
-                  <Text> </Text>
+                  Não tem uma conta?{" "}
                   <Text
                     style={{
-                      marginLeft: 3,
                       color: pressed
                         ? designSystem.colors.action.primaryHover
                         : designSystem.colors.action.primary,
@@ -111,6 +109,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 33,
     marginTop: 100,
     marginBottom: 3,
+    alignSelf: "center",
   },
   imageLogin: {
     alignSelf: "center",
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
   link: {
     textAlign: "center",
     fontSize: designSystem.fonts.textSize,
-    marginTop: 2,
+    marginTop: 20,
     color: designSystem.colors.text.primary,
   },
 });
