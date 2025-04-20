@@ -92,15 +92,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const login = async (credentials: Credentials) => {
-    console.log(
-      "URL da API:",
-      `${
-        process.env.EXPO_PUBLIC_MODE === "development"
-          ? process.env.EXPO_PUBLIC_API_URL_DEV
-          : process.env.EXPO_PUBLIC_API_URL_PROD
-      }/api/login`,
-    );
-    console.log("Enviando para login:", JSON.stringify(credentials));
     try {
       const response = await fetch(
         `${
@@ -116,7 +107,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const resData = await response.json();
-      console.log("resData", response);
       if (response.ok) {
         setToken(resData.token);
         await AsyncStorage.setItem("token", resData.token);
@@ -126,8 +116,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         if (userData) {
           setUser(userData);
         }
-
-        // navigation.navigate("home");
       } else {
         throw new Error(resData.message || "Erro ao fazer login");
       }
