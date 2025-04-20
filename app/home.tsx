@@ -27,7 +27,7 @@ export default function App() {
 
   const navigateToSubthemes = () => {
     router.push("/subthemes");
-
+  };
 
   const areas = [
     {
