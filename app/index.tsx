@@ -42,7 +42,6 @@ export default function LauncherScreen() {
           style={styles.text}
         />
 
-<<<<<<< HEAD
         <View style={styles.buttons}>
           <ButtonView
             text="Cadastrar"
@@ -55,25 +54,11 @@ export default function LauncherScreen() {
             text="Já tenho uma conta"
             colorText="primary"
             color="primaryBackground"
-            onPress={() => router.push("/home")}
+            onPress={handleLogin}
             style={[styles.button, styles.secondaryButton]}
           />
         </View>
       </View>
-=======
-      <ButtonView
-        text={"Já tenho uma conta"}
-        colorText={"primary"}
-        color={"primaryBackground"}
-        onPress={handleLogin}
-        style={{
-          marginTop: 10,
-          marginHorizontal: 33,
-          borderColor: "white",
-          borderWidth: 1,
-        }}
-      />
->>>>>>> 6cfe9fd (feat: service API calls and initial tests with mock data)
     </View>
   );
 }
