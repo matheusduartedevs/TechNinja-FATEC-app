@@ -18,6 +18,7 @@ import {
   getCompletedQuizzes,
   getQuiz,
 } from "@/src/services/quiz";
+
 import { useRouter } from "expo-router";
 
 export default function App() {
@@ -26,7 +27,7 @@ export default function App() {
 
   const navigateToSubthemes = () => {
     router.push("/subthemes");
-  };
+
 
   const areas = [
     {
