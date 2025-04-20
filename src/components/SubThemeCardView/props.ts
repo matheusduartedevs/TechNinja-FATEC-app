@@ -4,5 +4,6 @@ export interface SubThemeCardViewProps {
   icon: ImageSourcePropType;
   title: string;
   points: string;
+  onPress?: () => void;
   style?: ViewStyle;
 }

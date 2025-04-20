@@ -5,4 +5,5 @@ export interface ThemeViewProps {
   text: string;
   icon: ImageSourcePropType;
   style?: StyleProp<ViewStyle>;
+  onPress: () => void;
 }
