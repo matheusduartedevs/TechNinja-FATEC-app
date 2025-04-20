@@ -19,8 +19,15 @@ import {
   getQuiz,
 } from "@/src/services/quiz";
 
+import { useRouter } from "expo-router";
+
 export default function App() {
   const { user, token } = useAuth();
+  const router = useRouter();
+
+  const navigateToSubthemes = () => {
+    router.push("/subthemes");
+
 
   const areas = [
     {
@@ -104,6 +111,7 @@ export default function App() {
                   text={theme.description}
                   theme={theme.title}
                   icon={theme.icon}
+                  onPress={navigateToSubthemes}
                 />
               </View>
             ))}
