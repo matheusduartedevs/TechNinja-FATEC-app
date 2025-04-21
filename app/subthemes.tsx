@@ -4,8 +4,15 @@ import FooterView from "@/src/components/FooterView/FooterView";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import SubThemeCardView from "@/src/components/SubThemeCardView/SubThemeCardView";
 import banco_de_dados from "@/assets/icons/banco_de_dados.png";
+import { useRouter } from "expo-router";
 
 export default function Subthemes() {
+  const router = useRouter();
+
+  const navigateToLevels = () => {
+    router.push("/levels");
+  };
+
   return (
     <View style={styles.container}>
       <ActionHeaderView title="Banco de Dados" style={styles.header} />
@@ -21,6 +28,7 @@ export default function Subthemes() {
               icon={banco_de_dados}
               title="iniciando com banco de dados"
               points="10"
+              onPress={navigateToLevels}
             />
             <SubThemeCardView
               style={styles.card}
