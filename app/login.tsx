@@ -18,11 +18,28 @@ import iconEmail from "@/assets/icons/icon.png";
 import iconLock from "@//assets/icons/lock.png";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function LoginScreen() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login } = useAuth();
+
+  const handleLogin = async () => {
+    const userData = {
+      email: email,
+      senha: password,
+    };
+
+    try {
+      await login(userData);
+      router.push("/home");
+    } catch (error) {
+      console.error("Erro no login:", error);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -72,7 +89,7 @@ export default function LoginScreen() {
             <ButtonView
               text={"Entrar"}
               color={"primary"}
-              onPress={() => router.push("/home")}
+              onPress={handleLogin}
               style={styles.button}
             />
 
