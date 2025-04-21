@@ -5,27 +5,11 @@ import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import logo from "@/assets/icons/logo.png";
 import { useRouter } from "expo-router";
-import { useAuth } from "@/src/hooks/AuthContext";
 
 const { width, height } = Dimensions.get("window");
 
 export default function LauncherScreen() {
   const router = useRouter();
-  const { login } = useAuth();
-
-  const mockUser = {
-    email: "oconquistador@gmail.com",
-    senha: "rei",
-  };
-
-  const handleLogin = async () => {
-    try {
-      await login(mockUser);
-      router.push("/home");
-    } catch (error) {
-      console.error("Erro no login:", error);
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -54,7 +38,7 @@ export default function LauncherScreen() {
             text="Já tenho uma conta"
             colorText="primary"
             color="primaryBackground"
-            onPress={handleLogin}
+            onPress={() => router.push("/login")}
             style={[styles.button, styles.secondaryButton]}
           />
         </View>
