@@ -30,7 +30,7 @@ export default function LauncherScreen() {
           <ButtonView
             text="Cadastrar"
             color="primary"
-            onPress={() => router.push("/login")}
+            onPress={() => router.push("/register")}
             style={styles.button}
           />
 
