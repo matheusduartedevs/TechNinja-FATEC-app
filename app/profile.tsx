@@ -63,10 +63,7 @@ export default function Ranking() {
         </ScrollView>
       </View>
 
-      <FooterView
-        onClick={() => console.log("footer clicado")}
-        style={styles.footer}
-      />
+      <FooterView style={styles.footer} />
     </View>
   );
 }

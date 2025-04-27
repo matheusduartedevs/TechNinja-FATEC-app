@@ -44,10 +44,7 @@ export default function Subthemes() {
             />
           </View>
 
-          <FooterView
-            onClick={() => console.log("palmeiras")}
-            style={styles.footer}
-          />
+          <FooterView style={styles.footer} />
         </View>
       </ScrollView>
     </View>

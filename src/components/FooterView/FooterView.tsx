@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, TouchableOpacity, Image } from "react-native";
 import { styles } from "@/src/components/FooterView/styles";
 import TextView from "@/src/components/TextView/TextView";
@@ -8,35 +8,55 @@ import homeIcon from "@/assets/icons/home.png";
 import rankingIcon from "@/assets/icons/ranking.png";
 import userIcon from "@/assets/icons/icon.png";
 import settingsIcon from "@/assets/icons/config.png";
+import { useRouter, usePathname } from "expo-router";
 
 const options = [
-  { name: "Home", icon: homeIcon },
-  { name: "Ranking", icon: rankingIcon },
-  { name: "Usuário", icon: userIcon },
-  { name: "Configurações", icon: settingsIcon },
+  { name: "Home", icon: homeIcon, path: "/home" },
+  { name: "Ranking", icon: rankingIcon, path: "/ranking" },
+  { name: "Usuário", icon: userIcon, path: "/profile" },
+  { name: "Configurações", icon: settingsIcon, path: "/settings" },
 ];
 
-export default function FooterView({ onClick, style }: FooterViewProps) {
+export default function FooterView({ style }: FooterViewProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [selected, setSelected] = useState("Home");
 
-  const handlePress = (option: string) => {
-    setSelected(option);
-    onClick();
+  useEffect(() => {
+    const match = options.find((option) => option.path === pathname);
+    if (match) {
+      setSelected(match.name);
+    }
+  }, [pathname]);
+
+  const handlePress = (option: (typeof options)[number]) => {
+    setSelected(option.name);
+    router.push(option.path);
   };
 
   return (
     <View style={[styles.container, style]}>
-      {options.map(({ name, icon }) => (
+      {options.map((option) => (
         <TouchableOpacity
-          key={name}
-          style={[styles.option, selected === name && styles.selectedOption]}
-          onPress={() => handlePress(name)}
+          key={option.name}
+          style={[
+            styles.option,
+            selected === option.name && styles.selectedOption,
+          ]}
+          onPress={() => handlePress(option)}
         >
           <Image
-            source={icon}
+            source={option.icon}
             style={[styles.icon, { width: 24, height: 24 }]}
           />
-          {selected === name && <TextView text={name} style={styles.text} />}
+          {selected === option.name && (
+            <TextView
+              text={option.name}
+              color={"primary"}
+              style={styles.text}
+            />
+          )}
         </TouchableOpacity>
       ))}
     </View>

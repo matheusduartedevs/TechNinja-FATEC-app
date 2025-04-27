@@ -20,7 +20,7 @@ export default function Levels() {
             <LevelCardView level="Difícil" style={styles.card} />
           </View>
 
-          <FooterView onClick={() => console.log("")} style={styles.footer} />
+          <FooterView style={styles.footer} />
         </View>
       </ScrollView>
     </View>

@@ -119,7 +119,7 @@ export default function App() {
         </View>
       </View>
 
-      <FooterView onClick={() => console.log("")} style={styles.footer} />
+      <FooterView style={styles.footer} />
     </View>
   );
 }
