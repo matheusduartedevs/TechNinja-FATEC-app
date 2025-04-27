@@ -24,8 +24,8 @@ export default function App() {
   const { user, token } = useAuth();
   const router = useRouter();
 
-  const navigateToSubthemes = () => {
-    router.push("/subthemes");
+  const navigateToSubthemes = (name: string, title: string) => {
+    router.push(`/subthemes/${name}?title=${encodeURIComponent(title)}`);
   };
 
   const areas = [
@@ -114,7 +114,7 @@ export default function App() {
                   text={theme.description}
                   theme={theme.title}
                   icon={theme.icon}
-                  onPress={navigateToSubthemes}
+                  onPress={() => navigateToSubthemes(theme.name, theme.title)}
                 />
               </View>
             ))}
