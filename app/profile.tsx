@@ -12,11 +12,14 @@ import badge1 from "@/assets/icons/badge1.png";
 import badge2 from "@/assets/icons/badge2.png";
 import badge3 from "@/assets/icons/badge3.png";
 import TextView from "@/src/components/TextView/TextView";
+import { useAuth } from "@/src/hooks/AuthContext";
 
-export default function Ranking() {
+export default function Profile() {
+  const { user } = useAuth();
+
   return (
     <View style={styles.container}>
-      <ActionHeaderView title="Ranking" style={styles.header} />
+      <ActionHeaderView title="Perfil" style={styles.header} />
 
       <View style={styles.content}>
         <ScrollView
@@ -26,7 +29,7 @@ export default function Ranking() {
           <View style={styles.inner}>
             <UserView
               icon={icon}
-              name="Isabela"
+              name={user?.nome ?? ""}
               position="1°"
               badge={badge}
               badgePosition="top"
@@ -35,19 +38,19 @@ export default function Ranking() {
 
             <View style={styles.pointsTriangle}>
               <PointsView
-                points="20"
+                points={user?.pontuacao.toString() ?? "0"}
                 background="primary"
                 style={styles.topPoint}
               />
 
               <View style={styles.bottomRow}>
                 <PointsView
-                  points="20"
+                  points={user?.pontuacao.toString() ?? "0"}
                   background="primary"
                   style={styles.bottomPoint}
                 />
                 <PointsView
-                  points="20"
+                  points={user?.pontuacao.toString() ?? "0"}
                   background="primary"
                   style={styles.bottomPoint}
                 />
@@ -102,7 +105,6 @@ const styles = StyleSheet.create({
   bottomRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: 200,
   },
   bottomPoint: {
     marginHorizontal: 10,

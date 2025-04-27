@@ -25,7 +25,8 @@ interface Updates {
 
 interface User {
   id: string;
-  name: string;
+  nome: string;
+  pontuacao: number;
   email: string;
   avatar?: string;
 }

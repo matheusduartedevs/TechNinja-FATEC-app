@@ -18,7 +18,7 @@ export default function PointsView({
   return (
     <View style={[styles.container, { backgroundColor }, style]}>
       <Image source={pointsIcon} style={styles.icon} />
-      <TextView text={points} style={styles.points} />
+      <TextView text={points} color={"secondary"} style={styles.points} />
     </View>
   );
 }
