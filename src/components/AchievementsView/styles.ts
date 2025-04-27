@@ -2,12 +2,6 @@ import { StyleSheet } from "react-native";
 import designSystem from "@/src/styles/theme";
 
 export const styles = StyleSheet.create({
-  text: {
-    color: designSystem.colors.text.secondary,
-    fontSize: 18,
-    marginBottom: 10,
-    textAlign: "center",
-  },
   container: {
     flex: 1,
     flexDirection: "column",
