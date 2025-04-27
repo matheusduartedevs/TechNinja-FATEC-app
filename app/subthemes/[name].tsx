@@ -15,8 +15,10 @@ export default function Name() {
   const router = useRouter();
   const { name, title } = useLocalSearchParams();
 
-  const navigateToLevels = () => {
-    router.push("/levels");
+  const navigateToLevels = (subtheme: string) => {
+    router.push(
+      `/levels/${name}/${subtheme}?title=${encodeURIComponent(title as string)}`,
+    );
   };
 
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function Name() {
                   icon={banco_de_dados}
                   title={subtheme || "Título não disponível"}
                   points={"10"}
-                  onPress={navigateToLevels}
+                  onPress={() => navigateToLevels(subtheme)}
                 />
               ))
             ) : (

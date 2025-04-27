@@ -9,19 +9,9 @@ import IconLinguagemProgramacao from "@/assets/icons/icon-linguagem-de-programac
 import IconSistemasOperacionais from "@/assets/icons/icon-sistemas-operacionais.png";
 import IconModelagemDados from "@/assets/icons/icon-modelagem-de-dados.png";
 
-import { useEffect } from "react";
-import { useAuth } from "@/src/hooks/AuthContext";
-import {
-  getSubThemes,
-  getLevels,
-  getCompletedQuizzes,
-  getQuiz,
-} from "@/src/services/quiz";
-
 import { useRouter } from "expo-router";
 
 export default function App() {
-  const { user, token } = useAuth();
   const router = useRouter();
 
   const navigateToSubthemes = (name: string, title: string) => {
@@ -51,45 +41,6 @@ export default function App() {
       icon: IconModelagemDados,
     },
   ];
-
-  useEffect((useEffect) => {
-    const fetchData = async () => {
-      try {
-        // console.log(user);
-        // console.log(user.pontuacao);
-        // console.log(user.nome);
-
-        if (!user || !token) {
-          console.log("⚠️ Usuário ou token não disponível ainda.");
-          return;
-        }
-        // console.log("✅ Usuário logado:", user);
-
-        const subthemes = await getSubThemes("linguagem-programacao");
-        console.log("📚 Subtemas de frontend:", subthemes);
-
-        // const levels = await getLevels(
-        //   "linguagem-programacao",
-        //   subthemes[0] || "",
-        // );
-        // console.log("📈 Dificuldades do primeiro subtema:", levels);
-        //
-        // const completed = await getCompletedQuizzes(token);
-        // console.log("🎯 Quizzes concluídos pelo usuário:", completed);
-        //
-        // const quiz = await getQuiz(
-        //   "linguagem-programacao",
-        //   "lacos-de-repeticao",
-        //   "facil",
-        // );
-        // console.log("🧠 Quiz carregado:", quiz);
-      } catch (error) {
-        console.error("❌ Erro ao buscar dados na home:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <View style={styles.container}>

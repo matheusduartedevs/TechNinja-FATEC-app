@@ -6,21 +6,23 @@ import designSystem from "@/src/styles/theme"; // Supondo que seu designSystem e
 
 export default function LevelCardView({ level, style }: LevelCardViewProps) {
   const levelColors = {
-    Fácil: {
+    facil: {
       backgroundColor: designSystem.colors.action.primary,
       titleColor: designSystem.colors.action.primary,
     },
-    Médio: {
+    medio: {
       backgroundColor: designSystem.colors.action.secondary,
       titleColor: designSystem.colors.action.secondary,
     },
-    Difícil: {
+    dificil: {
       backgroundColor: designSystem.colors.action.tertiary,
       titleColor: designSystem.colors.action.tertiary,
     },
   };
 
-  const { backgroundColor } = levelColors[level];
+  const backgroundColor =
+    levelColors[level]?.backgroundColor ||
+    designSystem.colors.background.primary;
 
   return (
     <TouchableOpacity

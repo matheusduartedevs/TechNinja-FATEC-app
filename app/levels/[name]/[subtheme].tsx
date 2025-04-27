@@ -3,11 +3,34 @@ import designSystem from "@/src/styles/theme";
 import LevelCardView from "@/src/components/LevelCardView/LevelCardView";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import FooterView from "@/src/components/FooterView/FooterView";
+import { useEffect, useState } from "react";
+import { getLevels } from "@/src/services/quiz";
+import { useLocalSearchParams } from "expo-router";
+import TextView from "@/src/components/TextView/TextView";
 
-export default function Levels() {
+export default function LevelsPage() {
+  const { name, subtheme, title } = useLocalSearchParams();
+  const [levels, setLevels] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const levels = await getLevels(name as string, subtheme as string);
+        setLevels(levels);
+      } catch (error) {
+        console.error("❌ Erro ao buscar dados na levels:", error);
+      }
+    };
+
+    fetchData();
+  }, [name, subtheme]);
+
   return (
     <View style={styles.container}>
-      <ActionHeaderView style={styles.headerAction} title="Banco de Dados" />
+      <ActionHeaderView
+        style={styles.headerAction}
+        title={String(title ?? "")}
+      />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -15,9 +38,16 @@ export default function Levels() {
       >
         <View style={styles.inner}>
           <View style={styles.cardWrapper}>
-            <LevelCardView level="Fácil" style={styles.card} />
-            <LevelCardView level="Médio" style={styles.card} />
-            <LevelCardView level="Difícil" style={styles.card} />
+            {levels.length > 0 ? (
+              levels.map((level, index) => (
+                <LevelCardView key={index} level={level} style={styles.card} />
+              ))
+            ) : (
+              <TextView
+                text={"Não há levels para essa dificuldade"}
+                color={"primary"}
+              />
+            )}
           </View>
 
           <FooterView style={styles.footer} />
