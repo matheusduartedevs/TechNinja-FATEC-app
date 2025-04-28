@@ -3,18 +3,21 @@ import designSystem from "@/src/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    gap: 20,
     backgroundColor: designSystem.colors.background.secondary,
-    width: 362,
-    height: 49,
+    width: 330,
+    height: 150,
     borderRadius: 20,
+    alignSelf: "center",
     alignContent: "center",
     alignItems: "center",
-    padding: 10,
+    paddingTop: 15,
   },
   option: {
+    flexDirection: "row",
     color: designSystem.colors.text.primary,
+    justifyContent: "space-between",
+    width: "90%",
   },
 });
