@@ -8,6 +8,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { getSubThemes } from "@/src/services/quiz";
 import TextView from "@/src/components/TextView/TextView";
+import { formatText } from "@/src/utils/formatNames";
 
 export default function Name() {
   const [subThemes, setSubThemes] = useState<any[]>([]);
@@ -49,7 +50,7 @@ export default function Name() {
                   key={index}
                   style={styles.card}
                   icon={banco_de_dados}
-                  title={subtheme || "Título não disponível"}
+                  title={formatText(subtheme) || "Título não disponível"}
                   points={"10"}
                   onPress={() => navigateToLevels(subtheme)}
                 />

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getLevels } from "@/src/services/quiz";
 import { useLocalSearchParams } from "expo-router";
 import TextView from "@/src/components/TextView/TextView";
+import { formatText } from "@/src/utils/formatNames";
 
 export default function LevelsPage() {
   const { name, subtheme, title } = useLocalSearchParams();
@@ -40,7 +41,11 @@ export default function LevelsPage() {
           <View style={styles.cardWrapper}>
             {levels.length > 0 ? (
               levels.map((level, index) => (
-                <LevelCardView key={index} level={level} style={styles.card} />
+                <LevelCardView
+                  key={index}
+                  level={formatText(level)}
+                  style={styles.card}
+                />
               ))
             ) : (
               <TextView

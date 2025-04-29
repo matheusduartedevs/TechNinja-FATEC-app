@@ -6,15 +6,15 @@ import designSystem from "@/src/styles/theme"; // Supondo que seu designSystem e
 
 export default function LevelCardView({ level, style }: LevelCardViewProps) {
   const levelColors = {
-    facil: {
+    Fácil: {
       backgroundColor: designSystem.colors.action.primary,
       titleColor: designSystem.colors.action.primary,
     },
-    medio: {
+    Médio: {
       backgroundColor: designSystem.colors.action.secondary,
       titleColor: designSystem.colors.action.secondary,
     },
-    dificil: {
+    Difícil: {
       backgroundColor: designSystem.colors.action.tertiary,
       titleColor: designSystem.colors.action.tertiary,
     },
