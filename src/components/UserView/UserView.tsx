@@ -22,8 +22,10 @@ export default function UserView({
         />
       )}
 
-      <View style={styles.iconContainer}>
-        <Image source={icon} style={styles.icon} />
+      <View style={styles.iconWrapper}>
+        <View style={styles.iconCircle}>
+          <Image source={icon} style={styles.icon} />
+        </View>
         {badge && (
           <Image
             source={badge}
@@ -35,7 +37,7 @@ export default function UserView({
         )}
       </View>
 
-      <TextView text={name} style={styles.name} />
+      <TextView text={name} color={"primary"} style={styles.name} />
     </View>
   );
 }

@@ -5,43 +5,57 @@ export const styles = StyleSheet.create({
   container: {
     width: 200,
     height: 190,
-    backgroundColor: designSystem.colors.background.secondaryComponent,
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
   },
+
   position: {
     position: "absolute",
     top: -45,
     right: 86,
     fontFamily: designSystem.fonts.primaryBold,
   },
-  iconContainer: {
+
+  iconWrapper: {
+    width: 150,
+    height: 150,
     alignItems: "center",
     justifyContent: "center",
+    position: "relative",
   },
+
+  iconCircle: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    overflow: "hidden",
+  },
+
   icon: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: "100%",
+    height: "100%",
   },
+
   name: {
     position: "absolute",
     bottom: -35,
-    color: designSystem.colors.text.primary,
   },
+
   badge: {
     position: "absolute",
     width: 30,
     height: 30,
   },
+
   badgeTop: {
-    top: -32,
-    right: -33,
+    top: -5,
+    right: 20,
   },
+
   badgeBottom: {
-    bottom: -70,
+    bottom: -10,
     alignSelf: "center",
   },
 });

@@ -28,7 +28,7 @@ export default function Profile() {
         >
           <View style={styles.inner}>
             <UserView
-              icon={icon}
+              icon={{ uri: user?.avatar }}
               name={user?.nome ?? ""}
               position="1°"
               badge={badge}
