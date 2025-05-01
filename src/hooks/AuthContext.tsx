@@ -35,6 +35,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (credentials: Credentials) => Promise<void>;
+  register: (credentials: Credentials) => Promise<void>;
   logout: () => void;
   updateUser: (updates: Updates) => Promise<void>;
 }
@@ -126,6 +127,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const register = async (userData) => {
+    try {
+      const response = await fetch(
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        },
+      );
+
+      const resData = await response.json();
+
+      if (response.ok) {
+        if (resData.token) {
+          await AsyncStorage.setItem("token", resData.token);
+          setUser(resData.token);
+        } else {
+          console.log("Token não retornado pela API.");
+        }
+      } else {
+        console.log(resData.message || "Erro ao registrar");
+      }
+    } catch (error) {
+      console.error("Erro no register:", error);
+    }
+  };
   const logout = async () => {
     await AsyncStorage.removeItem("token");
     setToken(null);
@@ -165,7 +197,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const value = useMemo(
-    () => ({ user, token, login, logout, updateUser }),
+    () => ({ user, token, login, logout, updateUser, register }),
     [user, token],
   );
 

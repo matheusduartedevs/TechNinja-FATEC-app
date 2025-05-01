@@ -15,6 +15,7 @@ import imageRegister from "@/assets/icons/image-register.png";
 import iconRegister from "@/assets/icons/icon-register.png";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -22,6 +23,34 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const { register } = useAuth();
+
+  const handleRegister = async () => {
+    if (!userName || !email || !password || !passwordConfirm) {
+      console.error("Preencha todos os campos!");
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      console.error("As senhas não coincidem!");
+      return;
+    }
+
+    const userData = {
+      nome: userName.trim(),
+      email: email.trim(),
+      senha: password,
+      senhaConfirmada: passwordConfirm,
+    };
+
+    try {
+      await register(userData);
+      router.push("/home");
+    } catch (error) {
+      console.error("Erro no register:", error);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -67,7 +96,7 @@ export default function LoginScreen() {
             <ButtonView
               text={"Criar conta"}
               color={"primary"}
-              onPress={() => router.push("/home")}
+              onPress={handleRegister}
               style={styles.button}
             />
           </View>
