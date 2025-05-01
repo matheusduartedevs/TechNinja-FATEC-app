@@ -14,7 +14,7 @@ const options = [
   { name: "Home", icon: homeIcon, path: "/home" },
   { name: "Ranking", icon: rankingIcon, path: "/ranking" },
   { name: "Usuário", icon: userIcon, path: "/profile" },
-  { name: "Configurações", icon: settingsIcon, path: "/settings" },
+  { name: "Configurações", icon: settingsIcon, path: "/config" },
 ];
 
 export default function FooterView({ style }: FooterViewProps) {
