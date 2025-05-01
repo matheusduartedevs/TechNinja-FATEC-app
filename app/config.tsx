@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import FooterView from "@/src/components/FooterView/FooterView";
@@ -6,41 +6,50 @@ import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import SettingsOptionView from "@/src/components/SettingsOptionView/SettingsOptionView";
 import { useRouter } from "expo-router";
+import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function Config() {
   const router = useRouter();
+  const { logout } = useAuth();
 
   return (
     <View style={styles.container}>
-      <ActionHeaderView style={{ ...styles.header }} title={"Configurações"} />
+      <ActionHeaderView style={styles.header} title={"Configurações"} />
 
-      <TextView text={"Geral"} color={"primary"} style={{ ...styles.text }} />
-      <SettingsOptionView
-        option={"Minha conta"}
-        onPressArrow={() => router.push("/configaccount")}
-        option_two={"Acessibilidade"}
-        showArrow_two={true}
-        onPressArrowTwo={() => router.push("/configaccessbility")}
-        option_three={"Segurança"}
-        showArrow_three={true}
-        onPressArrowThree={() => router.push("/configsecurity")}
-      />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <TextView text={"Geral"} color={"primary"} style={styles.text} />
 
-      <View style={styles.singleOptionWrapper}>
         <SettingsOptionView
-          option={"Sobre esse app"}
-          onPressArrow={() => router.push("/configabout")}
+          option={"Minha conta"}
+          onPressArrow={() => router.push("/configaccount")}
+          option_two={"Acessibilidade"}
+          showArrow_two={true}
+          onPressArrowTwo={() => router.push("/configaccessbility")}
+          option_three={"Segurança"}
+          showArrow_three={true}
+          onPressArrowThree={() => router.push("/configsecurity")}
         />
-      </View>
 
-      <ButtonView
-        text="Sair"
-        colorText="primary"
-        style={{ ...styles.button }}
-        onPress={() => console.log("Saindo da conta...")}
-      />
+        <View style={styles.singleOptionWrapper}>
+          <SettingsOptionView
+            option={"Sobre esse app"}
+            onPressArrow={() => router.push("/configabout")}
+          />
+        </View>
 
-      <FooterView onClick={() => console.log("..")} style={styles.footer} />
+        <ButtonView
+          text="Sair"
+          color={"primary"}
+          colorText="primary"
+          style={styles.button}
+          onPress={logout}
+        />
+      </ScrollView>
+
+      <FooterView style={styles.footer} />
     </View>
   );
 }
@@ -49,27 +58,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingHorizontal: 24,
+    paddingTop: 48,
+    paddingBottom: 40,
   },
   header: {
-    paddingTop: "5%",
-    alignItems: "center",
-    marginBottom: "15%",
+    marginBottom: 60,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: 24,
   },
   text: {
-    marginBottom: "2%",
+    marginBottom: 16,
+    marginLeft: 30,
   },
   singleOptionWrapper: {
-    marginTop: "15%",
+    marginTop: 24,
   },
   button: {
     width: "80%",
-    marginTop: "30%",
     alignSelf: "center",
     backgroundColor: designSystem.colors.action.tertiary,
+    marginTop: 40,
   },
   footer: {
-    marginTop: "30%",
     alignSelf: "center",
   },
 });

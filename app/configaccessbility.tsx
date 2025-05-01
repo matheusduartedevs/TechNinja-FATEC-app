@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
@@ -8,26 +8,31 @@ import AccessibilityOptionView from "@/src/components/AccessibilityOptionView/Ac
 export default function ConfigAccessbility() {
   return (
     <View style={styles.container}>
-      <ActionHeaderView style={{ ...styles.header }} title={"Configurações"} />
+      <ActionHeaderView style={styles.header} title={"Configurações"} />
 
-      <AccessibilityOptionView
-        option={"Modo Daltônico"}
-        style={styles.accessbility}
-      />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <AccessibilityOptionView
+          option={"Modo Daltônico"}
+          style={styles.accessibility}
+        />
 
-      <AccessibilityOptionView
-        option={"Modo Baixa Visão"}
-        style={styles.accessbility}
-      />
+        <AccessibilityOptionView
+          option={"Modo Baixa Visão"}
+          style={styles.accessibility}
+        />
 
-      <ButtonView
-        text="Salvar"
-        color="primary"
-        style={{ ...styles.button }}
-        onPress={() => console.log("Atualizações salvas")}
-      />
+        <ButtonView
+          text="Salvar"
+          color="primary"
+          style={styles.button}
+          onPress={() => console.log("Atualizações salvas")}
+        />
+      </ScrollView>
 
-      <FooterView onClick={() => console.log("..")} style={styles.footer} />
+      <FooterView style={styles.footer} />
     </View>
   );
 }
@@ -36,25 +41,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingHorizontal: 24,
+    paddingTop: 48,
+    paddingBottom: 40,
   },
   header: {
-    paddingTop: "5%",
-    alignItems: "center",
-    marginBottom: "25%",
+    marginBottom: 60,
   },
-  accessbility: {
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: 24,
+  },
+  accessibility: {
     borderBottomWidth: 1,
     borderBottomColor: designSystem.colors.background.primaryComponent,
-    marginBottom: "12%",
+    marginBottom: 24,
   },
   button: {
     width: "80%",
-    marginTop: "50%",
     alignSelf: "center",
+    marginTop: 32,
   },
   footer: {
-    marginTop: "50%",
     alignSelf: "center",
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, ScrollView } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import InputView from "@/src/components/InputView/InputView";
@@ -15,44 +15,49 @@ export default function ConfigAccount() {
 
   return (
     <View style={styles.container}>
-      <ActionHeaderView style={{ ...styles.header }} title={"Configurações"} />
+      <ActionHeaderView style={styles.header} title={"Configurações"} />
 
-      <View style={styles.profilePhotoWrapper}>
-        <TextView text={"Foto de perfil"} color={"primary"} />
-        <Image source={icon} style={styles.profilePhotoIcon} />
-      </View>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.profilePhotoWrapper}>
+          <TextView text={"Foto de perfil"} color={"primary"} />
+          <Image source={icon} style={styles.profilePhotoIcon} />
+        </View>
 
-      <TextView text={"Nome"} color={"primary"} />
-      <InputView
-        placeholder="Digite um novo nome"
-        onChangeText={setUserName}
-        value={userName}
-        style={styles.input}
-      />
+        <TextView text={"Nome"} color={"primary"} />
+        <InputView
+          placeholder="Digite um novo nome"
+          onChangeText={setUserName}
+          value={userName}
+          style={styles.input}
+        />
 
-      <TextView text={"E-mail"} color={"primary"} />
-      <InputView
-        placeholder="Digite um novo e-mail"
-        onChangeText={setEmail}
-        value={email}
-        style={styles.input}
-      />
+        <TextView text={"E-mail"} color={"primary"} />
+        <InputView
+          placeholder="Digite um novo e-mail"
+          onChangeText={setEmail}
+          value={email}
+          style={styles.input}
+        />
 
-      <TextView text={"Senha"} color={"primary"} />
-      <InputView
-        placeholder="Digite uma nova senha"
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry
-        style={styles.input}
-      />
+        <TextView text={"Senha"} color={"primary"} />
+        <InputView
+          placeholder="Digite uma nova senha"
+          onChangeText={setPassword}
+          value={password}
+          secureTextEntry
+          style={styles.input}
+        />
 
-      <ButtonView
-        text="Salvar"
-        color="primary"
-        style={{ ...styles.button }}
-        onPress={() => console.log("Atualizações salvas")}
-      />
+        <ButtonView
+          text="Salvar"
+          color="primary"
+          style={styles.button}
+          onPress={() => console.log("Atualizações salvas")}
+        />
+      </ScrollView>
 
       <FooterView onClick={() => console.log("..")} style={styles.footer} />
     </View>
@@ -63,21 +68,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingHorizontal: 24,
+    paddingTop: 48,
+    paddingBottom: 40,
   },
   header: {
-    paddingTop: "5%",
-    alignItems: "center",
-    marginBottom: "10%",
+    marginBottom: 60,
   },
-  input: {
-    width: "100%",
-    marginBottom: "5%",
-  },
-  button: {
-    width: "80%",
-    marginTop: "10%",
-    alignSelf: "center",
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: 24,
   },
   profilePhotoWrapper: {
     flexDirection: "row",
@@ -85,15 +84,23 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 1,
     borderBottomColor: designSystem.colors.background.primaryComponent,
-    marginBottom: "12%",
+    marginBottom: 24,
   },
   profilePhotoIcon: {
     width: 30,
     height: 30,
     resizeMode: "contain",
   },
+  input: {
+    width: "100%",
+    marginBottom: 24,
+  },
+  button: {
+    width: "80%",
+    alignSelf: "center",
+    marginTop: 32,
+  },
   footer: {
-    marginTop: "25%",
     alignSelf: "center",
   },
 });
