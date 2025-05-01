@@ -4,7 +4,11 @@ import { TouchableOpacity } from "react-native";
 import TitleView from "@/src/components/TitleView/TitleView";
 import designSystem from "@/src/styles/theme"; // Supondo que seu designSystem esteja configurado dessa maneira
 
-export default function LevelCardView({ level, style }: LevelCardViewProps) {
+export default function LevelCardView({
+  level,
+  style,
+  onPress,
+}: LevelCardViewProps) {
   const levelColors = {
     Fácil: {
       backgroundColor: designSystem.colors.action.primary,
@@ -28,6 +32,7 @@ export default function LevelCardView({ level, style }: LevelCardViewProps) {
     <TouchableOpacity
       style={[styles.container, { backgroundColor }, style]}
       activeOpacity={0.8}
+      onPress={onPress}
     >
       <TitleView title={level} color={"primary"} style={styles.title} />
     </TouchableOpacity>

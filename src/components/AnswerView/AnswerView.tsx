@@ -1,20 +1,18 @@
 import { AnswerViewProps } from "@/src/components/AnswerView/props";
-import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { styles } from "@/src/components/AnswerView/styles";
 import TextView from "@/src/components/TextView/TextView";
 import designSystem from "@/src/styles/theme";
 
-export default function AnswerView({ answer, style }: AnswerViewProps) {
-  const [isSelected, setIsSelected] = useState(false);
-
-  const handlePress = () => {
-    setIsSelected((prev) => !prev);
-  };
-
+export default function AnswerView({
+  answer,
+  style,
+  isSelected,
+  onPress,
+}: AnswerViewProps) {
   return (
     <TouchableOpacity
-      onPress={handlePress}
+      onPress={onPress}
       style={[
         styles.container,
         style,
@@ -25,7 +23,7 @@ export default function AnswerView({ answer, style }: AnswerViewProps) {
         },
       ]}
     >
-      <TextView text={answer} style={styles.answer} />
+      <TextView color={"secondary"} text={answer} style={styles.answer} />
     </TouchableOpacity>
   );
 }

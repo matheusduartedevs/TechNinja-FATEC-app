@@ -5,7 +5,7 @@ import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView
 import FooterView from "@/src/components/FooterView/FooterView";
 import { useEffect, useState } from "react";
 import { getLevels } from "@/src/services/quiz";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import TextView from "@/src/components/TextView/TextView";
 import { formatText } from "@/src/utils/formatNames";
 
@@ -45,6 +45,7 @@ export default function LevelsPage() {
                   key={index}
                   level={formatText(level)}
                   style={styles.card}
+                  onPress={() => router.push("/quiz")}
                 />
               ))
             ) : (

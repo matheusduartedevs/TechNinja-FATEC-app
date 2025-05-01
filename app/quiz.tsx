@@ -5,8 +5,13 @@ import QuestionView from "@/src/components/QuestionView/QuestionView";
 import AnswerView from "@/src/components/AnswerView/AnswerView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import { router } from "expo-router";
+import { useState } from "react";
+
+const answers = ["Vikings", "Erik", "Noruegueses", "Islandeses"];
 
 export default function QuizScreen() {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   return (
     <View style={styles.container}>
       <ActionHeaderView style={styles.headerAction} title="" />
@@ -16,10 +21,19 @@ export default function QuizScreen() {
         style={styles.question}
       />
 
-      <AnswerView style={styles.answer} answer={"Vikins"} />
-      <AnswerView style={styles.answer} answer={"Erik"} />
-      <AnswerView style={styles.answer} answer={"Noruegueses"} />
-      <AnswerView style={styles.answer} answer={"Islandeses"} />
+      {answers.map((answer, index) => (
+        <AnswerView
+          key={index}
+          answer={answer}
+          isSelected={selectedIndex === index}
+          onPress={() =>
+            setSelectedIndex((prevIndex) =>
+              prevIndex === index ? null : index,
+            )
+          }
+          style={styles.answer}
+        />
+      ))}
 
       <ButtonView
         text={"Próximo"}
