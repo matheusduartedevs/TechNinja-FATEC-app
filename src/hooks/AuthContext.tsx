@@ -38,8 +38,13 @@ interface AuthContextType {
   register: (credentials: Credentials) => Promise<void>;
   logout: () => void;
   updateUser: (updates: Updates) => Promise<void>;
+  updateScoreAndMarkCompleted: (
+    pontos: number,
+    area: string,
+    subtema: string,
+    dificuldade: string,
+  ) => Promise<void>;
 }
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -196,8 +201,73 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const updateScoreAndMarkCompleted = async (
+    points: number,
+    area: string,
+    subtema: string,
+    dificuldade: string,
+  ) => {
+    if (!token) {
+      console.error("Token não encontrado.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/update-score`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ points }),
+        },
+      );
+
+      if (!response.ok) {
+        const resData = await response.json();
+        throw new Error(resData.message || "Erro ao atualizar pontuação");
+      }
+
+      await fetch(
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/mark-quiz-completed`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            area,
+            subtema,
+            dificuldade,
+          }),
+        },
+      );
+    } catch (error) {
+      console.error("❌ Erro ao finalizar quiz:", error);
+    }
+  };
+
   const value = useMemo(
-    () => ({ user, token, login, logout, updateUser, register }),
+    () => ({
+      user,
+      token,
+      login,
+      logout,
+      updateUser,
+      register,
+      updateScoreAndMarkCompleted,
+    }),
     [user, token],
   );
 

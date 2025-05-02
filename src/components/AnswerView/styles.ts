@@ -17,4 +17,12 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     fontFamily: designSystem.fonts.primaryRegular,
   },
+  correct: {
+    backgroundColor: designSystem.colors.action.primary,
+    borderColor: designSystem.colors.action.primaryHover,
+  },
+  wrong: {
+    backgroundColor: designSystem.colors.action.tertiary,
+    borderColor: designSystem.colors.action.tertiaryHover,
+  },
 });
