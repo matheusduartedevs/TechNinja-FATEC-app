@@ -15,7 +15,7 @@ const options = [
   { name: "Ranking", icon: rankingIcon, path: "/ranking" },
   { name: "Usuário", icon: userIcon, path: "/profile" },
   { name: "Configurações", icon: settingsIcon, path: "/config" },
-];
+] as const;
 
 export default function FooterView({ style }: FooterViewProps) {
   const router = useRouter();
@@ -24,13 +24,14 @@ export default function FooterView({ style }: FooterViewProps) {
   const [selected, setSelected] = useState("Home");
 
   useEffect(() => {
-    const match = options.find((option) => option.path === pathname);
+    const match = options.find((option) => pathname.startsWith(option.path));
     if (match) {
       setSelected(match.name);
     }
   }, [pathname]);
 
   const handlePress = (option: (typeof options)[number]) => {
+    if (pathname.startsWith(option.path)) return;
     setSelected(option.name);
     router.push(option.path);
   };
