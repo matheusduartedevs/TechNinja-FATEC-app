@@ -4,27 +4,57 @@ import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView
 import QuestionView from "@/src/components/QuestionView/QuestionView";
 import AnswerView from "@/src/components/AnswerView/AnswerView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
-import { router } from "expo-router";
-import { useState } from "react";
-
-const answers = ["Vikings", "Erik", "Noruegueses", "Islandeses"];
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { getQuiz } from "@/src/services/quiz";
 
 export default function QuizScreen() {
+  const { name, subtheme, level } = useLocalSearchParams();
+  const [questions, setQuestions] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const currentQuestion = questions[currentIndex];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getQuiz(
+          name as string,
+          subtheme as string,
+          level as string,
+        );
+        setQuestions(data);
+      } catch (error) {
+        console.error("❌ Erro ao buscar quiz:", error);
+      }
+    };
+
+    fetchData();
+  }, [name, subtheme, level]);
+
+  const handleNext = () => {
+    if (currentIndex + 1 < questions.length) {
+      setCurrentIndex(currentIndex + 1);
+      setSelectedIndex(null); // limpa a seleção para a próxima pergunta
+    } else {
+      router.push("/quizFinish");
+    }
+  };
+
+  if (!currentQuestion) return null;
 
   return (
     <View style={styles.container}>
       <ActionHeaderView style={styles.headerAction} title="" />
-
       <QuestionView
-        question={"Quem fundou a Groenlândia?"}
+        question={currentQuestion.pergunta}
         style={styles.question}
       />
-
-      {answers.map((answer, index) => (
+      {currentQuestion.alternativas.map((alt, index) => (
         <AnswerView
           key={index}
-          answer={answer}
+          answer={`${alt.opcao}) ${alt["texto-opcao"]}`}
           isSelected={selectedIndex === index}
           onPress={() =>
             setSelectedIndex((prevIndex) =>
@@ -34,11 +64,11 @@ export default function QuizScreen() {
           style={styles.answer}
         />
       ))}
-
+      a
       <ButtonView
-        text={"Próximo"}
+        text={currentIndex + 1 === questions.length ? "Finalizar" : "Próximo"}
         color={"primary"}
-        onPress={() => router.push("/quizFinish")}
+        onPress={handleNext}
         style={styles.button}
       />
     </View>

@@ -45,7 +45,9 @@ export default function LevelsPage() {
                   key={index}
                   level={formatText(level)}
                   style={styles.card}
-                  onPress={() => router.push("/quiz")}
+                  onPress={() =>
+                    router.push(`/quiz/${name}/${subtheme}/${level}`)
+                  }
                 />
               ))
             ) : (
