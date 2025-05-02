@@ -5,9 +5,11 @@ import ButtonView from "@/src/components/ButtonView/ButtonView";
 import PointsView from "@/src/components/PointsView/PointsView";
 import logo from "@/assets/icons/logo.png";
 import { useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
 export default function QuizFinishScreen() {
   const router = useRouter();
+  const { correctCount, totalQuestions, points } = useLocalSearchParams();
 
   return (
     <View style={styles.container}>
@@ -18,9 +20,18 @@ export default function QuizFinishScreen() {
         color="primary"
         style={styles.text}
       />
-      <PointsView points="+40" background="secondary" style={styles.points} />
 
-      <TextView text="Você acertou 4/5" color="primary" style={styles.text} />
+      <PointsView
+        points={`+${points}`}
+        background="secondary"
+        style={styles.points}
+      />
+
+      <TextView
+        text={`Você acertou ${correctCount}/${totalQuestions}`}
+        color="primary"
+        style={styles.text}
+      />
 
       <ButtonView
         text="Ir para o início"

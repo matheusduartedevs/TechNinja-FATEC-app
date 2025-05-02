@@ -8,6 +8,8 @@ export default function AnswerView({
   answer,
   style,
   isSelected,
+  isCorrect,
+  isWrong,
   onPress,
 }: AnswerViewProps) {
   return (
@@ -21,6 +23,8 @@ export default function AnswerView({
             ? designSystem.colors.action.primary
             : "transparent",
         },
+        isCorrect && styles.correct,
+        isWrong && styles.wrong,
       ]}
     >
       <TextView color={"secondary"} text={answer} style={styles.answer} />
