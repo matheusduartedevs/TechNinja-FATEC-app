@@ -6,7 +6,7 @@ import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function HomeHeaderView({ style }: HomeHeaderViewProps) {
   const { user } = useAuth();
-  const points = user?.pontuacao.toString() ?? "0";
+  const points = user?.pontuacao != null ? user.pontuacao.toString() : "0";
 
   return (
     <View style={[styles.container, style]}>

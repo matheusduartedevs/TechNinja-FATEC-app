@@ -132,7 +132,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const register = async (userData) => {
+  const register = async (userData: {
+    nome: string;
+    email: string;
+    senha: string;
+  }) => {
     try {
       const response = await fetch(
         `${
@@ -149,20 +153,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const resData = await response.json();
 
-      if (response.ok) {
-        if (resData.token) {
-          await AsyncStorage.setItem("token", resData.token);
-          setUser(resData.token);
+      if (response.ok && resData.token) {
+        await AsyncStorage.setItem("token", resData.token);
+        setToken(resData.token);
+
+        const decoded: any = jwtDecode(resData.token);
+
+        const fullUserData = await fetchUserData(decoded.id, resData.token);
+        if (fullUserData) {
+          setUser(fullUserData);
         } else {
-          console.log("Token não retornado pela API.");
+          console.log("Usuário registrado, mas falha ao buscar dados.");
         }
       } else {
-        console.log(resData.message || "Erro ao registrar");
+        console.log(
+          "Erro ao registrar:",
+          resData.message || "Sem token retornado",
+        );
       }
     } catch (error) {
       console.error("Erro no register:", error);
     }
   };
+
   const logout = async () => {
     await AsyncStorage.removeItem("token");
     setToken(null);

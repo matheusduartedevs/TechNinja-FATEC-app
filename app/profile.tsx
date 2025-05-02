@@ -6,7 +6,6 @@ import PointsView from "@/src/components/PointsView/PointsView";
 import AchievementsView from "@/src/components/AchievementsView/AchievementsView";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 
-import icon from "@/assets/icons/icon.png";
 import badge from "@/assets/icons/golden-badge.png";
 import badge1 from "@/assets/icons/badge1.png";
 import badge2 from "@/assets/icons/badge2.png";
@@ -16,6 +15,7 @@ import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function Profile() {
   const { user } = useAuth();
+  const points = user?.pontuacao != null ? user.pontuacao.toString() : "0";
 
   return (
     <View style={styles.container}>
@@ -38,19 +38,19 @@ export default function Profile() {
 
             <View style={styles.pointsTriangle}>
               <PointsView
-                points={user?.pontuacao.toString() ?? "0"}
+                points={points}
                 background="primary"
                 style={styles.topPoint}
               />
 
               <View style={styles.bottomRow}>
                 <PointsView
-                  points={user?.pontuacao.toString() ?? "0"}
+                  points={points}
                   background="primary"
                   style={styles.bottomPoint}
                 />
                 <PointsView
-                  points={user?.pontuacao.toString() ?? "0"}
+                  points={points}
                   background="primary"
                   style={styles.bottomPoint}
                 />
