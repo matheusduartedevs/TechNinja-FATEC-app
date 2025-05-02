@@ -34,35 +34,39 @@ export default function SettingsOptionView({
       ]}
     >
       {option && (
-        <View style={[styles.option, style]}>
-          <TextView text={option} style={styles.option} />
-          <TouchableOpacity onPress={onPressArrow}>
+        <TouchableOpacity onPress={onPressArrow}>
+          <View style={[styles.option, style]}>
+            <TextView text={option} color={"primary"} style={styles.option} />
             <Image source={arrowFoward} />
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       )}
 
       {option_two && (
-        <View style={[styles.option, style]}>
-          <TextView text={option_two} style={styles.option} />
-          {/*}exibe o icone arrow apenas ao passar a propriedade showArrow como true nas props {*/}
-          {showArrow_two && (
-            <TouchableOpacity onPress={onPressArrowTwo}>
-              <Image source={arrowFoward} />
-            </TouchableOpacity>
-          )}
-        </View>
+        <TouchableOpacity onPress={onPressArrowTwo}>
+          <View style={[styles.option, style]}>
+            <TextView
+              text={option_two}
+              color={"primary"}
+              style={styles.option}
+            />
+            {/*}exibe o icone arrow apenas ao passar a propriedade showArrow como true nas props {*/}
+            {showArrow_two && <Image source={arrowFoward} />}
+          </View>
+        </TouchableOpacity>
       )}
 
       {option_three && (
-        <View style={[styles.option, style]}>
-          <TextView text={option_three} style={styles.option} />
-          {showArrow_three && (
-            <TouchableOpacity onPress={onPressArrowThree}>
-              <Image source={arrowFoward} />
-            </TouchableOpacity>
-          )}
-        </View>
+        <TouchableOpacity onPress={onPressArrowThree}>
+          <View style={[styles.option, style]}>
+            <TextView
+              text={option_three}
+              color={"primary"}
+              style={styles.option}
+            />
+            {showArrow_three && <Image source={arrowFoward} />}
+          </View>
+        </TouchableOpacity>
       )}
     </View>
   );
