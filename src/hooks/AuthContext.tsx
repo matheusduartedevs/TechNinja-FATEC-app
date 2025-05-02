@@ -44,7 +44,9 @@ interface AuthContextType {
     subtema: string,
     dificuldade: string,
   ) => Promise<void>;
+  loadSession: () => Promise<void>;
 }
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -56,18 +58,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  useEffect(() => {
-    const loadSession = async () => {
-      const storedToken = await AsyncStorage.getItem("token");
-      if (storedToken) {
-        setToken(storedToken);
-        const decoded: any = jwtDecode(storedToken);
-        const userData = await fetchUserData(decoded.id, storedToken);
-        if (userData) {
-          setUser(userData);
-        }
+  const loadSession = async () => {
+    const storedToken = await AsyncStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      const decoded: any = jwtDecode(storedToken);
+      const userData = await fetchUserData(decoded.id, storedToken);
+      if (userData) {
+        setUser(userData);
+        return userData;
       }
-    };
+    }
+    return null;
+  };
+
+  useEffect(() => {
     loadSession();
   }, []);
 
@@ -280,6 +285,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       updateUser,
       register,
       updateScoreAndMarkCompleted,
+      loadSession,
     }),
     [user, token],
   );

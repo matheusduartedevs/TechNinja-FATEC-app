@@ -10,9 +10,12 @@ import IconSistemasOperacionais from "@/assets/icons/icon-sistemas-operacionais.
 import IconModelagemDados from "@/assets/icons/icon-modelagem-de-dados.png";
 
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function App() {
   const router = useRouter();
+  const { loadSession } = useAuth();
 
   const navigateToSubthemes = (name: string, title: string) => {
     router.push(`/subthemes/${name}?title=${encodeURIComponent(title)}`);
@@ -41,6 +44,17 @@ export default function App() {
       icon: IconModelagemDados,
     },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await loadSession();
+      } catch (error) {
+        console.error("Erro ao buscar os dados do usuário:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
