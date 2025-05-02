@@ -17,7 +17,13 @@ export default function LevelsPage() {
     const fetchData = async () => {
       try {
         const levels = await getLevels(name as string, subtheme as string);
-        setLevels(levels);
+
+        const orderedLevels = levels.sort((a, b) => {
+          const order = ["facil", "medio", "dificil"];
+          return order.indexOf(a) - order.indexOf(b);
+        });
+
+        setLevels(orderedLevels);
       } catch (error) {
         console.error("❌ Erro ao buscar dados na levels:", error);
       }
@@ -52,7 +58,7 @@ export default function LevelsPage() {
               ))
             ) : (
               <TextView
-                text={"Não há levels para essa dificuldade"}
+                text={"Não há dificuldades para esse subtema"}
                 color={"primary"}
               />
             )}
