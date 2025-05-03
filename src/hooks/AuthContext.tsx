@@ -17,9 +17,9 @@ interface Credentials {
 }
 
 interface Updates {
-  name?: string;
+  nome?: string;
   email?: string;
-  password?: string;
+  senha?: string;
   avatar?: string;
 }
 
@@ -189,7 +189,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const updateUser = async (updates: Updates) => {
-    if (!token || !user?.id) return;
+    if (!token) {
+      console.error("Token não encontrado");
+      return;
+    }
+
+    let decoded: any;
+    try {
+      decoded = jwtDecode(token);
+    } catch (error) {
+      console.error("Erro ao decodificar token:", error);
+      return;
+    }
+
+    if (!decoded.id) {
+      console.error("ID do usuário não encontrado no token");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -197,7 +213,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           process.env.EXPO_PUBLIC_MODE === "development"
             ? process.env.EXPO_PUBLIC_API_URL_DEV
             : process.env.EXPO_PUBLIC_API_URL_PROD
-        }/api/users/update/${user.id}`,
+        }/api/users/update/${decoded.id}`,
         {
           method: "PUT",
           headers: {
@@ -208,17 +224,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         },
       );
 
-      if (!response.ok) throw new Error("Erro ao atualizar dados");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao atualizar dados");
+      }
 
-      setUser((prev) => ({
-        ...prev!,
-        ...updates,
-      }));
+      const updatedUserData = await fetchUserData(decoded.id, token);
+      if (updatedUserData) {
+        setUser(updatedUserData);
+      }
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
     }
   };
-
   const updateScoreAndMarkCompleted = async (
     points: number,
     area: string,
