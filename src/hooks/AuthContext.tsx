@@ -29,6 +29,7 @@ interface User {
   pontuacao: number;
   email: string;
   avatar?: string;
+  quizzesCompletados: string[];
 }
 
 interface AuthContextType {

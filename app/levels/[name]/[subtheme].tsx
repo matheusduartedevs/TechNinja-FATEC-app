@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import designSystem from "@/src/styles/theme";
 import LevelCardView from "@/src/components/LevelCardView/LevelCardView";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
@@ -8,10 +8,40 @@ import { getLevels } from "@/src/services/quiz";
 import { router, useLocalSearchParams } from "expo-router";
 import TextView from "@/src/components/TextView/TextView";
 import { formatText } from "@/src/utils/formatNames";
+import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function LevelsPage() {
   const { name, subtheme, title } = useLocalSearchParams();
   const [levels, setLevels] = useState<any[]>([]);
+
+  const { user } = useAuth();
+
+  const navigateToQuiz = (level: string) => {
+    const quizPath = `${name}-${subtheme}-${level}`;
+    const quizCompleted = user?.quizzesCompletados?.includes(quizPath);
+    console.log(quizPath);
+    console.log(quizCompleted);
+
+    if (quizCompleted) {
+      Alert.alert(
+        "Quiz já feito",
+        "Você já completou esse quiz. Deseja refazer?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Refazer",
+            onPress: () => router.push(`/quiz/${name}/${subtheme}/${level}`),
+          },
+        ],
+        { cancelable: true },
+      );
+    } else {
+      router.push(`/quiz/${name}/${subtheme}/${level}`);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,9 +81,7 @@ export default function LevelsPage() {
                   key={index}
                   level={formatText(level)}
                   style={styles.card}
-                  onPress={() =>
-                    router.push(`/quiz/${name}/${subtheme}/${level}`)
-                  }
+                  onPress={() => navigateToQuiz(level)}
                 />
               ))
             ) : (
