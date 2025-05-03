@@ -2,16 +2,47 @@ import { StyleSheet, View, Image, ScrollView } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import InputView from "@/src/components/InputView/InputView";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import FooterView from "@/src/components/FooterView/FooterView";
 import TextView from "@/src/components/TextView/TextView";
 import icon from "@/assets/icons/icon_config.png";
+import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function ConfigAccount() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { updateUser, user } = useAuth();
+
+  const handleChanges = async () => {
+    const userData = {
+      nome: userName?.trim(),
+      email: email?.trim(),
+      senha: password,
+      avatar: user?.avatar,
+    };
+
+    if (!userData.nome || !userData.email) {
+      console.error("Nome e email são obrigatórios");
+      return;
+    }
+
+    try {
+      await updateUser(userData);
+      alert("Dados alterados");
+    } catch (error) {
+      console.error("Erro ao alterar as informações do usuário:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      setUserName(user.nome);
+      setEmail(user.email);
+    }
+  }, [user]);
 
   return (
     <View style={styles.container}>
@@ -55,11 +86,11 @@ export default function ConfigAccount() {
           text="Salvar"
           color="primary"
           style={styles.button}
-          onPress={() => console.log("Atualizações salvas")}
+          onPress={handleChanges}
         />
       </ScrollView>
 
-      <FooterView onClick={() => console.log("..")} style={styles.footer} />
+      <FooterView style={styles.footer} />
     </View>
   );
 }
