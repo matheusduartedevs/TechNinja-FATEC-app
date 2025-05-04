@@ -38,28 +38,29 @@ export default function ForgotpassScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.container}>
-            <ActionHeaderView style={styles.header} title="" />
-
-            <TextView
-              text="Identifique-se para receber um e-mail com as instruções
+            <ActionHeaderView title="" />
+            <View style={styles.container}>
+              <TextView
+                text="Identifique-se para receber um e-mail com as instruções
               para redefinir sua senha"
-              color="primary"
-              style={styles.text}
-            />
+                color="primary"
+                style={styles.text}
+              />
 
-            <InputView
-              logo={iconEmail}
-              placeholder="E-mail"
-              onChangeText={setEmail}
-              value={email}
-            />
+              <InputView
+                logo={iconEmail}
+                placeholder="E-mail"
+                onChangeText={setEmail}
+                value={email}
+              />
 
-            <ButtonView
-              text={"Enviar email"}
-              color={"primary"}
-              onPress={handleForgotpass}
-              style={styles.button}
-            />
+              <ButtonView
+                text={"Enviar email"}
+                color={"primary"}
+                onPress={handleForgotpass}
+                style={styles.button}
+              />
+            </View>
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>
@@ -72,16 +73,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
     justifyContent: "center",
-    gap: "3%",
-    paddingBottom: "20%",
+    gap: "4%",
+    paddingBottom: "25%",
   },
-
   button: {
     alignSelf: "center",
   },
-
-  header: {},
-
   text: {
     fontFamily: designSystem.fonts.primaryRegular,
     color: designSystem.colors.text.primary,
