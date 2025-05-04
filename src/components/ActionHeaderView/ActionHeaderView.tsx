@@ -1,7 +1,6 @@
 import { ActionHeaderViewProps } from "@/src/components/ActionHeaderView/props";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, Text, SafeAreaView } from "react-native";
 import { styleIcon, styles } from "@/src/components/ActionHeaderView/styles";
-import TitleView from "@/src/components/TitleView/TitleView";
 import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/Feather";
 
@@ -21,11 +20,13 @@ export default function ActionHeaderView({
   };
 
   return (
-    <View style={[styles.container, style]}>
+    <SafeAreaView style={[styles.container, style]}>
       <TouchableOpacity onPress={handleBack}>
         <Icon name="arrow-left" size={26} style={styleIcon(color)} />
       </TouchableOpacity>
-      <TitleView title={title} color={"primary"} style={styles.title} />
-    </View>
+      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.title}>
+        {title}
+      </Text>
+    </SafeAreaView>
   );
 }

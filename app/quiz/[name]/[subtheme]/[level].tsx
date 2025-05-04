@@ -145,7 +145,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   headerAction: {
-    marginTop: 48,
     position: "absolute",
     zIndex: 10,
   },

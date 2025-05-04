@@ -37,7 +37,7 @@ export default function Name() {
 
   return (
     <View style={styles.container}>
-      <ActionHeaderView title={String(title ?? "")} style={styles.header} />
+      <ActionHeaderView title={String(title ?? "")} />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -74,12 +74,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingTop: 48,
     paddingBottom: 40,
     alignItems: "center",
-  },
-  header: {
-    marginBottom: 60,
   },
   scrollContent: {
     flexGrow: 1,
@@ -87,6 +83,7 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     justifyContent: "space-between",
+    paddingTop: 20,
   },
   cardWrapper: {
     paddingHorizontal: 16,
