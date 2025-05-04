@@ -97,7 +97,11 @@ export default function QuizScreen() {
 
   return (
     <View style={styles.container}>
-      <ActionHeaderView style={styles.headerAction} title="" />
+      <ActionHeaderView
+        style={styles.headerAction}
+        title=""
+        color={"secondary"}
+      />
 
       <QuestionView
         question={currentQuestion.pergunta}

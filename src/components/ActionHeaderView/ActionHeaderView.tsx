@@ -1,13 +1,14 @@
 import { ActionHeaderViewProps } from "@/src/components/ActionHeaderView/props";
-import { Image, TouchableOpacity, View } from "react-native";
-import { styles } from "@/src/components/ActionHeaderView/styles";
-import arrowBack from "@/assets/icons/arrow-back.png";
+import { TouchableOpacity, View } from "react-native";
+import { styleIcon, styles } from "@/src/components/ActionHeaderView/styles";
 import TitleView from "@/src/components/TitleView/TitleView";
 import { useRouter } from "expo-router";
+import Icon from "react-native-vector-icons/Feather";
 
 export default function ActionHeaderView({
   style,
   title,
+  color = "primary",
 }: ActionHeaderViewProps) {
   const router = useRouter();
 
@@ -22,7 +23,7 @@ export default function ActionHeaderView({
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity onPress={handleBack}>
-        <Image source={arrowBack} style={styles.icon} />
+        <Icon name="arrow-left" size={26} style={styleIcon(color)} />
       </TouchableOpacity>
       <TitleView title={title} color={"primary"} style={styles.title} />
     </View>

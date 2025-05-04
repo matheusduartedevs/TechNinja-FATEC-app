@@ -8,13 +8,13 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
   },
-  icon: {
-    width: 24,
-    height: 24,
-  },
   title: {
     flex: 1,
     fontFamily: designSystem.fonts.primaryBold,
     textAlign: "center",
   },
+});
+
+export const styleIcon = (color: "primary" | "secondary" = "secondary") => ({
+  color: color === "primary" ? "#FFFFFF" : "#000000",
 });
