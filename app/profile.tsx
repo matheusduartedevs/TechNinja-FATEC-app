@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
+    paddingBottom: 100,
   },
   content: {
     flex: 1,

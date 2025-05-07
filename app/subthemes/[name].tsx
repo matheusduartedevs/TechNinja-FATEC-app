@@ -62,10 +62,9 @@ export default function Name() {
               />
             )}
           </View>
-
-          <FooterView />
         </View>
       </ScrollView>
+      <FooterView />
     </View>
   );
 }
@@ -73,10 +72,12 @@ export default function Name() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
     backgroundColor: designSystem.colors.action.primaryBackground,
   },
   scrollContent: {
     flexGrow: 1,
+    paddingBottom: 100,
   },
   inner: {
     flex: 1,
