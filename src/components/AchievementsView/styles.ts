@@ -12,21 +12,17 @@ export const styles = StyleSheet.create({
     backgroundColor: designSystem.colors.background.secondaryComponent,
     borderRadius: 20,
     marginBottom: 80,
-    paddingTop: 30,
+    paddingVertical: 20,
   },
   iconsContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   icon: {
-    marginLeft: 22,
     maxHeight: 80,
     minHeight: 80,
-    marginRight: 10,
     width: 80,
-  },
-  flatlistContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    aspectRatio: 1,
+    margin: 15,
   },
 });

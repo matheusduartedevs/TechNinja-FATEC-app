@@ -12,8 +12,10 @@ import badge3 from "@/assets/icons/badge3.png";
 export default function App() {
   return (
     <View style={styles.container}>
-      <ActionHeaderView title="Isabela" />
-      <AchievementsView achievements={[badge1, badge2, badge3]} />
+      <ActionHeaderView title="Conquistas" />
+      <AchievementsView
+        achievements={[badge1, badge2, badge3, badge2, badge3, badge1]}
+      />
       <FooterView />
     </View>
   );
@@ -25,5 +27,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: designSystem.colors.action.primaryBackground,
+    gap: 20,
   },
 });

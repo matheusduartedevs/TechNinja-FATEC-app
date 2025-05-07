@@ -7,21 +7,18 @@ export default function AchievementsView({
   style,
   onPress,
 }: AchievementsViewProps) {
-  const limitedAchievements = achievements.slice(0, 3);
-
   return (
     <View style={[styles.container, style]}>
       <Pressable onPress={onPress}>
         <View style={styles.iconsContainer}>
           <FlatList
-            data={limitedAchievements}
+            data={achievements}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <Image source={item} style={styles.icon} />
             )}
-            horizontal
+            numColumns={3}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.flatlistContainer}
           />
         </View>
       </Pressable>

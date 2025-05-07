@@ -24,48 +24,42 @@ export default function Profile() {
       <ActionHeaderView title="Perfil" />
 
       <View style={styles.content}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.inner}>
-            <UserView
-              icon={{ uri: user?.avatar }}
-              name={user?.nome ?? ""}
-              position="1°"
-              badge={badge}
-              badgePosition="top"
-              style={styles.user}
+        <View style={styles.inner}>
+          <UserView
+            icon={{ uri: user?.avatar }}
+            name={user?.nome ?? ""}
+            badge={badge}
+            badgePosition="top"
+            style={styles.user}
+          />
+
+          <View style={styles.pointsTriangle}>
+            <PointsView
+              points={points}
+              background="primary"
+              style={styles.topPoint}
             />
 
-            <View style={styles.pointsTriangle}>
+            <View style={styles.bottomRow}>
               <PointsView
                 points={points}
                 background="primary"
-                style={styles.topPoint}
+                style={styles.bottomPoint}
               />
-
-              <View style={styles.bottomRow}>
-                <PointsView
-                  points={points}
-                  background="primary"
-                  style={styles.bottomPoint}
-                />
-                <PointsView
-                  points={points}
-                  background="primary"
-                  style={styles.bottomPoint}
-                />
-              </View>
+              <PointsView
+                points={points}
+                background="primary"
+                style={styles.bottomPoint}
+              />
             </View>
-
-            <TextView text="Conquistas" color="primary" style={styles.text} />
-            <AchievementsView
-              achievements={[badge1, badge2, badge3]}
-              onPress={() => router.push("/profileBadge")}
-            />
           </View>
-        </ScrollView>
+
+          <TextView text="Conquistas" color="primary" style={styles.text} />
+          <AchievementsView
+            achievements={[badge1, badge2, badge3]}
+            onPress={() => router.push("/profileBadge")}
+          />
+        </View>
       </View>
 
       <FooterView />
@@ -80,11 +74,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
     alignItems: "center",
-    paddingHorizontal: 16,
   },
   inner: {
     alignItems: "center",
