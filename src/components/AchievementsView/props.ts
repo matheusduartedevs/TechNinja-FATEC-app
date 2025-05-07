@@ -3,4 +3,5 @@ import { ImageSourcePropType, ViewStyle } from "react-native"; // Adicionando o 
 export interface AchievementsViewProps {
   achievements: ImageSourcePropType[];
   style?: ViewStyle;
+  onPress?: () => void;
 }

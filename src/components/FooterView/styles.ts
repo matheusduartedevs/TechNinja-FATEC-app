@@ -10,7 +10,10 @@ export const styles = StyleSheet.create({
     height: 60,
     backgroundColor: designSystem.colors.background.secondaryComponent,
     borderRadius: 50,
+    marginBottom: 40,
+    alignSelf: "center",
   },
+
   option: {
     flexDirection: "row",
     alignItems: "center",

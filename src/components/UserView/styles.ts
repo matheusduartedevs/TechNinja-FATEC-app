@@ -41,6 +41,8 @@ export const styles = StyleSheet.create({
   name: {
     position: "absolute",
     bottom: -35,
+    fontFamily: designSystem.fonts.primaryRegular,
+    fontSize: designSystem.fonts.textSize,
   },
 
   badge: {
