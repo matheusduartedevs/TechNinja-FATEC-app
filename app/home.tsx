@@ -69,7 +69,12 @@ export default function App() {
         <TextView
           text="Áreas de Conhecimento"
           color="primary"
-          style={styles.text}
+          style={[
+            styles.text,
+            settings.lowVisionMode && {
+              fontSize: designSystem.fonts.lowVisionTitleSize,
+            },
+          ]}
         />
 
         <View style={styles.themeWrapper}>
