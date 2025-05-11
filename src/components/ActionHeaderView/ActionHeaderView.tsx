@@ -3,6 +3,8 @@ import { TouchableOpacity, Text, SafeAreaView } from "react-native";
 import { styleIcon, styles } from "@/src/components/ActionHeaderView/styles";
 import { useRouter } from "expo-router";
 import Icon from "react-native-vector-icons/Feather";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
+import designSystem from "@/src/styles/theme";
 
 export default function ActionHeaderView({
   style,
@@ -10,6 +12,7 @@ export default function ActionHeaderView({
   color = "primary",
 }: ActionHeaderViewProps) {
   const router = useRouter();
+  const { settings } = useAccessibility();
 
   const handleBack = () => {
     if (router.canGoBack()) {
@@ -24,7 +27,11 @@ export default function ActionHeaderView({
       <TouchableOpacity onPress={handleBack}>
         <Icon name="arrow-left" size={26} style={styleIcon(color)} />
       </TouchableOpacity>
-      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.title}>
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        style={[styles.title, settings.lowVisionMode && styles.lowVisionTitle]}
+      >
         {title}
       </Text>
     </SafeAreaView>
