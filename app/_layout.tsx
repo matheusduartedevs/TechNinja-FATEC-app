@@ -1,9 +1,4 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -13,8 +8,8 @@ import karashaFont from "../assets/fonts/Karasha.ttf";
 import quicksandRegularFont from "../assets/fonts/Quicksand-Regular.ttf";
 import quicksandBoldFont from "../assets/fonts/Quicksand-Bold.ttf";
 
-import { useColorScheme } from "@/useColorScheme";
 import { AuthProvider } from "@/src/hooks/AuthContext";
+import { AccessibilityProvider } from "@/src/hooks/AccessibilityContext";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -50,13 +45,11 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
     <AuthProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <AccessibilityProvider>
         <Stack screenOptions={{ headerShown: false }} />
-      </ThemeProvider>
+      </AccessibilityProvider>
     </AuthProvider>
   );
 }

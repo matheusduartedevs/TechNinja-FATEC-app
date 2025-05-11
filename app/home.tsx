@@ -12,10 +12,15 @@ import IconModelagemDados from "@/assets/icons/icon-modelagem-de-dados.png";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function App() {
   const router = useRouter();
   const { loadSession } = useAuth();
+  const { settings } = useAccessibility();
+
+  console.log("Modo Daltônico:", settings.colorBlindMode);
+  console.log("Modo Baixa Visão:", settings.lowVisionMode);
 
   const navigateToSubthemes = (name: string, title: string) => {
     router.push(`/subthemes/${name}?title=${encodeURIComponent(title)}`);

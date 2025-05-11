@@ -8,11 +8,11 @@ import designSystem from "@/src/styles/theme";
 export default function AccessibilityOptionView({
   option,
   style,
+  children,
 }: AccessibilityOptionViewProps) {
   const [isActive, setIsActive] = useState(false);
   const [circlePosition] = useState(new Animated.Value(0));
 
-  // Função para alternar o estado do toggle
   const toggleSwitch = () => {
     setIsActive((prevState) => {
       Animated.timing(circlePosition, {
@@ -27,9 +27,8 @@ export default function AccessibilityOptionView({
 
   return (
     <View style={[styles.container, style]}>
-      <TextView text={option} style={styles.option} />
+      <TextView text={option} color={"primary"} style={styles.option} />
 
-      {/* Toggle */}
       <TouchableOpacity
         style={[
           styles.toggleContainer,
@@ -49,6 +48,7 @@ export default function AccessibilityOptionView({
             },
           ]}
         />
+        {children}
       </TouchableOpacity>
     </View>
   );
