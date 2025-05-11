@@ -2,25 +2,40 @@ import { LevelCardViewProps } from "@/src/components/LevelCardView/props";
 import { styles } from "@/src/components/LevelCardView/styles";
 import { TouchableOpacity } from "react-native";
 import TitleView from "@/src/components/TitleView/TitleView";
-import designSystem from "@/src/styles/theme"; // Supondo que seu designSystem esteja configurado dessa maneira
+import designSystem from "@/src/styles/theme";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function LevelCardView({
   level,
   style,
   onPress,
 }: LevelCardViewProps) {
+  const { settings } = useAccessibility();
+
   const levelColors = {
     Fácil: {
-      backgroundColor: designSystem.colors.action.primary,
-      titleColor: designSystem.colors.action.primary,
+      backgroundColor: settings.colorBlindMode
+        ? designSystem.colors.action.primaryColorBlind
+        : designSystem.colors.action.primary,
+      titleColor: settings.colorBlindMode
+        ? designSystem.colors.action.primaryColorBlind
+        : designSystem.colors.action.primary,
     },
     Médio: {
-      backgroundColor: designSystem.colors.action.secondary,
-      titleColor: designSystem.colors.action.secondary,
+      backgroundColor: settings.colorBlindMode
+        ? designSystem.colors.action.secondaryColorBlind
+        : designSystem.colors.action.secondary,
+      titleColor: settings.colorBlindMode
+        ? designSystem.colors.action.secondaryColorBlind
+        : designSystem.colors.action.secondary,
     },
     Difícil: {
-      backgroundColor: designSystem.colors.action.tertiary,
-      titleColor: designSystem.colors.action.tertiary,
+      backgroundColor: settings.colorBlindMode
+        ? designSystem.colors.action.tertiaryColorBlind
+        : designSystem.colors.action.tertiary,
+      titleColor: settings.colorBlindMode
+        ? designSystem.colors.action.tertiaryColorBlind
+        : designSystem.colors.action.tertiary,
     },
   };
 
@@ -34,7 +49,16 @@ export default function LevelCardView({
       activeOpacity={0.8}
       onPress={onPress}
     >
-      <TitleView title={level} color={"primary"} style={styles.title} />
+      <TitleView
+        title={level}
+        color={"primary"}
+        style={[
+          styles.title,
+          settings.lowVisionMode && {
+            fontSize: designSystem.fonts.lowVisionTitleSize,
+          },
+        ]}
+      />
     </TouchableOpacity>
   );
 }
