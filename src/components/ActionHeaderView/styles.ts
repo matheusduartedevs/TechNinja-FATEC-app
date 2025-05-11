@@ -20,6 +20,9 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 28,
   },
+  lowVisionTitle: {
+    fontSize: designSystem.fonts.lowVisionTitleSize,
+  },
 });
 
 export const styleIcon = (color: "primary" | "secondary" = "secondary") => ({
