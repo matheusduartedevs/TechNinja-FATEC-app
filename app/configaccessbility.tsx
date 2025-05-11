@@ -1,15 +1,23 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import React from "react";
+import { StyleSheet, View, ScrollView, Switch } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import FooterView from "@/src/components/FooterView/FooterView";
 import AccessibilityOptionView from "@/src/components/AccessibilityOptionView/AccessibilityOptionView";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
-export default function ConfigAccessbility() {
+export default function ConfigAccessibility() {
+  const { settings, toggleColorBlindMode, toggleLowVisionMode } =
+    useAccessibility();
+
+  const handleSave = async () => {
+    console.log("Configurações de Acessibilidade:", settings);
+  };
+
   return (
     <View style={styles.container}>
       <ActionHeaderView style={styles.header} title={"Configurações"} />
-
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -17,21 +25,30 @@ export default function ConfigAccessbility() {
         <AccessibilityOptionView
           option={"Modo Daltônico"}
           style={styles.accessibility}
-        />
+        >
+          <Switch
+            value={settings.colorBlindMode}
+            onValueChange={toggleColorBlindMode}
+          />
+        </AccessibilityOptionView>
 
         <AccessibilityOptionView
           option={"Modo Baixa Visão"}
           style={styles.accessibility}
-        />
+        >
+          <Switch
+            value={settings.lowVisionMode}
+            onValueChange={toggleLowVisionMode}
+          />
+        </AccessibilityOptionView>
 
         <ButtonView
           text="Salvar"
           color="primary"
           style={styles.button}
-          onPress={() => console.log("Atualizações salvas")}
+          onPress={handleSave}
         />
       </ScrollView>
-
       <FooterView style={styles.footer} />
     </View>
   );

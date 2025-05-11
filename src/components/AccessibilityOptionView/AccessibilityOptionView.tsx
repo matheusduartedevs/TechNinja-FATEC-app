@@ -10,6 +10,7 @@ export default function AccessibilityOptionView({
   style,
   value,
   onChange,
+  children,
 }: AccessibilityOptionViewProps) {
   const [isActive, setIsActive] = useState(value ?? false);
   const [circlePosition] = useState(new Animated.Value(value ? 20 : 0));
@@ -60,6 +61,7 @@ export default function AccessibilityOptionView({
             },
           ]}
         />
+        {children}
       </TouchableOpacity>
     </View>
   );

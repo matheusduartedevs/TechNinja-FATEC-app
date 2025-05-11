@@ -5,4 +5,5 @@ export interface AccessibilityOptionViewProps {
   style?: ViewStyle;
   value?: boolean;
   onChange?: (newValue: boolean) => void;
+  children?: React.ReactNode;
 }
