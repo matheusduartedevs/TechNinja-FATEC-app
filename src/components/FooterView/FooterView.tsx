@@ -9,6 +9,8 @@ import rankingIcon from "@/assets/badges/ranking.png";
 import userIcon from "@/assets/icons/icon.png";
 import settingsIcon from "@/assets/icons/config.png";
 import { useRouter, usePathname } from "expo-router";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
+import designSystem from "@/src/styles/theme";
 
 const options = [
   { name: "Home", icon: homeIcon, path: "/home" },
@@ -20,6 +22,8 @@ const options = [
 export default function FooterView({ style }: FooterViewProps) {
   const router = useRouter();
   const pathname = usePathname();
+
+  const { settings } = useAccessibility();
 
   const [selected, setSelected] = useState("Home");
 
@@ -55,7 +59,12 @@ export default function FooterView({ style }: FooterViewProps) {
             <TextView
               text={option.name}
               color={"primary"}
-              style={styles.text}
+              style={[
+                styles.text,
+                settings.lowVisionMode && {
+                  fontSize: designSystem.fonts.lowVisionTextSize,
+                },
+              ]}
             />
           )}
         </TouchableOpacity>
