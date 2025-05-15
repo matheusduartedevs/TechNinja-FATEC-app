@@ -6,11 +6,16 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    width: "95%",
+    width: "85%",
     height: 60,
     backgroundColor: designSystem.colors.background.secondaryComponent,
     borderRadius: 50,
+    marginBottom: 40,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: 0,
   },
+
   option: {
     flexDirection: "row",
     alignItems: "center",

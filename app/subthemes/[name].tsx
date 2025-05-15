@@ -3,11 +3,11 @@ import designSystem from "@/src/styles/theme";
 import FooterView from "@/src/components/FooterView/FooterView";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import SubThemeCardView from "@/src/components/SubThemeCardView/SubThemeCardView";
+import TextView from "@/src/components/TextView/TextView";
 import banco_de_dados from "@/assets/icons/banco_de_dados.png";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { getSubThemes } from "@/src/services/quiz";
-import TextView from "@/src/components/TextView/TextView";
 import { formatText } from "@/src/utils/formatNames";
 
 export default function Name() {
@@ -62,10 +62,9 @@ export default function Name() {
               />
             )}
           </View>
-
-          <FooterView style={styles.footer} />
         </View>
       </ScrollView>
+      <FooterView />
     </View>
   );
 }
@@ -73,12 +72,12 @@ export default function Name() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingBottom: 40,
-    alignItems: "center",
   },
   scrollContent: {
     flexGrow: 1,
+    paddingBottom: 100,
   },
   inner: {
     flex: 1,
@@ -90,9 +89,5 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 25,
-  },
-  footer: {
-    alignSelf: "center",
-    marginTop: 20,
   },
 });
