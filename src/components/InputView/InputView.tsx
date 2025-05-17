@@ -2,6 +2,8 @@ import React from "react";
 import { SafeAreaView, TextInput, View, Text, Image } from "react-native";
 import { styles } from "@/src/components/InputView/styles";
 import { InputViewProps } from "@/src/components/InputView/props";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
+import designSystem from "@/src/styles/theme";
 
 export default function InputView({
   title,
@@ -13,6 +15,8 @@ export default function InputView({
   underline = false,
   secureTextEntry = false,
 }: InputViewProps) {
+  const { settings } = useAccessibility();
+
   return (
     <SafeAreaView style={[styles.safeArea, style, { width: "100%" }]}>
       {title && <Text style={styles.title}>{title}</Text>}
@@ -24,6 +28,9 @@ export default function InputView({
             styles.container,
             underline && styles.textUnderline,
             logo ? styles.textLeft : styles.textCenter,
+            settings.lowVisionMode && {
+              fontSize: designSystem.fonts.lowVisionTextSize,
+            },
           ]}
           placeholder={placeholder}
           onChangeText={onChangeText}
