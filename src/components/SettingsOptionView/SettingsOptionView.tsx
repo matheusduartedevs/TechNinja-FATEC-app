@@ -19,10 +19,8 @@ export default function SettingsOptionView({
     Boolean,
   ).length;
 
-  // altera o valor da altura do container com base no número de opções passadas como props
   const containerHeight = optionsCount === 1 ? 70 : 70 + optionsCount * 28;
 
-  //altera o valor do gap de acordo com o numero de opcoes dentro do container
   const dynamicGap = optionsCount === 2 ? 30 : optionsCount === 3 ? 20 : 0;
 
   return (
@@ -50,7 +48,6 @@ export default function SettingsOptionView({
               color={"primary"}
               style={styles.option}
             />
-            {/*}exibe o icone arrow apenas ao passar a propriedade showArrow como true nas props {*/}
             {showArrow_two && <Image source={arrowFoward} />}
           </View>
         </TouchableOpacity>
