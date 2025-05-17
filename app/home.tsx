@@ -19,9 +19,6 @@ export default function App() {
   const { loadSession } = useAuth();
   const { settings } = useAccessibility();
 
-  console.log("Modo Daltônico:", settings.colorBlindMode);
-  console.log("Modo Baixa Visão:", settings.lowVisionMode);
-
   const navigateToSubthemes = (name: string, title: string) => {
     router.push(`/subthemes/${name}?title=${encodeURIComponent(title)}`);
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, Switch } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
@@ -11,8 +11,16 @@ export default function ConfigAccessibility() {
   const { settings, toggleColorBlindMode, toggleLowVisionMode } =
     useAccessibility();
 
+  const [tempColorBlindMode, setTempColorBlindMode] = useState(
+    settings.colorBlindMode,
+  );
+  const [tempLowVisionMode, setTempLowVisionMode] = useState(
+    settings.lowVisionMode,
+  );
+
   const handleSave = async () => {
-    console.log("Configurações de Acessibilidade:", settings);
+    if (tempColorBlindMode !== settings.colorBlindMode) toggleColorBlindMode();
+    if (tempLowVisionMode !== settings.lowVisionMode) toggleLowVisionMode();
   };
 
   return (
@@ -27,8 +35,17 @@ export default function ConfigAccessibility() {
           style={styles.accessibility}
         >
           <Switch
-            value={settings.colorBlindMode}
-            onValueChange={toggleColorBlindMode}
+            value={tempColorBlindMode}
+            onValueChange={setTempColorBlindMode}
+            thumbColor={
+              tempColorBlindMode
+                ? designSystem.colors.action.primaryColorBlind
+                : designSystem.colors.background.secondaryComponent
+            }
+            trackColor={{
+              false: designSystem.colors.background.primaryComponent,
+              true: designSystem.colors.action.primaryColorBlind,
+            }}
           />
         </AccessibilityOptionView>
 
@@ -37,8 +54,17 @@ export default function ConfigAccessibility() {
           style={styles.accessibility}
         >
           <Switch
-            value={settings.lowVisionMode}
-            onValueChange={toggleLowVisionMode}
+            value={tempLowVisionMode}
+            onValueChange={setTempLowVisionMode}
+            thumbColor={
+              tempLowVisionMode
+                ? designSystem.colors.action.primary
+                : designSystem.colors.background.secondaryComponent
+            }
+            trackColor={{
+              false: designSystem.colors.background.primaryComponent,
+              true: designSystem.colors.action.primary,
+            }}
           />
         </AccessibilityOptionView>
 
