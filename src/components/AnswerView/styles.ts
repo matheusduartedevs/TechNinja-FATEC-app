@@ -21,8 +21,16 @@ export const styles = StyleSheet.create({
     backgroundColor: designSystem.colors.action.primary,
     borderColor: designSystem.colors.action.primaryHover,
   },
+  correctColorBlind: {
+    backgroundColor: designSystem.colors.action.primaryColorBlind,
+    borderColor: designSystem.colors.action.primaryColorBlindHover,
+  },
   wrong: {
     backgroundColor: designSystem.colors.action.tertiary,
     borderColor: designSystem.colors.action.tertiaryHover,
+  },
+  wrongColorBlind: {
+    backgroundColor: designSystem.colors.action.tertiaryColorBlind,
+    borderColor: designSystem.colors.action.tertiaryColorBlindHover,
   },
 });

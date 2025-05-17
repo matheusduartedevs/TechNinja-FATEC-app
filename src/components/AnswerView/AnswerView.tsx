@@ -15,19 +15,23 @@ export default function AnswerView({
 }: AnswerViewProps) {
   const { settings } = useAccessibility();
 
+  const borderColor = isSelected
+    ? settings.colorBlindMode
+      ? designSystem.colors.action.primaryColorBlind
+      : designSystem.colors.action.primary
+    : "transparent";
+
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[
         styles.container,
         style,
-        {
-          borderColor: isSelected
-            ? designSystem.colors.action.primary
-            : "transparent",
-        },
-        isCorrect && styles.correct,
-        isWrong && styles.wrong,
+        { borderColor },
+        isCorrect &&
+          (settings.colorBlindMode ? styles.correctColorBlind : styles.correct),
+        isWrong &&
+          (settings.colorBlindMode ? styles.wrongColorBlind : styles.wrong),
       ]}
     >
       <TextView
