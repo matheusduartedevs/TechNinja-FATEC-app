@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: designSystem.fonts.primaryRegular,
     color: designSystem.colors.text.primary,
-    fontSize: designSystem.fonts.textSize,
     textAlign: "center",
     marginHorizontal: "10%",
   },
