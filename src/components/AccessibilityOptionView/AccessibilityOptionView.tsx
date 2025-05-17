@@ -4,6 +4,7 @@ import { styles } from "@/src/components/AccessibilityOptionView/styles";
 import TextView from "@/src/components/TextView/TextView";
 import { AccessibilityOptionViewProps } from "@/src/components/AccessibilityOptionView/props";
 import designSystem from "@/src/styles/theme";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function AccessibilityOptionView({
   option,
@@ -12,6 +13,7 @@ export default function AccessibilityOptionView({
 }: AccessibilityOptionViewProps) {
   const [isActive, setIsActive] = useState(false);
   const [circlePosition] = useState(new Animated.Value(0));
+  const { settings } = useAccessibility();
 
   const toggleSwitch = () => {
     setIsActive((prevState) => {
@@ -34,7 +36,9 @@ export default function AccessibilityOptionView({
           styles.toggleContainer,
           {
             backgroundColor: isActive
-              ? designSystem.colors.action.primary
+              ? settings.colorBlindMode
+                ? designSystem.colors.action.primaryColorBlind
+                : designSystem.colors.action.primary
               : designSystem.colors.background.primaryComponent,
           },
         ]}
