@@ -5,16 +5,27 @@ import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import logo from "@/assets/icons/logo.png";
 import { useRouter } from "expo-router";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 const { width, height } = Dimensions.get("window");
 
 export default function LauncherScreen() {
   const router = useRouter();
+  const { settings } = useAccessibility();
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TitleView title="TechNinja" color="primary" style={styles.title} />
+        <TitleView
+          title="TechNinja"
+          color="primary"
+          style={[
+            styles.title,
+            settings.lowVisionMode && {
+              fontSize: designSystem.fonts.lowVisionTitleSize,
+            },
+          ]}
+        />
       </View>
 
       <View style={styles.content}>
@@ -23,7 +34,12 @@ export default function LauncherScreen() {
         <TextView
           text="Desafie seu conhecimento em tecnologia com o TechNinja"
           color="primary"
-          style={styles.text}
+          style={[
+            styles.text,
+            settings.lowVisionMode && {
+              fontSize: designSystem.fonts.lowVisionTitleSize,
+            },
+          ]}
         />
 
         <View style={styles.buttons}>
