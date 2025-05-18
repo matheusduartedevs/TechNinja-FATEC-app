@@ -7,4 +7,5 @@ export interface UserViewProps {
   badge?: ImageSourcePropType;
   badgePosition?: "top" | "bottom";
   style?: ViewStyle;
+  size?: "default" | "small" | "medium";
 }

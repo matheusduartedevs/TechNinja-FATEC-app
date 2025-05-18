@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
 
   name: {
     position: "absolute",
-    bottom: -35,
+    bottom: -30,
     fontFamily: designSystem.fonts.primaryRegular,
     fontSize: designSystem.fonts.textSize,
   },
