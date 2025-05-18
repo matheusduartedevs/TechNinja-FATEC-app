@@ -48,6 +48,19 @@ export default function QuizScreen() {
     fetchData();
   }, [name, subtheme, level]);
 
+  const calculatePoints = (level: string): number => {
+    switch (level) {
+      case "facil":
+        return 1;
+      case "medio":
+        return 5;
+      case "dificil":
+        return 10;
+      default:
+        return 0;
+    }
+  };
+
   const handleAnswer = (index: number) => {
     if (isAnswered) return;
 
@@ -56,7 +69,8 @@ export default function QuizScreen() {
 
     const selectedOption = currentQuestion.alternativas[index].opcao;
     if (selectedOption === currentQuestion.resposta) {
-      setCorrectCount((prev) => prev + 1);
+      const points = calculatePoints(level as string);
+      setCorrectCount((prev) => prev + points);
     }
   };
 
@@ -71,11 +85,11 @@ export default function QuizScreen() {
       setSelectedIndex(null);
       setIsAnswered(false);
     } else {
-      const points = correctCount * 10;
+      const totalPoints = correctCount;
 
       try {
         await updateScoreAndMarkCompleted(
-          points,
+          totalPoints,
           name as string,
           subtheme as string,
           level as string,
@@ -83,9 +97,11 @@ export default function QuizScreen() {
         router.push({
           pathname: "/quizFinish",
           params: {
-            correctCount: correctCount.toString(),
+            correctCount: (
+              correctCount / calculatePoints(level as string)
+            ).toString(),
             totalQuestions: questions.length.toString(),
-            points: points.toString(),
+            points: correctCount.toString(),
           },
         });
       } catch (error) {

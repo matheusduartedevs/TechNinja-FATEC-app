@@ -1,5 +1,6 @@
 interface Subtheme {
   name: string;
+  pontos: number;
 }
 
 interface Level {
@@ -9,15 +10,30 @@ interface Level {
 }
 
 export async function getSubThemes(area: string): Promise<Subtheme[]> {
-  const response = await fetch(
-    `${
-      process.env.EXPO_PUBLIC_MODE === "development"
-        ? process.env.EXPO_PUBLIC_API_URL_DEV
-        : process.env.EXPO_PUBLIC_API_URL_PROD
-    }/api/quiz/${area}`,
-  );
-  return response.json();
+  try {
+    const response = await fetch(
+      `${
+        process.env.EXPO_PUBLIC_MODE === "development"
+          ? process.env.EXPO_PUBLIC_API_URL_DEV
+          : process.env.EXPO_PUBLIC_API_URL_PROD
+      }/api/quiz/${area}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Erro ao buscar subtemas: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    return data.map((subtheme: any) => ({
+      name: subtheme.subtema || subtheme.name || "Desconhecido",
+      pontos: subtheme.pontos || 0,
+    }));
+  } catch (error) {
+    return [];
+  }
 }
+
 export async function getLevels(
   area: string,
   subtheme: string,

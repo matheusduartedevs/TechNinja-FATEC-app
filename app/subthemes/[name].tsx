@@ -11,7 +11,9 @@ import { getSubThemes } from "@/src/services/quiz";
 import { formatText } from "@/src/utils/formatNames";
 
 export default function Name() {
-  const [subThemes, setSubThemes] = useState<any[]>([]);
+  const [subThemes, setSubThemes] = useState<
+    { name: string; pontos: number }[]
+  >([]);
 
   const router = useRouter();
   const { name, title } = useLocalSearchParams();
@@ -50,9 +52,9 @@ export default function Name() {
                   key={index}
                   style={styles.card}
                   icon={banco_de_dados}
-                  title={formatText(subtheme) || "Título não disponível"}
-                  points={"10"}
-                  onPress={() => navigateToLevels(subtheme)}
+                  title={formatText(subtheme.name) || "Título não disponível"}
+                  points={String(subtheme.pontos)}
+                  onPress={() => navigateToLevels(subtheme.name)}
                 />
               ))
             ) : (
