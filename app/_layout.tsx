@@ -12,6 +12,7 @@ import "react-native-reanimated";
 import karashaFont from "../assets/fonts/Karasha.ttf";
 import quicksandRegularFont from "../assets/fonts/Quicksand-Regular.ttf";
 import quicksandBoldFont from "../assets/fonts/Quicksand-Bold.ttf";
+import Toast from "react-native-toast-message";
 
 import { useColorScheme } from "@/useColorScheme";
 import { AuthProvider } from "@/src/hooks/AuthContext";
@@ -56,6 +57,7 @@ function RootLayoutNav() {
     <AuthProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack screenOptions={{ headerShown: false }} />
+        <Toast />
       </ThemeProvider>
     </AuthProvider>
   );
