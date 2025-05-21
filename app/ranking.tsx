@@ -3,8 +3,10 @@ import { StyleSheet, View } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import UserView from "@/src/components/UserView/UserView";
+import RankingCardView from "@/src/components/RankingCardView/RankingCardView";
 import icon from "@//assets/icons/icon.png";
 import goldenBadge from "../assets/icons/golden-badge.png";
+import FooterView from "@/src/components/FooterView/FooterView";
 
 export default function App() {
   return (
@@ -44,6 +46,35 @@ export default function App() {
             />
           </View>
         </View>
+        <RankingCardView
+          position={4}
+          icon={icon}
+          name={"francis"}
+          points={"1400"}
+        ></RankingCardView>
+
+        <RankingCardView
+          position={5}
+          icon={icon}
+          name={"Paula"}
+          points={"1120"}
+        ></RankingCardView>
+
+        <RankingCardView
+          position={6}
+          icon={icon}
+          name={"Giulia"}
+          points={"850"}
+        ></RankingCardView>
+
+        <RankingCardView
+          position={7}
+          icon={icon}
+          name={"Diogo"}
+          points={"600"}
+        ></RankingCardView>
+
+        <FooterView />
       </View>
     </View>
   );
@@ -52,6 +83,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "flex-start",
     backgroundColor: designSystem.colors.action.primaryBackground,
   },
   pageContent: {
@@ -61,6 +93,7 @@ const styles = StyleSheet.create({
   usersRow: {
     flexDirection: "row", // Alinha os componentes UserView lado a lado
     marginTop: 20,
+    marginBottom: 50,
     alignItems: "flex-end",
   },
 });

@@ -9,7 +9,9 @@ export const styles = StyleSheet.create({
     backgroundColor: designSystem.colors.background.secondaryComponent,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
+    alignSelf: "center",
+    margin: 5,
   },
   position: {
     fontFamily: designSystem.fonts.primaryBold,
