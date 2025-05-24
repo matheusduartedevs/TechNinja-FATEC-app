@@ -30,6 +30,7 @@ interface User {
   email: string;
   avatar?: string;
   quizzesCompletados: string[];
+  badges: string[];
 }
 
 interface AuthContextType {
@@ -44,6 +45,7 @@ interface AuthContextType {
     area: string,
     subtema: string,
     dificuldade: string,
+    isPerfect: boolean,
   ) => Promise<void>;
   loadSession: () => Promise<void>;
 }
@@ -243,6 +245,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     area: string,
     subtema: string,
     dificuldade: string,
+    isPerfect: boolean,
   ) => {
     if (!token) {
       console.error("Token não encontrado.");
@@ -250,7 +253,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     try {
-      const response = await fetch(
+      const responseScore = await fetch(
         `${
           process.env.EXPO_PUBLIC_MODE === "development"
             ? process.env.EXPO_PUBLIC_API_URL_DEV
@@ -266,12 +269,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         },
       );
 
-      if (!response.ok) {
-        const resData = await response.json();
+      if (!responseScore.ok) {
+        const resData = await responseScore.json();
         throw new Error(resData.message || "Erro ao atualizar pontuação");
       }
 
-      await fetch(
+      // Marca quiz como concluído
+      const responseMark = await fetch(
         `${
           process.env.EXPO_PUBLIC_MODE === "development"
             ? process.env.EXPO_PUBLIC_API_URL_DEV
@@ -283,13 +287,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({
-            area,
-            subtema,
-            dificuldade,
-          }),
+          body: JSON.stringify({ area, subtema, dificuldade, isPerfect }),
         },
       );
+
+      const resMarkData = await responseMark.json();
+
+      if (!responseMark.ok) {
+        throw new Error(
+          resMarkData.message || "Erro ao marcar quiz como concluído",
+        );
+      }
+
+      if (resMarkData.novaBadge) {
+        setUser((prev) =>
+          prev
+            ? { ...prev, badges: [...prev.badges, resMarkData.novaBadge] }
+            : prev,
+        );
+      }
     } catch (error) {
       console.error("❌ Erro ao finalizar quiz:", error);
     }

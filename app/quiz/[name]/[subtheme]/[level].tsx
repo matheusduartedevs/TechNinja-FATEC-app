@@ -75,6 +75,11 @@ export default function QuizScreen() {
   };
 
   const handleNext = async () => {
+    const totalQuestions = questions.length;
+    const pointsByQuestion = calculatePoints(level as string);
+    const maxPoints = totalQuestions * pointsByQuestion;
+    const isPerfect = correctCount === maxPoints;
+
     if (!isAnswered) {
       Alert.alert("Selecione uma alternativa antes de prosseguir.");
       return;
@@ -93,6 +98,7 @@ export default function QuizScreen() {
           name as string,
           subtheme as string,
           level as string,
+          isPerfect,
         );
         router.push({
           pathname: "/quizFinish",
