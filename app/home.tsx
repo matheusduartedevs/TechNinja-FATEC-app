@@ -15,7 +15,8 @@ import { useAuth } from "@/src/hooks/AuthContext";
 
 export default function App() {
   const router = useRouter();
-  const { loadSession } = useAuth();
+  const { loadSession, user } = useAuth();
+  console.log(user?.badges);
 
   const navigateToSubthemes = (name: string, title: string) => {
     router.push(`/subthemes/${name}?title=${encodeURIComponent(title)}`);
