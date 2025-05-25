@@ -1,22 +1,24 @@
 import { ScrollView, StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import { useAuth } from "@/src/hooks/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
+
 import HomeHeaderView from "@/src/components/HomeHeaderView/HomeHeaderView";
 import TextView from "@/src/components/TextView/TextView";
-import designSystem from "@/src/styles/theme";
 import ThemeView from "@/src/components/ThemeView/ThemeView";
 import FooterView from "@/src/components/FooterView/FooterView";
+
+import designSystem from "@/src/styles/theme";
 
 import IconLinguagemProgramacao from "@/assets/icons/icon-linguagem-de-programacao.png";
 import IconSistemasOperacionais from "@/assets/icons/icon-sistemas-operacionais.png";
 import IconModelagemDados from "@/assets/icons/icon-modelagem-de-dados.png";
 
-import { useRouter } from "expo-router";
-import { useEffect } from "react";
-import { useAuth } from "@/src/hooks/AuthContext";
-
 export default function App() {
   const router = useRouter();
   const { loadSession, user } = useAuth();
-  console.log(user?.badges);
 
   const navigateToSubthemes = (name: string, title: string) => {
     router.push(`/subthemes/${name}?title=${encodeURIComponent(title)}`);
@@ -47,15 +49,38 @@ export default function App() {
   ];
 
   useEffect(() => {
-    const fetchData = async () => {
+    loadSession();
+  }, []);
+
+  useEffect(() => {
+    const checkForNewBadges = async () => {
+      if (!user?.badges) return;
+
       try {
-        await loadSession();
+        const key = `@badges_${user.email}`;
+        const stored = await AsyncStorage.getItem(key);
+        const previousBadges: string[] = stored ? JSON.parse(stored) : [];
+
+        const newBadges = user.badges.filter(
+          (badge: string) => !previousBadges.includes(badge),
+        );
+
+        if (newBadges.length > 0) {
+          Toast.show({
+            type: "success",
+            text1: "🎉 Nova conquista desbloqueada!",
+            text2: "Acesse seu perfil para ver a nova badge!",
+          });
+
+          await AsyncStorage.setItem(key, JSON.stringify(user.badges));
+        }
       } catch (error) {
-        console.error("Erro ao buscar os dados do usuário:", error);
+        console.error("Erro ao verificar badges:", error);
       }
     };
-    fetchData();
-  }, []);
+
+    checkForNewBadges();
+  }, [user?.badges]);
 
   return (
     <View style={styles.container}>
