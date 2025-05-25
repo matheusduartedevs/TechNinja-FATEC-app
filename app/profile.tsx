@@ -7,10 +7,10 @@ import AchievementsView from "@/src/components/AchievementsView/AchievementsView
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import TextView from "@/src/components/TextView/TextView";
 
-import badge from "@/assets/icons/golden-badge.png";
-import badge1 from "@/assets/icons/badge1.png";
-import badge2 from "@/assets/icons/badge2.png";
-import badge3 from "@/assets/icons/badge3.png";
+import badge from "@/assets/badges/golden.png";
+import badge1 from "@/assets/badges/firstplace.png";
+import badge2 from "@/assets/badges/idk.png";
+import badge3 from "@/assets/badges/perfil_foto.png";
 
 import { useAuth } from "@/src/hooks/AuthContext";
 import { router } from "expo-router";

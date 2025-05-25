@@ -5,9 +5,9 @@ import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView
 import AchievementsView from "@/src/components/AchievementsView/AchievementsView";
 import FooterView from "@/src/components/FooterView/FooterView";
 
-import badge1 from "@/assets/icons/badge1.png";
-import badge2 from "@/assets/icons/badge2.png";
-import badge3 from "@/assets/icons/badge3.png";
+import badge1 from "@/assets/badges/firstplace.png";
+import badge2 from "@/assets/badges/idk.png";
+import badge3 from "@/assets/badges/perfil_foto.png";
 
 export default function App() {
   return (
