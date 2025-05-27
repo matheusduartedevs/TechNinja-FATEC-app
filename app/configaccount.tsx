@@ -16,6 +16,7 @@ import TextView from "@/src/components/TextView/TextView";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "@/src/hooks/AuthContext";
 import icon from "@/assets/icons/icon_config.png";
+import Toast from "react-native-toast-message";
 
 export default function ConfigAccount() {
   const [userName, setUserName] = useState("");
@@ -64,7 +65,10 @@ export default function ConfigAccount() {
 
     try {
       await updateUser(userData);
-      alert("Informações do usuário atualizadas com sucesso!");
+      Toast.show({
+        type: "success",
+        text1: "Informações atualizadas com sucesso!",
+      });
     } catch (error) {
       console.error("Erro ao alterar as informações do usuário:", error);
     }
