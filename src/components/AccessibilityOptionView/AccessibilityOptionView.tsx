@@ -1,35 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, Animated } from "react-native";
-import { styles } from "@/src/components/AccessibilityOptionView/styles";
-import TextView from "@/src/components/TextView/TextView";
-import { AccessibilityOptionViewProps } from "@/src/components/AccessibilityOptionView/props";
+import { styles } from "./styles";
+import TextView from "../TextView/TextView";
+import { AccessibilityOptionViewProps } from "./props";
 import designSystem from "@/src/styles/theme";
 
 export default function AccessibilityOptionView({
   option,
   style,
+  value,
+  onChange,
 }: AccessibilityOptionViewProps) {
-  const [isActive, setIsActive] = useState(false);
-  const [circlePosition] = useState(new Animated.Value(0));
+  const [isActive, setIsActive] = useState(value ?? false);
+  const [circlePosition] = useState(new Animated.Value(value ? 20 : 0));
 
-  // Função para alternar o estado do toggle
-  const toggleSwitch = () => {
-    setIsActive((prevState) => {
+  useEffect(() => {
+    if (value !== undefined) {
+      setIsActive(value);
       Animated.timing(circlePosition, {
-        toValue: prevState ? 0 : 20,
+        toValue: value ? 20 : 0,
         duration: 300,
         useNativeDriver: false,
       }).start();
+    }
+  }, [value]);
 
-      return !prevState;
-    });
+  const toggleSwitch = () => {
+    const newValue = !isActive;
+    setIsActive(newValue);
+    onChange?.(newValue);
+
+    Animated.timing(circlePosition, {
+      toValue: newValue ? 20 : 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
   };
 
   return (
     <View style={[styles.container, style]}>
-      <TextView text={option} style={styles.option} />
+      <TextView text={option} color={"primary"} style={styles.option} />
 
-      {/* Toggle */}
       <TouchableOpacity
         style={[
           styles.toggleContainer,

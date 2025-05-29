@@ -1,4 +1,7 @@
 import { StyleSheet, View, ScrollView } from "react-native";
+import { useState } from "react";
+import { useRouter } from "expo-router";
+
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
@@ -6,6 +9,17 @@ import FooterView from "@/src/components/FooterView/FooterView";
 import AccessibilityOptionView from "@/src/components/AccessibilityOptionView/AccessibilityOptionView";
 
 export default function ConfigSecurity() {
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+  const router = useRouter();
+
+  const handleSave = () => {
+    if (twoFactorEnabled) {
+      router.push("/twofactorconfig");
+    } else {
+      console.log("Atualizações salvas");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ActionHeaderView style={styles.header} title={"Configurações"} />
@@ -17,13 +31,15 @@ export default function ConfigSecurity() {
         <AccessibilityOptionView
           option={"Autenticação de dois fatores"}
           style={styles.accessibility}
+          value={twoFactorEnabled}
+          onChange={setTwoFactorEnabled}
         />
 
         <ButtonView
           text="Salvar"
           color="primary"
           style={styles.button}
-          onPress={() => console.log("Atualizações salvas")}
+          onPress={handleSave}
         />
       </ScrollView>
 
