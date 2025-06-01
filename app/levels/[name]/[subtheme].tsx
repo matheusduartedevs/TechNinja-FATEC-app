@@ -87,7 +87,7 @@ export default function LevelsPage() {
             )}
           </View>
 
-          <FooterView style={styles.footer} />
+          <FooterView />
         </View>
       </ScrollView>
     </View>
@@ -98,8 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingBottom: 40,
-    alignItems: "center",
   },
   scrollContent: {
     flexGrow: 1,
@@ -115,9 +113,5 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 360,
-  },
-  footer: {
-    alignSelf: "center",
-    marginTop: 20,
   },
 });

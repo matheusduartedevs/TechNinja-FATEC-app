@@ -121,7 +121,7 @@ export default function App() {
         </View>
       </View>
 
-      <FooterView style={styles.footer} />
+      <FooterView />
     </View>
   );
 }
@@ -152,8 +152,5 @@ const styles = StyleSheet.create({
   },
   themeItem: {
     marginRight: 12,
-  },
-  footer: {
-    alignSelf: "center",
   },
 });
