@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
   },
   imageLogin: {
     alignSelf: "center",
-    marginTop: 60,
     marginBottom: 50,
   },
   link: {

@@ -16,6 +16,7 @@ import iconRegister from "@/assets/icons/icon-register.png";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
+import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -63,6 +64,7 @@ export default function LoginScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.container}>
+            <ActionHeaderView title={""} />
             <Image source={imageRegister} style={styles.imageRegister} />
 
             <InputView
@@ -119,7 +121,6 @@ const styles = StyleSheet.create({
   },
   imageRegister: {
     alignSelf: "center",
-    marginTop: 60,
     marginBottom: 30,
   },
 });
