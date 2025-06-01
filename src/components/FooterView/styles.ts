@@ -26,10 +26,7 @@ export const styles = StyleSheet.create({
   selectedOption: {
     backgroundColor: designSystem.colors.background.primaryComponent,
   },
-  icon: {
-    width: 20,
-    height: 20,
-  },
+  icon: {},
   text: {
     marginLeft: 15,
     color: designSystem.colors.text.secondary,

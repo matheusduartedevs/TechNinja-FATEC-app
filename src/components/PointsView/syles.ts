@@ -14,8 +14,6 @@ export const styles = StyleSheet.create({
     gap: 20,
   },
   icon: {
-    width: 20,
-    height: 20,
     resizeMode: "contain",
     marginRight: 5,
   },

@@ -3,20 +3,24 @@ import { View, TouchableOpacity, Image } from "react-native";
 import { styles } from "@/src/components/FooterView/styles";
 import TextView from "@/src/components/TextView/TextView";
 import { FooterViewProps } from "@/src/components/FooterView/props";
-
+import Icon from "react-native-vector-icons/Feather";
+/*
+import Icon from "react-native-vector-icons/FontAwesome6";
 import homeIcon from "@/assets/icons/home.png";
 import rankingIcon from "@/assets/badges/ranking.png";
 import userIcon from "@/assets/icons/icon.png";
 import settingsIcon from "@/assets/icons/config.png";
+
+ */
 import { useRouter, usePathname } from "expo-router";
 import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 import designSystem from "@/src/styles/theme";
 
 const options = [
-  { name: "Home", icon: homeIcon, path: "/home" },
-  { name: "Ranking", icon: rankingIcon, path: "/ranking" },
-  { name: "Usuário", icon: userIcon, path: "/profile" },
-  { name: "Configurações", icon: settingsIcon, path: "/config" },
+  { name: "Home", icon: "home", path: "/home" },
+  { name: "Ranking", icon: "ranking-star", path: "/ranking" },
+  { name: "Usuário", icon: "user", path: "/profile" },
+  { name: "Configurações", icon: "settings", path: "/config" },
 ] as const;
 
 export default function FooterView({ style }: FooterViewProps) {
@@ -51,10 +55,7 @@ export default function FooterView({ style }: FooterViewProps) {
           ]}
           onPress={() => handlePress(option)}
         >
-          <Image
-            source={option.icon}
-            style={[styles.icon, { width: 24, height: 24 }]}
-          />
+          <Icon name={option.icon} size={22} style={styles.icon} />
           {selected === option.name && (
             <TextView
               text={option.name}
