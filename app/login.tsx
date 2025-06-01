@@ -14,8 +14,6 @@ import designSystem from "@/src/styles/theme";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import InputView from "@/src/components/InputView/InputView";
 import imageLogin from "@/assets/icons/image-login.png";
-import iconEmail from "@/assets/icons/icon.png";
-import iconLock from "@//assets/icons/lock.png";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
@@ -57,14 +55,14 @@ export default function LoginScreen() {
             <Image source={imageLogin} style={styles.imageLogin} />
 
             <InputView
-              logo={iconEmail}
+              logo={"mail"}
               placeholder="E-mail"
               onChangeText={setEmail}
               value={email}
             />
 
             <InputView
-              logo={iconLock}
+              logo={"lock"}
               placeholder="Senha"
               onChangeText={setPassword}
               value={password}

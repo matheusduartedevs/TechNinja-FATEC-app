@@ -12,7 +12,6 @@ import designSystem from "@/src/styles/theme";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import InputView from "@/src/components/InputView/InputView";
 import imageRegister from "@/assets/icons/image-register.png";
-import iconRegister from "@/assets/icons/icon-register.png";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
@@ -68,27 +67,27 @@ export default function LoginScreen() {
             <Image source={imageRegister} style={styles.imageRegister} />
 
             <InputView
-              logo={iconRegister}
+              logo={"user"}
               placeholder="Nome de Usuário"
               onChangeText={setUserName}
               value={userName}
             />
 
             <InputView
-              logo={iconRegister}
+              logo={"mail"}
               placeholder="E-mail"
               onChangeText={setEmail}
               value={email}
             />
             <InputView
-              logo={iconRegister}
+              logo={"lock"}
               placeholder="Senha"
               onChangeText={setPassword}
               value={password}
               secureTextEntry
             />
             <InputView
-              logo={iconRegister}
+              logo={"lock"}
               placeholder="Confirme a senha"
               onChangeText={setPasswordConfirm}
               value={passwordConfirm}
