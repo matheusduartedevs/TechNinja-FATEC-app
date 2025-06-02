@@ -1,6 +1,5 @@
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { styles } from "@/src/components/PointsView/syles";
-import pointsIcon from "@/assets/icons/points.png";
 import TextView from "@/src/components/TextView/TextView";
 import { PointsViewProps } from "@/src/components/PointsView/props";
 import designSystem from "@/src/styles/theme";
@@ -42,8 +41,6 @@ export default function PointsView({
           },
         ]}
       />
-    <View style={[styles.container, { backgroundColor }, style]}>
-      <TextView text={points} color={"secondary"} style={styles.points} />
     </View>
   );
 }

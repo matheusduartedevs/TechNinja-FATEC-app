@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     justifyContent: "space-between",
-    paddingTop: 30,
+    paddingTop: 100,
   },
   cardWrapper: {
     alignItems: "center",
