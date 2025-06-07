@@ -14,7 +14,7 @@ export default function Config() {
 
   return (
     <View style={styles.container}>
-      <ActionHeaderView style={styles.header} title={"Configurações"} />
+      <ActionHeaderView title={"Configurações"} />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -49,7 +49,7 @@ export default function Config() {
         />
       </ScrollView>
 
-      <FooterView style={styles.footer} />
+      <FooterView />
     </View>
   );
 }
@@ -58,13 +58,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingTop: 48,
-    paddingBottom: 40,
-  },
-  header: {
-    marginBottom: 60,
   },
   scrollContent: {
+    marginTop: 60,
     flexGrow: 1,
     paddingHorizontal: 24,
   },
@@ -80,8 +76,5 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: designSystem.colors.action.tertiary,
     marginTop: 40,
-  },
-  footer: {
-    alignSelf: "center",
   },
 });

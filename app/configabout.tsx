@@ -7,7 +7,7 @@ import TextView from "@/src/components/TextView/TextView";
 export default function ConfigAbout() {
   return (
     <View style={styles.container}>
-      <ActionHeaderView style={styles.header} title="Configurações" />
+      <ActionHeaderView title="Configurações" />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -25,7 +25,7 @@ export default function ConfigAbout() {
         />
       </ScrollView>
 
-      <FooterView style={styles.footer} />
+      <FooterView />
     </View>
   );
 }
@@ -34,20 +34,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingTop: 48,
-    paddingBottom: 40,
-  },
-  header: {
-    marginBottom: 32,
   },
   scrollContent: {
+    marginTop: 40,
     flexGrow: 1,
     paddingHorizontal: 24,
   },
   text: {
     marginTop: 24,
-  },
-  footer: {
-    alignSelf: "center",
   },
 });

@@ -2,7 +2,7 @@ import { ViewStyle, ImageSourcePropType } from "react-native";
 
 export interface InputViewProps {
   title?: string;
-  logo?: ImageSourcePropType;
+  logo?: string;
   placeholder: string;
   value: string;
   underline?: boolean;

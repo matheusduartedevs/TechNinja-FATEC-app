@@ -1,10 +1,10 @@
-import { Image, View } from "react-native";
+import { View } from "react-native";
 import { styles } from "@/src/components/PointsView/syles";
-import pointsIcon from "@/assets/icons/points.png";
 import TextView from "@/src/components/TextView/TextView";
 import { PointsViewProps } from "@/src/components/PointsView/props";
 import designSystem from "@/src/styles/theme";
 import { useAccessibility } from "@/src/hooks/AccessibilityContext";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function PointsView({
   points,
@@ -29,16 +29,8 @@ export default function PointsView({
         style,
       ]}
     >
-      <Image
-        source={pointsIcon}
-        style={[
-          styles.icon,
-          settings.lowVisionMode && {
-            width: 30,
-            height: 30,
-          },
-        ]}
-      />
+      <Icon name="star" size={18} style={styles.icon} />
+      {/*fix: icone para baixa visao*/}
       <TextView
         text={points}
         color={"secondary"}

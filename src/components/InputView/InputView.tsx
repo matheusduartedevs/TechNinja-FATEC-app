@@ -2,6 +2,7 @@ import React from "react";
 import { SafeAreaView, TextInput, View, Text, Image } from "react-native";
 import { styles } from "@/src/components/InputView/styles";
 import { InputViewProps } from "@/src/components/InputView/props";
+import Icon from "react-native-vector-icons/Feather";
 import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 import designSystem from "@/src/styles/theme";
 
@@ -22,7 +23,7 @@ export default function InputView({
       {title && <Text style={styles.title}>{title}</Text>}
 
       <View style={styles.inputContainer}>
-        {logo && <Image source={logo} style={styles.logo} />}
+        {logo && <Icon name={logo} size={25} style={styles.logo} />}
         <TextInput
           style={[
             styles.container,

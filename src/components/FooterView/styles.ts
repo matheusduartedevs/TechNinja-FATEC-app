@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    width: "85%",
+    width: "80%",
     height: 60,
     backgroundColor: designSystem.colors.background.secondaryComponent,
     borderRadius: 50,
@@ -26,10 +26,7 @@ export const styles = StyleSheet.create({
   selectedOption: {
     backgroundColor: designSystem.colors.background.primaryComponent,
   },
-  icon: {
-    width: 20,
-    height: 20,
-  },
+  icon: {},
   text: {
     marginLeft: 15,
     color: designSystem.colors.text.secondary,

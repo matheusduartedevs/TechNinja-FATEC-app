@@ -21,8 +21,10 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontFamily: designSystem.fonts.primaryBold,
+    fontSize: designSystem.fonts.titleSize,
   },
   text: {
     color: designSystem.colors.text.primary,
+    fontSize: designSystem.fonts.textSize,
   },
 });

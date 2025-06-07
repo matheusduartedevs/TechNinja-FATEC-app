@@ -38,6 +38,7 @@ export const styles: InputStyles = {
     fontFamily: designSystem.fonts.primaryRegular,
     fontSize: designSystem.fonts.textSize,
     color: designSystem.colors.text.secondary,
+    paddingLeft: 30,
   },
   title: {
     fontSize: designSystem.fonts.textSize,
@@ -46,20 +47,19 @@ export const styles: InputStyles = {
     marginBottom: 8,
   },
   logo: {
-    width: 32,
-    height: 32,
-    marginRight: 25,
+    marginLeft: 10,
   },
   textUnderline: {
     textDecorationLine: "underline",
   },
-  textLeft: {
+  /*  textLeft: {
     textAlign: "left",
-    paddingLeft: 5,
+    paddingLeft: 10,
   },
   textCenter: {
     textAlign: "center",
   },
+ */
   inputUnderline: {
     backgroundColor: "transparent",
     borderRadius: 0,

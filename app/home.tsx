@@ -121,7 +121,7 @@ export default function App() {
         </View>
       </View>
 
-      <FooterView style={styles.footer} />
+      <FooterView />
     </View>
   );
 }
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: designSystem.colors.action.primaryBackground,
-    paddingTop: 48,
+    paddingTop: 40,
     paddingBottom: 40,
   },
   content: {
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "left",
     fontFamily: designSystem.fonts.primaryBold,
-    fontSize: 24,
+    fontSize: designSystem.fonts.titleSize,
     marginBottom: 10,
     marginLeft: 18,
   },
@@ -152,8 +152,5 @@ const styles = StyleSheet.create({
   },
   themeItem: {
     marginRight: 12,
-  },
-  footer: {
-    alignSelf: "center",
   },
 });
