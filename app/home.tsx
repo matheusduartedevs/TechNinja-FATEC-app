@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
 
@@ -19,6 +20,8 @@ import IconModelagemDados from "@/assets/icons/icon-modelagem-de-dados.png";
 export default function App() {
   const router = useRouter();
   const { loadSession, user } = useAuth();
+
+  const { settings } = useAccessibility();
 
   const navigateToSubthemes = (name: string, title: string) => {
     router.push(`/subthemes/${name}?title=${encodeURIComponent(title)}`);
@@ -90,7 +93,12 @@ export default function App() {
         <TextView
           text="Áreas de Conhecimento"
           color="primary"
-          style={styles.text}
+          style={[
+            styles.text,
+            settings.lowVisionMode && {
+              fontSize: designSystem.fonts.lowVisionTitleSize,
+            },
+          ]}
         />
 
         <View style={styles.themeWrapper}>

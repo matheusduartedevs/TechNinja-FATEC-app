@@ -3,6 +3,8 @@ import { ThemeViewProps } from "@/src/components/ThemeView/props";
 import { styles } from "@/src/components/ThemeView/styles";
 import TitleView from "@/src/components/TitleView/TitleView";
 import TextView from "@/src/components/TextView/TextView";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
+import designSystem from "@/src/styles/theme";
 
 export default function ThemeView({
   theme,
@@ -11,14 +13,40 @@ export default function ThemeView({
   style,
   onPress,
 }: ThemeViewProps) {
+  const { settings } = useAccessibility();
+
   return (
     <TouchableOpacity
-      style={[styles.container, style]}
+      style={[
+        styles.container,
+        style,
+        settings.colorBlindMode && {
+          backgroundColor: designSystem.colors.action.primaryColorBlind,
+        },
+      ]}
       activeOpacity={0.5}
       onPress={onPress}
     >
-      <TitleView title={theme} color={"primary"} style={styles.title} />
-      <TextView text={text} style={styles.text} color={"primary"} />
+      <TitleView
+        title={theme}
+        color={"primary"}
+        style={[
+          styles.title,
+          settings.lowVisionMode && {
+            fontSize: designSystem.fonts.lowVisionTitleSize,
+          },
+        ]}
+      />
+      <TextView
+        text={text}
+        style={[
+          styles.text,
+          settings.lowVisionMode && {
+            fontSize: designSystem.fonts.lowVisionTextSize,
+          },
+        ]}
+        color={"primary"}
+      />
       <View style={styles.imageWrapper}>
         <Image source={icon} style={styles.image} resizeMode={"contain"} />
       </View>

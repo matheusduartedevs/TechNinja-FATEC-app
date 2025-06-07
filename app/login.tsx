@@ -19,6 +19,7 @@ import iconLock from "@//assets/icons/lock.png";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
 
   const { login } = useAuth();
+  const { settings } = useAccessibility();
 
   const handleLogin = async () => {
     const userData = {
@@ -79,6 +81,9 @@ export default function LoginScreen() {
                         : designSystem.colors.text.primary,
                     },
                     styles.link,
+                    settings.lowVisionMode && {
+                      fontSize: designSystem.fonts.lowVisionTextSize,
+                    },
                   ]}
                 >
                   Esqueceu a senha?
@@ -95,13 +100,28 @@ export default function LoginScreen() {
 
             <Pressable onPress={() => router.push("/register")}>
               {({ pressed }) => (
-                <Text style={styles.link}>
+                <Text
+                  style={[
+                    styles.link,
+                    settings.lowVisionMode && {
+                      fontSize: designSystem.fonts.lowVisionTextSize,
+                    },
+                  ]}
+                >
                   Não tem uma conta?{" "}
                   <Text
                     style={{
-                      color: pressed
-                        ? designSystem.colors.action.primaryHover
-                        : designSystem.colors.action.primary,
+                      color: settings.colorBlindMode
+                        ? pressed
+                          ? designSystem.colors.action.primaryColorBlindHover
+                          : designSystem.colors.action.primaryColorBlind
+                        : pressed
+                          ? designSystem.colors.action.primaryHover
+                          : designSystem.colors.action.primary,
+                      fontSize: settings.lowVisionMode
+                        ? designSystem.fonts.lowVisionTextSize
+                        : designSystem.fonts.textSize,
+                      fontFamily: designSystem.fonts.primaryBold,
                     }}
                   >
                     Crie uma aqui!

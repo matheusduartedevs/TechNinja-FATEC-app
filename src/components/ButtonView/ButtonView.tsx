@@ -2,6 +2,7 @@ import React from "react";
 import { Pressable, Text } from "react-native";
 import { ButtonProps } from "./props";
 import { styles } from "@/src/components/ButtonView/styles";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function ButtonView({
   text,
@@ -10,15 +11,17 @@ export default function ButtonView({
   onPress,
   style,
 }: ButtonProps) {
+  const { settings } = useAccessibility();
+
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
-        styles({ color, pressed, colorText }).button,
+        styles({ color, pressed, colorText, settings }).button,
         style,
       ]}
     >
-      <Text style={styles({ color, colorText }).text}>{text}</Text>
+      <Text style={styles({ color, colorText, settings }).text}>{text}</Text>
     </Pressable>
   );
 }

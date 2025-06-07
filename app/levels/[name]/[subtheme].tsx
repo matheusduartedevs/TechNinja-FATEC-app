@@ -19,8 +19,6 @@ export default function LevelsPage() {
   const navigateToQuiz = (level: string) => {
     const quizPath = `${name}-${subtheme}-${level}`;
     const quizCompleted = user?.quizzesCompletados?.includes(quizPath);
-    console.log(quizPath);
-    console.log(quizCompleted);
 
     if (quizCompleted) {
       Alert.alert(

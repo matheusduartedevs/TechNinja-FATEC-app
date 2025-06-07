@@ -6,10 +6,12 @@ import PointsView from "@/src/components/PointsView/PointsView";
 import logo from "@/assets/icons/logo.png";
 import { useRouter } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function QuizFinishScreen() {
   const router = useRouter();
   const { correctCount, totalQuestions, points } = useLocalSearchParams();
+  const { settings } = useAccessibility();
 
   return (
     <View style={styles.container}>
@@ -18,7 +20,12 @@ export default function QuizFinishScreen() {
       <TextView
         text="Mandou bem! Você finalizou o quiz com sucesso!"
         color="primary"
-        style={styles.text}
+        style={[
+          styles.text,
+          settings.lowVisionMode && {
+            fontSize: designSystem.fonts.lowVisionTextSize,
+          },
+        ]}
       />
 
       <PointsView
@@ -30,7 +37,12 @@ export default function QuizFinishScreen() {
       <TextView
         text={`Você acertou ${correctCount}/${totalQuestions}`}
         color="primary"
-        style={styles.text}
+        style={[
+          styles.text,
+          settings.lowVisionMode && {
+            fontSize: designSystem.fonts.lowVisionTextSize,
+          },
+        ]}
       />
 
       <ButtonView
