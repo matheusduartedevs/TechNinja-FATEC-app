@@ -43,7 +43,6 @@ export default function Profile() {
             name={user?.nome ?? ""}
             badge={goldenBadge}
             badgePosition="top"
-            style={styles.user}
           />
 
           <View style={styles.pointsTriangle}>
@@ -93,12 +92,10 @@ const styles = StyleSheet.create({
   inner: {
     alignItems: "center",
   },
-  user: {
-    marginBottom: 48,
-  },
   pointsTriangle: {
     alignItems: "center",
-    marginBottom: 48,
+    marginBottom: 75,
+    marginTop: 20,
   },
   topPoint: {
     marginBottom: 20,
@@ -108,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   bottomPoint: {
-    marginHorizontal: 10,
+    marginHorizontal: 20,
   },
   text: {
     alignSelf: "flex-start",
