@@ -1,78 +1,123 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import designSystem from "@/src/styles/theme";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
 import UserView from "@/src/components/UserView/UserView";
 import RankingCardView from "@/src/components/RankingCardView/RankingCardView";
-import icon from "@//assets/icons/icon.png";
-import goldenBadge from "@/assets/badges/golden.png";
 import FooterView from "@/src/components/FooterView/FooterView";
+import { useAuth } from "@/src/hooks/AuthContext";
+import defaultIcon from "@/assets/icons/logo.png";
+import medalGolden from "@/assets/badges/golden.png";
+import medalSilver from "@/assets/badges/silver.png";
+import medalBronze from "@/assets/badges/bronze.png";
 
-export default function App() {
+
+const positionMap: Record<string, "1°" | "2°" | "3°"> = {
+  "1": "1°",
+  "2": "2°",
+  "3": "3°",
+};
+
+const badgeMap = {
+  "1°": medalGolden,
+  "2°": medalSilver,
+  "3°": medalBronze,
+};
+
+export default function RankingScreen() {
+  const { token } = useAuth();
+  const [rankingData, setRankingData] = useState<
+    {
+      id: string;
+      nome: string;
+      pontuacao: number;
+      avatar?: string;
+      ranking: string;
+    }[]
+  >([]);
+  const [loading, setLoading] = useState(true);
+
+  // Busca ranking da API
+  const fetchRanking = async () => {
+    if (!token) return;
+
+    try {
+      const response = await fetch(
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/users/ranking`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Erro ao carregar ranking");
+
+      const data = await response.json();
+      setRankingData(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRanking();
+  }, [token]);
+
+  if (loading) {
+    return (
+      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+        <ActivityIndicator size="large" color={designSystem.colors.action.primary} />
+      </View>
+    );
+  }
+
+  // Separar os top 3 para UserView e os demais para RankingCardView
+  const top3 = rankingData.slice(0, 3);
+
+  const reorderedTop3 = [top3[1], top3[0], top3[2]];
+
+
+  const others = rankingData.slice(3);
+
   return (
     <View style={styles.container}>
       <ActionHeaderView title={"Ranking"} />
 
       <View style={styles.pageContent}>
         <View style={styles.usersRow}>
-          <View>
-            <UserView
-              icon={icon}
-              name="Lucas"
-              position="2°"
-              badge={goldenBadge}
-              badgePosition="top"
-              size={"small"}
-            />
-          </View>
-          <View style={{ marginBottom: 45 }}>
-            <UserView
-              icon={icon}
-              name="Isabela"
-              position="1°"
-              badge={goldenBadge}
-              badgePosition="top"
-              size={"medium"}
-            />
-          </View>
-          <View>
-            <UserView
-              icon={icon}
-              name="Mariana"
-              position="3°"
-              badge={goldenBadge}
-              badgePosition="top"
-              size={"small"}
-            />
-          </View>
+          {reorderedTop3.map((user, index) => (
+            <View
+              key={user.id}
+              style={index === 1 ? { marginBottom: 45 } : undefined} // o do meio tem margin bottom maior
+            >
+              <UserView
+                icon={user.avatar ? { uri: user.avatar } : defaultIcon}
+                name={user.nome}
+                position={positionMap[user.ranking] ?? undefined}
+                badge={badgeMap[positionMap[user.ranking] ?? ""]}
+                badgePosition="top"
+                size={index === 1 ? "medium" : "small"}
+              />
+            </View>
+          ))}
         </View>
-        <RankingCardView
-          position={4}
-          icon={icon}
-          name={"francis"}
-          points={"1400"}
-        ></RankingCardView>
 
-        <RankingCardView
-          position={5}
-          icon={icon}
-          name={"Paula"}
-          points={"1120"}
-        ></RankingCardView>
-
-        <RankingCardView
-          position={6}
-          icon={icon}
-          name={"Giulia"}
-          points={"850"}
-        ></RankingCardView>
-
-        <RankingCardView
-          position={7}
-          icon={icon}
-          name={"Diogo"}
-          points={"600"}
-        ></RankingCardView>
+        {others.map((user, index) => (
+          <RankingCardView
+            key={user.id}
+            position={index + 4}
+            icon={user.avatar ? { uri: user.avatar } : defaultIcon} // se não tiver avatar, não passa prop icon
+            name={user.nome}
+            points={`${user.pontuacao}`}
+          />
+        ))}
 
         <FooterView />
       </View>
@@ -91,7 +136,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   usersRow: {
-    flexDirection: "row", // Alinha os componentes UserView lado a lado
+    flexDirection: "row",
     marginTop: 20,
     marginBottom: 50,
     alignItems: "flex-end",
