@@ -11,7 +11,6 @@ import medalGolden from "@/assets/badges/golden.png";
 import medalSilver from "@/assets/badges/silver.png";
 import medalBronze from "@/assets/badges/bronze.png";
 
-
 const positionMap: Record<string, "1°" | "2°" | "3°"> = {
   "1": "1°",
   "2": "2°",
@@ -37,7 +36,6 @@ export default function RankingScreen() {
   >([]);
   const [loading, setLoading] = useState(true);
 
-  // Busca ranking da API
   const fetchRanking = async () => {
     if (!token) return;
 
@@ -52,7 +50,7 @@ export default function RankingScreen() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (!response.ok) throw new Error("Erro ao carregar ranking");
@@ -72,17 +70,22 @@ export default function RankingScreen() {
 
   if (loading) {
     return (
-      <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
-        <ActivityIndicator size="large" color={designSystem.colors.action.primary} />
+      <View
+        style={[
+          styles.container,
+          { justifyContent: "center", alignItems: "center" },
+        ]}
+      >
+        <ActivityIndicator
+          size="large"
+          color={designSystem.colors.action.primary}
+        />
       </View>
     );
   }
 
-  // Separar os top 3 para UserView e os demais para RankingCardView
   const top3 = rankingData.slice(0, 3);
-
-  const reorderedTop3 = [top3[1], top3[0], top3[2]];
-
+  const reorderedTop3 = top3.length === 3 ? [top3[1], top3[0], top3[2]] : top3; // mantém original se não houver 3
 
   const others = rankingData.slice(3);
 
@@ -92,10 +95,10 @@ export default function RankingScreen() {
 
       <View style={styles.pageContent}>
         <View style={styles.usersRow}>
-          {reorderedTop3.map((user, index) => (
+          {reorderedTop3.filter(Boolean).map((user, index) => (
             <View
-              key={user.id}
-              style={index === 1 ? { marginBottom: 45 } : undefined} // o do meio tem margin bottom maior
+              key={`${user.id}-${index}`}
+              style={index === 1 ? { marginBottom: 45 } : undefined}
             >
               <UserView
                 icon={user.avatar ? { uri: user.avatar } : defaultIcon}
@@ -111,9 +114,9 @@ export default function RankingScreen() {
 
         {others.map((user, index) => (
           <RankingCardView
-            key={user.id}
+            key={`${user.id}-${index}`}
             position={index + 4}
-            icon={user.avatar ? { uri: user.avatar } : defaultIcon} // se não tiver avatar, não passa prop icon
+            icon={user.avatar ? { uri: user.avatar } : defaultIcon}
             name={user.nome}
             points={`${user.pontuacao}`}
           />

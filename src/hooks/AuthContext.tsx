@@ -7,9 +7,7 @@ import React, {
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { jwtDecode } from "jwt-decode";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/src/navigation/types";
+import { useRouter } from "expo-router";
 
 interface Credentials {
   email: string;
@@ -59,8 +57,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
 
   const loadSession = async () => {
     const storedToken = await AsyncStorage.getItem("token");
@@ -189,7 +186,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     await AsyncStorage.removeItem("token");
     setToken(null);
     setUser(null);
-    navigation.navigate("login");
+    router.replace("/login");
   };
 
   const updateUser = async (updates: Updates) => {
@@ -313,38 +310,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const getRanking = async (): Promise<User[] | null> => {
-  if (!token) {
-    console.error("Token não encontrado.");
-    return null;
-  }
-
-  try {
-    const response = await fetch(
-      `${
-        process.env.EXPO_PUBLIC_MODE === "development"
-          ? process.env.EXPO_PUBLIC_API_URL_DEV
-          : process.env.EXPO_PUBLIC_API_URL_PROD
-      }/api/users/ranking`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Erro ao buscar ranking");
+    if (!token) {
+      console.error("Token não encontrado.");
+      return null;
     }
 
-    const rankingData = await response.json();
-    return rankingData; // Deve ser um array de usuários
-  } catch (error) {
-    console.error("Erro ao buscar ranking:", error);
-    return null;
-  }
+    try {
+      const response = await fetch(
+        `${
+          process.env.EXPO_PUBLIC_MODE === "development"
+            ? process.env.EXPO_PUBLIC_API_URL_DEV
+            : process.env.EXPO_PUBLIC_API_URL_PROD
+        }/api/users/ranking`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao buscar ranking");
+      }
+
+      const rankingData = await response.json();
+      return rankingData;
+    } catch (error) {
+      console.error("Erro ao buscar ranking:", error);
+      return null;
+    }
   };
 
   const value = useMemo(
