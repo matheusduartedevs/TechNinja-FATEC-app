@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import designSystem from "@/src/styles/theme";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,5 +10,6 @@ export const styles = StyleSheet.create({
   },
   title: {
     marginLeft: 34,
+    fontFamily: designSystem.fonts.primaryBold,
   },
 });

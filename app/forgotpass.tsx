@@ -10,7 +10,6 @@ import {
 import designSystem from "@/src/styles/theme";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import InputView from "@/src/components/InputView/InputView";
-import iconEmail from "@/assets/icons/icon.png";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import TextView from "@/src/components/TextView/TextView";
@@ -48,7 +47,7 @@ export default function ForgotpassScreen() {
               />
 
               <InputView
-                logo={iconEmail}
+                logo={"mail"}
                 placeholder="E-mail"
                 onChangeText={setEmail}
                 value={email}
