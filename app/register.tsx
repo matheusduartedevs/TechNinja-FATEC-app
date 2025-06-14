@@ -16,6 +16,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
 import ActionHeaderView from "@/src/components/ActionHeaderView/ActionHeaderView";
+import Toast from "react-native-toast-message";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -28,12 +29,18 @@ export default function LoginScreen() {
 
   const handleRegister = async () => {
     if (!userName || !email || !password || !passwordConfirm) {
-      console.error("Preencha todos os campos!");
+      Toast.show({
+        type: "error",
+        text1: "Preencha todos os campos",
+      });
       return;
     }
 
     if (password !== passwordConfirm) {
-      console.error("As senhas não coincidem!");
+      Toast.show({
+        type: "error",
+        text1: "As senhas não coincidem",
+      });
       return;
     }
 
@@ -41,14 +48,12 @@ export default function LoginScreen() {
       nome: userName.trim(),
       email: email.trim(),
       senha: password,
-      senhaConfirmada: passwordConfirm,
     };
 
-    try {
-      await register(userData);
+    const success = await register(userData);
+
+    if (success) {
       router.push("/home");
-    } catch (error) {
-      console.error("Erro no register:", error);
     }
   };
 

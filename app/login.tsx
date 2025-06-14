@@ -18,6 +18,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useAuth } from "@/src/hooks/AuthContext";
 import { useAccessibility } from "@/src/hooks/AccessibilityContext";
+import Toast from "react-native-toast-message";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -28,16 +29,23 @@ export default function LoginScreen() {
   const { settings } = useAccessibility();
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      Toast.show({
+        type: "error",
+        text1: "Preencha todos os campos",
+      });
+      return;
+    }
+
     const userData = {
       email: email,
       senha: password,
     };
 
-    try {
-      await login(userData);
+    const success = await login(userData);
+
+    if (success) {
       router.push("/home");
-    } catch (error) {
-      console.error("Erro no login:", error);
     }
   };
 

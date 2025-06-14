@@ -8,6 +8,7 @@ import React, {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "expo-router";
+import Toast from "react-native-toast-message";
 
 interface Credentials {
   email: string;
@@ -129,12 +130,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         if (userData) {
           setUser(userData);
         }
+        return true;
       } else {
-        throw new Error(resData.message || "Erro ao fazer login");
+        Toast.show({
+          type: "error",
+          text1: resData.message || "Erro ao fazer login",
+        });
+        return false;
       }
     } catch (error: any) {
-      console.error("Erro no login:", error);
-      throw new Error(error.message || "Erro ao fazer login");
+      Toast.show({
+        type: "error",
+        text1: error.message || "Erro ao fazer login",
+      });
+      return false;
     }
   };
 
@@ -164,21 +173,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setToken(resData.token);
 
         const decoded: any = jwtDecode(resData.token);
-
         const fullUserData = await fetchUserData(decoded.id, resData.token);
         if (fullUserData) {
           setUser(fullUserData);
-        } else {
-          console.log("Usuário registrado, mas falha ao buscar dados.");
         }
+        Toast.show({
+          type: "success",
+          text1: "Cadastro realizado com sucesso!",
+        });
+        return true;
       } else {
-        console.log(
-          "Erro ao registrar:",
-          resData.message || "Sem token retornado",
-        );
+        Toast.show({
+          type: "error",
+          text1: resData.message || "Erro ao realizar cadastro",
+        });
+        return false;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro no register:", error);
+      Toast.show({
+        type: "error",
+        text1: error.message || "Erro no cadastro",
+      });
+      return false;
     }
   };
 
