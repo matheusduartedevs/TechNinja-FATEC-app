@@ -4,6 +4,8 @@ import React, {
   useState,
   useEffect,
   useMemo,
+  useCallback,
+  ReactNode,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -29,51 +31,63 @@ const AccessibilityContext = createContext<AccessibilityContextType>({
   toggleLowVisionMode: () => {},
 });
 
-export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
+export const AccessibilityProvider = ({
   children,
+}: {
+  children: ReactNode;
 }) => {
   const [settings, setSettings] =
     useState<AccessibilitySettings>(defaultSettings);
 
-  const loadSettings = async () => {
-    try {
-      const savedSettings = await AsyncStorage.getItem("accessibilitySettings");
-      if (savedSettings) {
-        setSettings(JSON.parse(savedSettings));
-      }
-    } catch (error) {
-      console.error("Erro ao carregar configurações de acessibilidade:", error);
-    }
-  };
-
   useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const saved = await AsyncStorage.getItem("accessibilitySettings");
+        if (saved) {
+          setSettings(JSON.parse(saved));
+        }
+      } catch (error) {
+        console.error(
+          "Erro ao carregar configurações de acessibilidade:",
+          error,
+        );
+      }
+    };
+
     loadSettings();
   }, []);
 
-  const saveSettings = async (newSettings: AccessibilitySettings) => {
-    try {
-      await AsyncStorage.setItem(
-        "accessibilitySettings",
-        JSON.stringify(newSettings),
-      );
-      setSettings(newSettings);
-    } catch (error) {
-      console.error("Erro ao salvar configurações de acessibilidade:", error);
-    }
-  };
+  const saveSettings = useCallback(
+    async (update: (prev: AccessibilitySettings) => AccessibilitySettings) => {
+      try {
+        setSettings((prev) => {
+          const newSettings = update(prev);
+          AsyncStorage.setItem(
+            "accessibilitySettings",
+            JSON.stringify(newSettings),
+          );
+          return newSettings;
+        });
+      } catch (error) {
+        console.error("Erro ao salvar configurações de acessibilidade:", error);
+      }
+    },
+    [],
+  );
 
-  const toggleColorBlindMode = () => {
-    const newSettings = {
-      ...settings,
-      colorBlindMode: !settings.colorBlindMode,
-    };
-    saveSettings(newSettings);
-  };
+  const toggleColorBlindMode = useCallback(() => {
+    saveSettings((prev) => ({
+      ...prev,
+      colorBlindMode: !prev.colorBlindMode,
+    }));
+  }, [saveSettings]);
 
-  const toggleLowVisionMode = () => {
-    const newSettings = { ...settings, lowVisionMode: !settings.lowVisionMode };
-    saveSettings(newSettings);
-  };
+  const toggleLowVisionMode = useCallback(() => {
+    saveSettings((prev) => ({
+      ...prev,
+      lowVisionMode: !prev.lowVisionMode,
+    }));
+  }, [saveSettings]);
 
   const value = useMemo(
     () => ({
@@ -81,7 +95,7 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
       toggleColorBlindMode,
       toggleLowVisionMode,
     }),
-    [settings],
+    [settings, toggleColorBlindMode, toggleLowVisionMode],
   );
 
   return (
@@ -93,9 +107,10 @@ export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useAccessibility = () => {
   const context = useContext(AccessibilityContext);
-  if (!context)
+  if (!context) {
     throw new Error(
       "useAccessibility deve ser usado dentro de AccessibilityProvider",
     );
+  }
   return context;
 };

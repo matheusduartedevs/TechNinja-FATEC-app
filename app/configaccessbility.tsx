@@ -6,6 +6,7 @@ import ButtonView from "@/src/components/ButtonView/ButtonView";
 import FooterView from "@/src/components/FooterView/FooterView";
 import AccessibilityOptionView from "@/src/components/AccessibilityOptionView/AccessibilityOptionView";
 import { useAccessibility } from "@/src/hooks/AccessibilityContext";
+import Toast from "react-native-toast-message";
 
 export default function ConfigAccessibility() {
   const { settings, toggleColorBlindMode, toggleLowVisionMode } =
@@ -21,6 +22,12 @@ export default function ConfigAccessibility() {
   const handleSave = async () => {
     if (tempColorBlindMode !== settings.colorBlindMode) toggleColorBlindMode();
     if (tempLowVisionMode !== settings.lowVisionMode) toggleLowVisionMode();
+
+    Toast.show({
+      type: "success",
+      text1: "Configurações salvas!",
+      visibilityTime: 2000,
+    });
   };
 
   return (
