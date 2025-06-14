@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 export interface ButtonProps {
   text: string;
@@ -6,4 +6,5 @@ export interface ButtonProps {
   colorText?: "primary" | "secondary";
   onPress: () => void;
   style?: ViewStyle | ViewStyle[];
+  textStyle?: TextStyle | TextStyle[];
 }

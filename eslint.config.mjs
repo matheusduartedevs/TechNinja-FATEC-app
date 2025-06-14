@@ -29,7 +29,6 @@ export default defineConfig([
       quotes: ["error", "double"],
       "no-multi-spaces": "error",
       "no-trailing-spaces": "error",
-      indent: ["error", 2],
       "space-in-parens": ["error", "never"],
       "space-before-function-paren": ["error", "never"],
       "object-curly-spacing": ["error", "always"],

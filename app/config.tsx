@@ -49,14 +49,19 @@ export default function Config() {
           colorText="primary"
           style={[
             styles.button,
-            settings.colorBlindMode && {
-              backgroundColor: designSystem.colors.action.primaryColorBlind,
-            },
+            ...(settings.colorBlindMode
+              ? [
+                  {
+                    backgroundColor:
+                      designSystem.colors.action.primaryColorBlind,
+                  },
+                ]
+              : []),
           ]}
           textStyle={
             settings.lowVisionMode
               ? { fontSize: designSystem.fonts.lowVisionTextSize }
-              : {}
+              : undefined
           }
           onPress={logout}
         />

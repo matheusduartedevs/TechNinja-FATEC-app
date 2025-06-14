@@ -15,6 +15,12 @@ interface Credentials {
   senha: string;
 }
 
+interface RegisterData {
+  nome: string;
+  email: string;
+  senha: string;
+}
+
 interface Updates {
   nome?: string;
   email?: string;
@@ -35,8 +41,8 @@ interface User {
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (credentials: Credentials) => Promise<void>;
-  register: (credentials: Credentials) => Promise<void>;
+  login: (credentials: Credentials) => Promise<boolean>;
+  register: (credentials: RegisterData) => Promise<boolean>;
   logout: () => void;
   updateUser: (updates: Updates) => Promise<void>;
   updateScoreAndMarkCompleted: (
@@ -105,7 +111,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const login = async (credentials: Credentials) => {
+  const login = async (credentials: Credentials): Promise<boolean> => {
     try {
       const response = await fetch(
         `${
@@ -121,15 +127,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       const resData = await response.json();
+
       if (response.ok) {
         setToken(resData.token);
         await AsyncStorage.setItem("token", resData.token);
 
         const decoded: any = jwtDecode(resData.token);
         const userData = await fetchUserData(decoded.id, resData.token);
+
         if (userData) {
           setUser(userData);
         }
+
         return true;
       } else {
         Toast.show({

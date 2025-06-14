@@ -10,6 +10,7 @@ export default function ButtonView({
   colorText = "secondary",
   onPress,
   style,
+  textStyle,
 }: ButtonProps) {
   const { settings } = useAccessibility();
 
@@ -21,7 +22,9 @@ export default function ButtonView({
         style,
       ]}
     >
-      <Text style={styles({ color, colorText, settings }).text}>{text}</Text>
+      <Text style={[styles({ color, colorText, settings }).text, textStyle]}>
+        {text}
+      </Text>
     </Pressable>
   );
 }
