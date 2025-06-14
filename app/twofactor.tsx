@@ -7,6 +7,9 @@ import TextView from "@/src/components/TextView/TextView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 
 import designSystem from "@/src/styles/theme";
+import { useAuth } from "@/src/hooks/AuthContext";
+import { verifyTwoFactorToken } from "@/src/services/twofactor";
+import Toast from "react-native-toast-message";
 
 export default function TwoFactorScreen() {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
@@ -31,11 +34,36 @@ export default function TwoFactorScreen() {
     }
   };
 
-  const handleVerify = () => {
-    const fullCode = code.join("");
-    if (fullCode.length !== 6) return;
+  const { user } = useAuth();
 
-    router.push("/home");
+  const handleVerify = async () => {
+    const fullCode = code.join("");
+    if (fullCode.length !== 6) {
+      Toast.show({
+        type: "error",
+        text1: "Digite os 6 dígitos",
+      });
+      return;
+    }
+
+    try {
+      const res = await verifyTwoFactorToken(user.token, fullCode);
+
+      if (res.success) {
+        router.push("/home");
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Código inválido",
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao verificar token 2FA:", error);
+      Toast.show({
+        type: "error",
+        text1: "Erro na verificação",
+      });
+    }
   };
 
   return (

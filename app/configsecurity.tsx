@@ -15,8 +15,6 @@ export default function ConfigSecurity() {
   const handleSave = () => {
     if (twoFactorEnabled) {
       router.push("/twofactorconfig");
-    } else {
-      console.log("Atualizações salvas");
     }
   };
 
