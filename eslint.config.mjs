@@ -29,9 +29,15 @@ export default defineConfig([
       quotes: ["error", "double"],
       "no-multi-spaces": "error",
       "no-trailing-spaces": "error",
-      indent: ["error", 2],
       "space-in-parens": ["error", "never"],
-      "space-before-function-paren": ["error", "never"],
+      "space-before-function-paren": [
+        "error",
+        {
+          anonymous: "always",
+          named: "never",
+          asyncArrow: "always",
+        },
+      ],
       "object-curly-spacing": ["error", "always"],
       "array-bracket-spacing": ["error", "never"],
       "comma-spacing": ["error", { before: false, after: true }],

@@ -7,10 +7,13 @@ import ButtonView from "@/src/components/ButtonView/ButtonView";
 import SettingsOptionView from "@/src/components/SettingsOptionView/SettingsOptionView";
 import { useRouter } from "expo-router";
 import { useAuth } from "@/src/hooks/AuthContext";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function Config() {
   const router = useRouter();
+
   const { logout } = useAuth();
+  const { settings } = useAccessibility();
 
   return (
     <View style={styles.container}>
@@ -42,9 +45,24 @@ export default function Config() {
 
         <ButtonView
           text="Sair"
-          color={"primary"}
+          color="primary"
           colorText="primary"
-          style={styles.button}
+          style={[
+            styles.button,
+            ...(settings.colorBlindMode
+              ? [
+                  {
+                    backgroundColor:
+                      designSystem.colors.action.primaryColorBlind,
+                  },
+                ]
+              : []),
+          ]}
+          textStyle={
+            settings.lowVisionMode
+              ? { fontSize: designSystem.fonts.lowVisionTextSize }
+              : undefined
+          }
           onPress={logout}
         />
       </ScrollView>
