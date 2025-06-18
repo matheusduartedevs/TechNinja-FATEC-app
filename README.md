@@ -15,7 +15,7 @@ Sistema que visa oferecer uma plataforma educacional interativa para usuários i
 - [Pedro Henrique](https://github.com/PedroHHCarvalho)
 
 ## Metas
-- Reunir materiais educativos em um único ambiente.​
+- Reunir materiais educativos em um único ambiente.
 - Facilitar o acesso para qualquer tipo de usuário.​
 - Criar um sistema intuitivo e amigável.​
 - Garantir que os usuários possam encontrar informações rapidamente.
@@ -41,16 +41,23 @@ Sistema que visa oferecer uma plataforma educacional interativa para usuários i
 **Back-end:** Node <br />
 **Banco de Dados:** MongoDB
 
+## Preview
+![Captura de Tela 2025-06-18 às 19 15 20](https://github.com/user-attachments/assets/7069c7de-be4f-4b2a-a1ba-1ba64f66c09a) 
+![Captura de Tela 2025-06-18 às 19 23 54](https://github.com/user-attachments/assets/ec4ff4d7-87ac-4047-bf7c-edb0337c4dfb) <br />
+![Captura de Tela 2025-06-18 às 19 24 04](https://github.com/user-attachments/assets/042bd023-5984-48cf-ac6b-30c78fca7632)
+![Captura de Tela 2025-06-18 às 19 24 14](https://github.com/user-attachments/assets/434f043b-d564-4d29-96be-edc9870ece98) 
+
+
 ## Definição de Pronto
-O sprint será considerado concluído quando:
-1. Todas as entregas de cada membro devem ser revisadas pela equipe.
-2. As entregas de código devem estar de acordo com os padrões de aceitação definidos pela equipe e ser plenamente executáveis.
+A sprint será considerado concluído quando:
+1. Todas as entregas de cada membro devem ser revisadas pela equipe;
+2. As entregas de código devem estar de acordo com os padrões de aceitação definidos pela equipe e ser plenamente executáveis;
 3. Após a aprovação do código, ele deve ser armazenado no GitHub.
 
 ## Fluxo de Trabalho
 
 ### Branches principal:
-- main: Sempre contém o código pronto para produção.
+- main: Sempre contém o código pronto para produção
 
 ### Como contribuir:
 1. Atualize sua branch main
@@ -59,19 +66,19 @@ O sprint será considerado concluído quando:
    ```
 2. Crie uma branch para sua feature
    ```bash
-   git checkout -b nome-da-feature
+     git checkout -b nome-da-feature
    ```
 3. Implemente sua feature e faça commits organizados
    ```bash
      git add .
      git commit -m "Descrição clara da mudança"
    ```
-4. Envie as alterações para o repositório remoto (commit inicial):
+4. Envie as alterações para o repositório remoto (commit inicial)
    ```bash
     git push -u origin nome-da-feature
    ```
 5. Crie um Pull Request (PR) no GitHub para main
-6. Após aprovação, faça o merge na main.
+6. Após aprovação, faça o merge na main
 
 ## Instalação
 Clone o repositório
@@ -84,12 +91,12 @@ Instale o projeto
   npm install
 ```
 
-Crie o arquivo .env e adicione
+Crie o arquivo .env e adicione as variáveis de ambiente
 ```bash
   cp .env.sample .env
 ```
 
-Execute o projeto e escolha a plataforma desejada (Android, iOS ou Web).
+Execute o projeto e escolha a plataforma desejada (Android, iOS ou Web)
 ```bash
   npx expo
 ```
