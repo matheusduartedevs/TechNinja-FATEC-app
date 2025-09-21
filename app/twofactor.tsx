@@ -37,6 +37,8 @@ export default function TwoFactorScreen() {
   const { user } = useAuth();
 
   const handleVerify = async () => {
+    //inicializando variavel email do usuario
+    const email = user?.email ?? "";
     const fullCode = code.join("");
     if (fullCode.length !== 6) {
       Toast.show({
@@ -47,9 +49,11 @@ export default function TwoFactorScreen() {
     }
 
     try {
-      const res = await verifyTwoFactorToken(user.token, fullCode);
+      //alterando de user.token para user.email
+      const res = await verifyTwoFactorToken(fullCode, email);
 
-      if (res.success) {
+      //trocar res.success para res.valid
+      if (res.valid) {
         router.push("/home");
       } else {
         Toast.show({

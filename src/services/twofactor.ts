@@ -20,8 +20,8 @@ export async function generateTwoFactorSecret(email: string) {
 
   return response.json();
 }
-
-export async function verifyTwoFactorToken(token: string, code: string) {
+//alterando parametros da funcao verify token para codigo e email
+export async function verifyTwoFactorToken(code: string, email: string) {
   const response = await fetch(
     `${
       process.env.EXPO_PUBLIC_MODE === "development"
@@ -32,9 +32,9 @@ export async function verifyTwoFactorToken(token: string, code: string) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        //Authorization: `Bearer ${code}`,
       },
-      body: JSON.stringify({ token: code }),
+      body: JSON.stringify({ token: code, email: email }),
     },
   );
 
