@@ -5,6 +5,7 @@ import QuestionView from "@/src/components/QuestionView/QuestionView";
 import AnswerView from "@/src/components/AnswerView/AnswerView";
 import MatchColumnsAnswerView from "@/src/components/MatchColumnsAnswerView/MatchColumnsAnswerView";
 import TrueFalseAnswerView from "@/src/components/TrueFalseAnswerView/TrueFalseAnswerView";
+import DragDropAnswerView from "@/src/components/DragDropAnswerView/DragDropAnswerView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -25,6 +26,8 @@ type Question = {
   alternativas?: Alternativa[];
   resposta: string;
   pares?: { [key: string]: string };
+  itensParaArrastar?: string[];
+  respostaCorreta?: string[];
 };
 
 export default function QuizScreen() {
@@ -33,7 +36,7 @@ export default function QuizScreen() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [userAnswers, setUserAnswers] = useState<{
-    [key: number]: { [key: string]: string } | string;
+    [key: number]: { [key: string]: string } | string | string[];
   }>({});
   const [correctCount, setCorrectCount] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -133,6 +136,36 @@ export default function QuizScreen() {
     if (answer === currentQuestion.resposta) {
       const points = calculatePoints(level as string);
       setCorrectCount((prev) => prev + points);
+    }
+  };
+
+  const handleDragDropAnswer = (index: number, answer: string[]) => {
+    setUserAnswers((prev) => ({
+      ...prev,
+      [index]: answer,
+    }));
+
+    const pergunta = currentQuestion;
+
+    if (pergunta.categoria === "drag-drop") {
+      const todosPreenchidos =
+        Array.isArray(answer) &&
+        answer.length === pergunta.respostaCorreta!.length &&
+        answer.every((item) => item !== null && item !== undefined);
+
+      if (todosPreenchidos) {
+        setIsAnswered(true);
+
+        // Verificar se está correto
+        const dragDropCorreto = pergunta.respostaCorreta!.every(
+          (resposta, idx) => answer[idx] === resposta,
+        );
+
+        if (dragDropCorreto) {
+          const points = calculatePoints(level as string);
+          setCorrectCount((prev) => prev + points);
+        }
+      }
     }
   };
 
@@ -251,6 +284,20 @@ export default function QuizScreen() {
                 isAnswered &&
                 userAnswers[currentIndex] !== currentQuestion.resposta
               }
+            />
+          )}
+
+        {currentQuestion.categoria === "drag-drop" &&
+          currentQuestion.itensParaArrastar &&
+          currentQuestion.respostaCorreta && (
+            <DragDropAnswerView
+              question={currentQuestion.pergunta}
+              itemsToRearrange={currentQuestion.itensParaArrastar}
+              correctAnswer={currentQuestion.respostaCorreta}
+              questionIndex={currentIndex}
+              userAnswers={userAnswers as { [key: number]: string[] }}
+              onAnswerChange={handleDragDropAnswer}
+              showFeedback={isAnswered}
             />
           )}
 
