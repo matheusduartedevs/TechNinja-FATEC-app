@@ -6,6 +6,7 @@ import AnswerView from "@/src/components/AnswerView/AnswerView";
 import MatchColumnsAnswerView from "@/src/components/MatchColumnsAnswerView/MatchColumnsAnswerView";
 import TrueFalseAnswerView from "@/src/components/TrueFalseAnswerView/TrueFalseAnswerView";
 import DragDropAnswerView from "@/src/components/DragDropAnswerView/DragDropAnswerView";
+import CompleteAnswerView from "@/src/components/CompleteAnswerView/CompleteAnswerView";
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -169,6 +170,30 @@ export default function QuizScreen() {
     }
   };
 
+  const handleCompleteAnswer = (index: number, answer: string) => {
+    if (isAnswered) return;
+
+    setUserAnswers((prev) => ({
+      ...prev,
+      [index]: answer,
+    }));
+    setIsAnswered(true);
+
+    const pergunta = currentQuestion;
+
+    if (pergunta.categoria === "completar") {
+      const respostaNormalizada = answer.toLowerCase().trim();
+      const completarCorreto = pergunta.respostaCorreta!.some(
+        (opcao) => opcao.toLowerCase() === respostaNormalizada,
+      );
+
+      if (completarCorreto) {
+        const points = calculatePoints(level as string);
+        setCorrectCount((prev) => prev + points);
+      }
+    }
+  };
+
   const handleNext = async () => {
     const totalQuestions = questions.length;
     const pointsByQuestion = calculatePoints(level as string);
@@ -297,6 +322,17 @@ export default function QuizScreen() {
               questionIndex={currentIndex}
               userAnswers={userAnswers as { [key: number]: string[] }}
               onAnswerChange={handleDragDropAnswer}
+              showFeedback={isAnswered}
+            />
+          )}
+
+        {currentQuestion.categoria === "completar" &&
+          currentQuestion.respostaCorreta && (
+            <CompleteAnswerView
+              correctAnswer={currentQuestion.respostaCorreta}
+              questionIndex={currentIndex}
+              userAnswers={userAnswers as { [key: number]: string }}
+              onAnswerChange={handleCompleteAnswer}
               showFeedback={isAnswered}
             />
           )}
