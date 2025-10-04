@@ -1,5 +1,4 @@
-import { ImageSourcePropType, ViewStyle } from "react-native"; // Adicionando o tipo correto
-
+import { ImageSourcePropType, ViewStyle } from "react-native";
 export interface AchievementsViewProps {
   achievements: ImageSourcePropType[];
   style?: ViewStyle;

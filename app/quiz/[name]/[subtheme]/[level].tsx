@@ -48,7 +48,6 @@ export default function QuizScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Usando mock para testar novos tipos de perguntas
         setQuestions(mockData as Question[]);
 
         // Código original (descomentar quando as perguntas estiverem no banco)
@@ -112,7 +111,6 @@ export default function QuizScreen() {
       if (todasAssociacoes) {
         setIsAnswered(true);
 
-        // Verificar se está correto
         const paresCorretos = Object.keys(pergunta.pares!).every(
           (chave) => answer[chave] === pergunta.pares![chave],
         );
@@ -157,7 +155,6 @@ export default function QuizScreen() {
       if (todosPreenchidos) {
         setIsAnswered(true);
 
-        // Verificar se está correto
         const dragDropCorreto = pergunta.respostaCorreta!.every(
           (resposta, idx) => answer[idx] === resposta,
         );
@@ -209,7 +206,6 @@ export default function QuizScreen() {
       setCurrentIndex((prev) => prev + 1);
       setSelectedIndex(null);
       setIsAnswered(false);
-      setUserAnswers({});
     } else {
       const totalPoints = correctCount;
 
