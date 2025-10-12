@@ -298,7 +298,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error(resData.message || "Erro ao atualizar pontuação");
       }
 
-      // Marca quiz como concluído
       const responseMark = await fetch(
         `${
           process.env.EXPO_PUBLIC_MODE === "development"
