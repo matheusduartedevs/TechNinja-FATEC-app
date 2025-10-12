@@ -10,9 +10,8 @@ import CompleteAnswerView from "@/src/components/CompleteAnswerView/CompleteAnsw
 import ButtonView from "@/src/components/ButtonView/ButtonView";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-// import { getQuiz } from "@/src/services/quiz"; // Comentado enquanto usa mock
+import { getQuiz } from "@/src/services/quiz";
 import { useAuth } from "@/src/hooks/AuthContext";
-import mockData from "@/assets/palmeiras.json";
 
 type Alternativa = {
   _id?: string;
@@ -48,15 +47,12 @@ export default function QuizScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setQuestions(mockData as Question[]);
-
-        // Código original (descomentar quando as perguntas estiverem no banco)
-        // const data = await getQuiz(
-        //   name as string,
-        //   subtheme as string,
-        //   level as string,
-        // );
-        // setQuestions(data);
+        const data = await getQuiz(
+          name as string,
+          subtheme as string,
+          level as string,
+        );
+        setQuestions(data);
       } catch (error) {
         console.error("❌ Erro ao buscar quiz:", error);
       }
