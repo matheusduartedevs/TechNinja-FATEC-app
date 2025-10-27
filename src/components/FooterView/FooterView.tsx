@@ -5,6 +5,7 @@ import TextView from "@/src/components/TextView/TextView";
 import { FooterViewProps } from "@/src/components/FooterView/props";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import FA6Icon from "react-native-vector-icons/FontAwesome6";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { useRouter, usePathname } from "expo-router";
 import { useAccessibility } from "@/src/hooks/AccessibilityContext";
@@ -14,8 +15,8 @@ const options = [
   { name: "Home", icon: "home", library: "Feather", path: "/home" },
   {
     name: "Ranking",
-    icon: "ranking-star",
-    library: "FontAwesome6",
+    icon: "podium-outline",
+    library: "Ionicons",
     path: "/ranking",
   },
   { name: "Usuário", icon: "user", library: "FontAwesome6", path: "/profile" },
@@ -34,14 +35,19 @@ function Icon({
   style,
 }: {
   icon: string;
-  library: "Feather" | "FontAwesome6";
+  library: "Feather" | "FontAwesome6" | "Ionicons";
   size?: number;
   style?: object;
 }) {
   if (library === "Feather") {
     return <FeatherIcon name={icon} size={size} style={style} />;
   }
-  return <FA6Icon name={icon} size={size} style={style} />;
+  if (library === "FontAwesome6") {
+    return <FA6Icon name={icon} size={size} style={style} />;
+  }
+  if (library === "Ionicons") {
+    return <Ionicons name={icon} size={size} style={style} />;
+  }
 }
 
 export default function FooterView({ style }: FooterViewProps) {
