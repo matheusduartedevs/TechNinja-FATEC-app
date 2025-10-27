@@ -15,6 +15,7 @@ export default function AccessibilityOptionView({
 }: AccessibilityOptionViewProps) {
   const [isActive, setIsActive] = useState(value ?? false);
   const [circlePosition] = useState(new Animated.Value(value ? 20 : 0));
+  const { settings } = useAccessibility();
 
   useEffect(() => {
     if (value !== undefined) {
@@ -26,7 +27,6 @@ export default function AccessibilityOptionView({
       }).start();
     }
   }, [value]);
-  const { settings } = useAccessibility();
 
   const toggleSwitch = () => {
     const newValue = !isActive;
@@ -40,9 +40,21 @@ export default function AccessibilityOptionView({
     }).start();
   };
 
+  const dynamicContainerStyle = settings.lowVisionMode
+    ? { paddingVertical: 2, minHeight: 70 }
+    : {};
+
+  const dynamicTextStyle = settings.lowVisionMode
+    ? { fontSize: designSystem.fonts.lowVisionTextSize }
+    : {};
+
   return (
-    <View style={[styles.container, style]}>
-      <TextView text={option} color={"primary"} style={styles.option} />
+    <View style={[styles.container, style, dynamicContainerStyle]}>
+      <TextView
+        text={option}
+        color={"primary"}
+        style={[styles.option, dynamicTextStyle]}
+      />
 
       <TouchableOpacity
         style={[

@@ -15,11 +15,19 @@ export default function ThemeView({
 }: ThemeViewProps) {
   const { settings } = useAccessibility();
 
+  const dynamicStyle = settings.lowVisionMode
+    ? {
+        height: 435,
+        paddingVertical: 22,
+      }
+    : {};
+
   return (
     <TouchableOpacity
       style={[
         styles.container,
         style,
+        dynamicStyle,
         settings.colorBlindMode && {
           backgroundColor: designSystem.colors.action.primaryColorBlind,
         },
@@ -48,7 +56,16 @@ export default function ThemeView({
         color={"primary"}
       />
       <View style={styles.imageWrapper}>
-        <Image source={icon} style={styles.image} resizeMode={"contain"} />
+        <Image
+          source={icon}
+          style={[
+            styles.image,
+            settings.lowVisionMode && {
+              marginTop: 10,
+            },
+          ]}
+          resizeMode="contain"
+        />
       </View>
     </TouchableOpacity>
   );

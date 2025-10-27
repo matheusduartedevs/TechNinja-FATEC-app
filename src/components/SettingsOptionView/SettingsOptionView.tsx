@@ -3,6 +3,7 @@ import { Image, View, TouchableOpacity } from "react-native";
 import { styles } from "@/src/components/SettingsOptionView/styles";
 import TextView from "@/src/components/TextView/TextView";
 import arrowFoward from "@/assets/icons/arrow-go.png";
+import { useAccessibility } from "@/src/hooks/AccessibilityContext";
 
 export default function SettingsOptionView({
   option,
@@ -15,11 +16,18 @@ export default function SettingsOptionView({
   onPressArrowThree,
   style,
 }: SettingsOptionViewProps) {
+  const { settings } = useAccessibility();
   const optionsCount = [option, option_two, option_three].filter(
     Boolean,
   ).length;
 
-  const containerHeight = optionsCount === 1 ? 70 : 70 + optionsCount * 28;
+  const dynamicContainerHeight = settings.lowVisionMode
+    ? optionsCount === 1
+      ? 80
+      : 70 + optionsCount * 35
+    : optionsCount === 1
+      ? 70
+      : 70 + optionsCount * 28;
 
   const dynamicGap = optionsCount === 2 ? 30 : optionsCount === 3 ? 20 : 0;
 
@@ -27,7 +35,7 @@ export default function SettingsOptionView({
     <View
       style={[
         styles.container,
-        { height: containerHeight, gap: dynamicGap },
+        { height: dynamicContainerHeight, gap: dynamicGap },
         style,
       ]}
     >
