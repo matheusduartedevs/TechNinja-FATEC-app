@@ -232,17 +232,16 @@ export default function QuizScreen() {
 
   return (
     <View style={styles.container}>
-      <ActionHeaderView
-        style={styles.headerAction}
-        title=""
-        color={"secondary"}
-      />
-
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        <ActionHeaderView
+          style={styles.headerAction}
+          title=""
+          color={"secondary"}
+        />
         <QuestionView
           question={currentQuestion.pergunta}
           style={styles.question}
@@ -351,18 +350,20 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    marginTop: 0,
   },
   scrollContent: {
-    paddingTop: 80,
+    paddingTop: 5,
     paddingBottom: 40,
+    marginTop: 0,
   },
   button: {
     marginTop: 20,
-    marginBottom: 20,
     alignSelf: "center",
   },
   question: {
     marginBottom: 20,
+    paddingTop: 50,
   },
   answer: {
     alignSelf: "center",
